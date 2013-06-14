@@ -355,6 +355,7 @@ void EvernoteSession::sync(){
     syncFinished();
     Cache::instance()->load();
 }
+
 void EvernoteSession::syncAsync(){
     qDebug() << "syncAsync called";
     QtConcurrent::run(this, &EvernoteSession::sync);

@@ -25,8 +25,15 @@ Page {
                 console.log("Clicked " + this)
                 var selectedNote = this
                 var detailspage = Qt.resolvedUrl("Details.qml")
-                pageStack.push(detailspage, {targetNote: Cache.getNote(index)}, 0)
-                EvernoteSession.getNoteContentAsync(Cache.getNote(index))
+                var note = Cache.getNote(index)
+                pageStack.push(detailspage, {targetNote: note}, 0)
+                EvernoteSession.getNoteContentAsync(note)
+            }
+            onPressAndHold: {
+                var editpage = Qt.resolvedUrl("Edit.qml")
+                var note = Cache.getNote(index)
+                pageStack.push(editpage, {targetNote: note}, 0)
+                EvernoteSession.getNoteContentAsync(note)
             }
         }
 
@@ -35,6 +42,7 @@ Page {
             MenuItem {
                 text: "Add note"
                 onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))
+
             }
         }
         Timer {

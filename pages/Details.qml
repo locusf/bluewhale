@@ -8,11 +8,17 @@ Page {
     SilicaFlickable {
         id: detailsview
         anchors.fill: parent
-        contentHeight: column.height + theme.paddingLarge
+        contentHeight: column.height
         Connections {
             target: EvernoteSession
             onNoteContentDownloaded: {
                 noteview.html = Cache.getNoteContent(targetNote)
+                console.log("tags " + targetNote.tagGuids)
+                var i = 0;
+                for (i = 0; i < targetNote.tagGuids.count; i++ )
+                {
+                    console.log(targetNote.tagGuids.at(i))
+                }
             }
         }
         Column {
@@ -22,6 +28,11 @@ Page {
             PageHeader {
                 title: targetNote.title
             }
+            TextField {
+                id: tagsfield
+                readOnly: true
+            }
+
             WebView {
                 id: noteview
                 preferredWidth: parent.width
