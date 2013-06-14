@@ -1,39 +1,64 @@
 import QtQuick 1.1
 import Sailfish.Silica 1.0
 
+
 Page {
     id: page
     
     // To enable PullDownMenu, place our content in a SilicaFlickable
-    SilicaFlickable {
+    SilicaListView {
         anchors.fill: parent
-        
+        header: PageHeader {
+            title: "Bluewhale"
+        }
+
+        ListModel {
+            id: notesmodel
+        }
+        model: notesmodel
+        delegate: BackgroundItem {
+            Label {
+                text: title
+                x: theme.paddingLarge
+            }
+            onClicked: {
+                console.log("Clicked " + this)
+                var selectedNote = this
+                EvernoteSession.getNoteContentAsync(Cache.getNote(index))
+                pageStack.push(Qt.resolvedUrl("Details.qml"), {note: this})
+            }
+        }
+
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
             MenuItem {
-                text: "Show Page 2"
-                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))	            
+                text: "Add note"
+                onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))
             }
         }
-        
+        Timer {
+            interval: 100
+            running: true
+            onTriggered: {
+                EvernoteSession.authAsync("locusf", "21ter3ww")
+                EvernoteSession.syncAsync()
+            }
+
+        }
+        Connections {
+            target: Cache
+            onNoteAdded: {
+                console.log("Note load ok " + note.title)
+                notesmodel.append(note)
+            }
+        }
+
+
+
         // Tell SilicaFlickable the height of its content.
         contentHeight: childrenRect.height
         
-        // Place our content in a Column.  The PageHeader is always placed at the top
-        // of the page, followed by our content.
-        Column {
-            width: page.width
-            spacing: theme.paddingLarge
-            PageHeader {
-                title: "UI Template"
-            }
-            Label { 
-                x: theme.paddingLarge
-                text: "Hello Sailors" 
-                color: theme.secondaryHighlightColor
-                font.pixelSize: theme.fontSizeLarge
-            }
-        }
+
     }
 }
 

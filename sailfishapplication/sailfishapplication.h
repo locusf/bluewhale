@@ -2,6 +2,7 @@
 #ifndef SAILFISHAPPLICATION_H
 #define SAILFISHAPPLICATION_H
 
+#include "evernotesession.h"
 class QString;
 class QApplication;
 class QDeclarativeView;
