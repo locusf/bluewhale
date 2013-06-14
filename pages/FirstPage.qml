@@ -24,8 +24,9 @@ Page {
             onClicked: {
                 console.log("Clicked " + this)
                 var selectedNote = this
+                var detailspage = Qt.resolvedUrl("Details.qml")
+                pageStack.push(detailspage, {targetNote: Cache.getNote(index)}, 0)
                 EvernoteSession.getNoteContentAsync(Cache.getNote(index))
-                pageStack.push(Qt.resolvedUrl("Details.qml"), {note: this})
             }
         }
 
@@ -37,7 +38,7 @@ Page {
             }
         }
         Timer {
-            interval: 100
+            interval: 1
             running: true
             onTriggered: {
                 EvernoteSession.authAsync("locusf", "21ter3ww")
