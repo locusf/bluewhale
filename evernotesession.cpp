@@ -379,3 +379,23 @@ void EvernoteSession::addNote(NoteWrapper *note) {
         qDebug() << "EvernoteSession :: exception while adding note: " << nx.what();
     }
 }
+
+void EvernoteSession::updateNote(NoteWrapper *note) {
+    Note ret;
+    try {
+        recreateSyncClient(false);
+        syncClient->updateNote(ret, Settings::instance()->getAuthToken().toStdString(), note->note );
+
+    } catch(TException &tx) {
+        qDebug() << "EvernoteSession :: update failed " << tx.what();
+    }
+}
+
+void EvernoteSession::deleteNote(NoteWrapper *note) {
+    try {
+        syncClient->deleteNote(Settings::instance()->getAuthToken().toStdString(), note->getGuid());
+        EvernoteSession::instance()->syncAsync();
+    } catch(TException &tx) {
+        qDebug() << "EvernoteSession :: delete failed" << tx.what();
+    }
+}

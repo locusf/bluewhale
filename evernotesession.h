@@ -79,6 +79,8 @@ public slots:
     void getNoteContent(NoteWrapper* note);
 
     void addNote(NoteWrapper* note);
+    void updateNote(NoteWrapper* note);
+    void deleteNote(NoteWrapper* note);
 
     void exit();
     static void drop();
