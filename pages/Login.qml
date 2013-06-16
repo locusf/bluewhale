@@ -15,6 +15,7 @@ Page {
                     Settings.setUsername(userfield.text)
                     Settings.setPassword(passwdfield.text)
                     pageStack.pop()
+                    EvernoteSession.authAsync()
                     EvernoteSession.syncAsync()
                 }
             }
