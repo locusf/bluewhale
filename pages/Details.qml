@@ -9,11 +9,6 @@ Page {
         id: detailsview
         anchors.fill: parent
         contentHeight: column.height
-        PullDownMenu {
-            MenuItem {
-                text: "Save"
-            }
-        }
         Connections {
             target: EvernoteSession
             onNoteContentDownloaded: {
