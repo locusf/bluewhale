@@ -18,6 +18,7 @@ Page {
                     deleteRemorse.execute("Deleting", function(){
                         EvernoteSession.deleteNote(targetNote)
                         pageStack.pop()
+                        EvernoteSession.syncAsync()
                     }, 2000)
                 }
             }

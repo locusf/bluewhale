@@ -380,7 +380,7 @@ void EvernoteSession::addNote(NoteWrapper *note) {
         reference_note.notebookGuid = Cache::instance()->getFirstNoteBook()->getGuid().toStdString();
         reference_note.__isset.notebookGuid = true;
         std::string assembled_content = note->note.content;
-        reference_note.content = assembled_content;
+        reference_note.content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>" + QString::fromStdString(assembled_content).replace("\n", "<br />").toStdString() + "</en-note>";
         reference_note.contentLength = assembled_content.size();
         QCryptographicHash hash( QCryptographicHash::Md5 );
         hash.addData(reference_note.content.c_str(), reference_note.contentLength);
