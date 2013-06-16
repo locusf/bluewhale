@@ -12,9 +12,10 @@ using namespace std;
 class NoteWrapper : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString title READ getTitle)
+    Q_PROPERTY(QString title READ getTitle WRITE setTitle)
     Q_PROPERTY(QString dateCreated READ getDateCreated)
     Q_PROPERTY(bool cached READ isCached)
+    Q_PROPERTY(QString noteContent READ getNoteContent WRITE setContent)
     Q_PROPERTY(QString noteContentUrl READ getNoteContentUrl)
     Q_PROPERTY(QString notebookGUID READ getNotebookGUID)
     Q_PROPERTY(QVariantList  tagGuids READ getTagGuids)
@@ -30,8 +31,12 @@ public slots:
     QString getDateCreated();
     bool isCached();
     QString getNoteContentUrl();
+    QString getNoteContent();
     QString getNotebookGUID();
     QVariantList getTagGuids();
+
+    void setTitle(QString title);
+    void setContent(QString content);
 
 private:
 

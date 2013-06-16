@@ -2,6 +2,7 @@
 #include <QDate>
 #include <QDebug>
 #include "fileutils.h"
+#include "cache.h"
 #include <QVector>
 NoteWrapper::NoteWrapper(QObject *parent) :
     QObject(parent)
@@ -39,4 +40,19 @@ QVariantList NoteWrapper::getTagGuids(){
     }
     return result;
 }
+
+QString NoteWrapper::getNoteContent() {
+    return Cache::instance()->getNoteContent(this);
+}
+
+void NoteWrapper::setContent(QString content)
+{
+    this->note.content = content.toStdString();
+}
+
+void NoteWrapper::setTitle(QString title)
+{
+    this->note.title = title.toStdString();
+}
+
 \

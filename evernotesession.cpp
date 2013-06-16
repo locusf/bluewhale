@@ -366,3 +366,16 @@ bool EvernoteSession::isSyncInProgress(){
 void EvernoteSession::cancelSync(){
     syncCancelled = true;
 }
+
+void EvernoteSession::addNote(NoteWrapper *note) {
+    Note returned;
+    try {
+        recreateSyncClient(false);
+        note->note.notebookGuid = Cache::instance()->getFirstNoteBook()->getGuid().toStdString();
+        syncClient->createNote(returned, Settings::instance()->getAuthToken().toStdString(), note->note);
+    } catch(EDAMUserException &tx) {
+        qDebug() << "EvernoteSession :: exception while adding note: " << tx.what();
+    } catch(EDAMNotFoundException &nx) {
+        qDebug() << "EvernoteSession :: exception while adding note: " << nx.what();
+    }
+}

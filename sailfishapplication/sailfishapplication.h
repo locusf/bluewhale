@@ -3,6 +3,11 @@
 #define SAILFISHAPPLICATION_H
 
 #include "evernotesession.h"
+#include "wrappers/notewrapper.h"
+#include "wrappers/notebookwrapper.h"
+#include "wrappers/resourcewrapper.h"
+#include "wrappers/tagwrapper.h"
+
 class QString;
 class QApplication;
 class QDeclarativeView;

@@ -81,6 +81,9 @@ NotebookWrapper* Cache::getNotebook(NoteWrapper* note){
         }
     }
 }
+NotebookWrapper* Cache::getFirstNoteBook() {
+    return new NotebookWrapper(notebooks->at(0));
+}
 
 /*void Cache::loadTags(){
     if(isTagsLoaded() || EvernoteSession::instance()->isSyncInProgress()){
