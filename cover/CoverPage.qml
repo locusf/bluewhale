@@ -3,25 +3,14 @@ import Sailfish.Silica 1.0
 
 Rectangle {
     anchors.fill: parent
-    color: "black"
+    color: "blue"
     
     Label {
         id: label
         anchors.centerIn: parent
-        text: "My Cover"
+        text: "Bluewhale"
     }
     
-    CoverActionList {
-        id: coverAction
-        
-        CoverAction {
-            iconSource: "image://theme/icon-cover-next"
-        }
-        
-        CoverAction {
-            iconSource: "image://theme/icon-cover-pause"
-        }
-    }
 }
 
 
