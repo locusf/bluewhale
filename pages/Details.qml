@@ -9,6 +9,11 @@ Page {
         id: detailsview
         anchors.fill: parent
         contentHeight: column.height
+        PullDownMenu {
+            MenuItem {
+                text: "Save"
+            }
+        }
         Connections {
             target: EvernoteSession
             onNoteContentDownloaded: {
@@ -31,12 +36,14 @@ Page {
             TextField {
                 id: tagsfield
                 readOnly: true
+                width: parent.width
             }
 
             WebView {
                 id: noteview
                 preferredWidth: parent.width
                 preferredHeight: parent.height
+                anchors.top: tagsfield.bottom
                 smooth: false
                 scale: 0.9
             }

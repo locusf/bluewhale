@@ -8,17 +8,36 @@ Page {
         anchors.fill: parent
         contentHeight: areacol.height
 
+        RemorsePopup {
+            id: deleteRemorse
+        }
+        PullDownMenu {
+            MenuItem {
+                text: "Delete"
+                onClicked: {
+                    deleteRemorse.execute("Deleting", function(){
+                        EvernoteSession.deleteNote(targetNote)
+                        pageStack.pop()
+                    }, 2000)
+                }
+
+            }
+
+            MenuItem {
+                text: "Save"
+                onClicked: {
+                    targetNote.title = txtTitle.text
+                    targetNote.noteContent = notearea.text
+                    EvernoteSession.updateNote(targetNote)
+                    pageStack.pop()
+                }
+            }
+        }
         Connections {
             target: EvernoteSession
             onNoteContentDownloaded: {
                 txtTitle.text = targetNote.title
                 notearea.text = Cache.getNoteContent(targetNote)
-            }
-        }
-
-        PullDownMenu {
-            MenuItem {
-                text: "Save"
             }
         }
 
@@ -37,11 +56,12 @@ Page {
                 width: parent.width
                 horizontalAlignment: left
             }
+            Label {
+                text: "Content"
+            }
 
             TextArea {
                 id: notearea
-                anchors.top: txtTitle.bottom
-
             }
         }
     }

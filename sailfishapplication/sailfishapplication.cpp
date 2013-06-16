@@ -55,6 +55,7 @@ QDeclarativeView *Sailfish::createView(const QString &file)
     view->rootContext()->setContextProperty("EvernoteSession", EvernoteSession::instance());
     view->rootContext()->setContextProperty("DatabaseManager", DatabaseManager::instance());
     view->rootContext()->setContextProperty("Cache", Cache::instance());
+    view->rootContext()->setContextProperty("Settings", Settings::instance());
     return view;
 }
 

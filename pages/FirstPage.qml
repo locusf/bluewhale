@@ -18,12 +18,28 @@ Page {
         model: notesmodel
         delegate: BackgroundItem {
             Label {
+                id: ntitle
                 text: title
-                x: theme.paddingLarge
+                truncationMode: TruncationMode.Fade
+                font.pixelSize: theme.fontSizeMedium
+                anchors {
+                    left: parent.left
+                    rightMargin: theme.paddingSmall
+                }
             }
+            Label {
+                text: "Created on " + dateCreated
+                font.pixelSize: theme.fontSizeExtraSmall * 3 / 4
+                font.italic: true
+                anchors {
+                    top: ntitle.bottom
+                    topMargin: 4
+                    left: parent.left
+                    right: parent.right
+                }
+            }
+
             onClicked: {
-                console.log("Clicked " + this)
-                var selectedNote = this
                 var detailspage = Qt.resolvedUrl("Details.qml")
                 var note = Cache.getNote(index)
                 pageStack.push(detailspage, {targetNote: note}, 0)
@@ -40,22 +56,28 @@ Page {
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
             MenuItem {
+                text: "Sync"
+                onClicked: EvernoteSession.syncAsync()
+            }
+            MenuItem {
                 text: "Add note"
                 onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))
-
             }
         }
         Timer {
             interval: 1
             running: true
             onTriggered: {
-                EvernoteSession.authAsync("locusf", "21ter3ww")
                 EvernoteSession.syncAsync()
             }
 
         }
         Connections {
             target: Cache
+            onClearNotes: {
+                notesmodel.clear()
+            }
+
             onNoteAdded: {
                 console.log("Note load ok " + note.title)
                 notesmodel.append(note)
