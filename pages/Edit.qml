@@ -20,9 +20,7 @@ Page {
                         pageStack.pop()
                     }, 2000)
                 }
-
             }
-
             MenuItem {
                 text: "Save"
                 onClicked: {
@@ -30,6 +28,7 @@ Page {
                     targetNote.noteContent = notearea.text
                     EvernoteSession.updateNote(targetNote)
                     pageStack.pop()
+                    EvernoteSession.syncAsync()
                 }
             }
         }
@@ -54,7 +53,6 @@ Page {
             TextField {
                 id: txtTitle
                 width: parent.width
-                horizontalAlignment: left
             }
             Label {
                 text: "Content"

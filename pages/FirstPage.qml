@@ -20,6 +20,7 @@ Page {
             Label {
                 id: ntitle
                 text: title
+                width: parent.width
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: theme.fontSizeMedium
                 anchors {
