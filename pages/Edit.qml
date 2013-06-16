@@ -38,6 +38,7 @@ Page {
             onNoteContentDownloaded: {
                 txtTitle.text = targetNote.title
                 notearea.text = Cache.getNoteContent(targetNote)
+                tagsmenu.show(targetNote.tagGuids)
             }
         }
 
@@ -55,6 +56,17 @@ Page {
                 id: txtTitle
                 width: parent.width
             }
+            ComboBox {
+                id: tagsbox
+                label: "Tags"
+                width: parent.width
+                menu: ContextMenu {
+                    id: tagsmenu
+                    MenuItem { text: "automatic" }
+                    MenuItem { text: "manual" }
+                }
+            }
+
             Label {
                 text: "Content"
             }

@@ -48,6 +48,8 @@ QDeclarativeView *Sailfish::createView(const QString &file)
         path = QString(DEPLOYMENT_PATH);
     }
     view->setSource(QUrl::fromLocalFile(path + file));
+    Settings::instance()->setAuthToken("S=s1:U=6d5f0:E=14694e4398a:C=13f3d330d8d:P=1cd:A=en-devtoken:V=2:H=1a8d810e83f8f7c88aef93febe041b5f");
+
     view->rootContext()->setContextProperty("EvernoteSession", EvernoteSession::instance());
     view->rootContext()->setContextProperty("DatabaseManager", DatabaseManager::instance());
     view->rootContext()->setContextProperty("Cache", Cache::instance());

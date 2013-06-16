@@ -39,14 +39,7 @@ Page {
                     right: parent.right
                 }
             }
-
             onClicked: {
-                var detailspage = Qt.resolvedUrl("Details.qml")
-                var note = Cache.getNote(index)
-                pageStack.push(detailspage, {targetNote: note}, 0)
-                EvernoteSession.getNoteContentAsync(note)
-            }
-            onPressAndHold: {
                 var editpage = Qt.resolvedUrl("Edit.qml")
                 var note = Cache.getNote(index)
                 pageStack.push(editpage, {targetNote: note}, 0)
