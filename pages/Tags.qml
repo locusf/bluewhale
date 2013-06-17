@@ -9,7 +9,6 @@ Page {
         running: true
         onTriggered: {
             Cache.fillWithTags()
-
         }
     }
     function tagInModel(tag) {
@@ -22,7 +21,6 @@ Page {
 
         return false
     }
-
     Connections {
         target: Cache
         onTagFired: {
@@ -35,35 +33,37 @@ Page {
     }
 
     SilicaFlickable {
-        anchors.fill: parent
         height: tagcol.height
+        anchors.fill: parent
         PullDownMenu {
             MenuItem {
                 text: "foo"
             }
         }
-
-        Button {
-            text: "Save tags"
-            onClicked: {
-                var i = 0;
-                var tags = enabledmodel
-                var sel = []
-                for (i = 0; i < tags.count; i++) {
-                    sel.push(tags.get(i).guid)
-                }
-                targetNote.tagGuids = sel
-                EvernoteSession.updateNoteTags(targetNote)
-                pageStack.pop()
-                EvernoteSession.syncAsync()
-            }
-        }
-
-
         Column {
             id: tagcol
             PageHeader {
                 title: "Tags"
+            }
+            Row {
+                spacing: theme.paddingLarge
+                anchors.horizontalCenter: parent.horizontalCenter
+                Button {
+                    text: "Save tags"
+                    onClicked: {
+                        var i = 0;
+                        var tags = enabledmodel
+                        var sel = []
+                        for (i = 0; i < tags.count; i++) {
+                            sel.push(tags.get(i).guid)
+                        }
+                        targetNote.tagGuids = sel
+                        EvernoteSession.updateNoteTags(targetNote)
+                        pageStack.pop()
+                        EvernoteSession.syncAsync()
+                        EvernoteSession.getNoteContentAsync(targetNote)
+                    }
+                }
             }
 
             Repeater {
@@ -101,6 +101,7 @@ Page {
             TextField {
                 id: tagfield
                 width: parent.width
+                height: parent.height
                 visible: false
                 Keys.onReturnPressed: {
                     var guid = EvernoteSession.createTag(tagfield.text);

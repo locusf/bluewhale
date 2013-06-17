@@ -22,6 +22,10 @@ Page {
                     }, 2000)
                 }
             }
+            MenuItem {
+                text: "Tags"
+                onClicked: pageStack.push(Qt.resolvedUrl("Tags.qml"), {targetNote: targetNote})
+            }
 
         }
         Connections {
@@ -29,6 +33,16 @@ Page {
             onNoteContentDownloaded: {
                 txtTitle.text = targetNote.title
                 notearea.html = Cache.getNoteContent(targetNote)
+                if (targetNote.tagGuids.length !== 0) {
+                    tagsrow.visible = true
+                    var i = 0;
+                    var tags = targetNote.tagGuids
+                    tagstitl.text = ""
+                    for (i = 0; i < tags.length; i++) {
+                        tagstitl.text += Cache.getTagForGuid(tags[i]).name + ","
+                    }
+                    tagstitl.text = tagstitl.text.slice(0,-1)
+                }
             }
         }
 
@@ -47,9 +61,29 @@ Page {
                 width: parent.width
                 readOnly: true
             }
-            Button {
-                text: "Tags"
-                onClicked: pageStack.push(Qt.resolvedUrl("Tags.qml"), {targetNote: targetNote})
+
+
+            Row {
+                id: tagsrow
+                visible: false
+                width: parent.width
+                spacing: 80
+                Label {
+                    id: tagslbl
+                    text: "Tags"
+                }
+                Label {
+                    id: tagstitl
+                    color: theme.secondaryColor
+                    width: parent.width
+                    anchors.left: tagslbl.right + 1
+                    truncationMode: TruncationMode.Fade
+                    MouseArea {
+                        width: parent.width
+                        height: parent.height
+                        onClicked: pageStack.push(Qt.resolvedUrl("Tags.qml"), {targetNote: targetNote})
+                    }
+                }
             }
             Label {
                 text: "Content"
