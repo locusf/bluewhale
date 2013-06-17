@@ -403,8 +403,6 @@ void EvernoteSession::updateNote(NoteWrapper *note) {
         Note reference_note;
         reference_note.__isset.title = true;
         reference_note.__isset.content = true;
-        /*reference_note.__isset.contentHash = true;
-        reference_note.__isset.contentLength = true;*/
         reference_note.__isset.guid = true;
         reference_note.title = note->note.title;
         reference_note.guid = note->note.guid;
@@ -413,12 +411,6 @@ void EvernoteSession::updateNote(NoteWrapper *note) {
         std::string assembled_content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>" + doc.toPlainText().replace("\n","<br />").toStdString() + "</en-note>";
         qDebug() << QString::fromStdString(assembled_content);
         reference_note.content = assembled_content;
-        reference_note.contentLength = assembled_content.size();
-        QCryptographicHash hash( QCryptographicHash::Md5 );
-        hash.addData(reference_note.content.c_str(), reference_note.contentLength);
-        reference_note.contentHash = "..................";
-        const char * hash_data = hash.result().data();
-        memcpy( const_cast<char *>(reference_note.contentHash.c_str()), hash_data, 16);
         syncClient->updateNote(ret, Settings::instance()->getAuthToken().toStdString(), reference_note);
     } catch(EDAMUserException &tx) {
         qDebug() << "EvernoteSession :: update failed: " << tx.what() << " error code: " << tx.errorCode;
@@ -438,6 +430,19 @@ void EvernoteSession::updateNoteTags(NoteWrapper *note) {
         reference_note.guid = note->note.guid;
         reference_note.tagGuids = note->note.tagGuids;
         syncClient->updateNote(ret, Settings::instance()->getAuthToken().toStdString(), reference_note);
+    } catch(EDAMUserException &tx) {
+        qDebug() << "EvernoteSession :: update tags failed: " << tx.what() << " error code: " << tx.errorCode;
+        qDebug() << " parameter " << QString::fromStdString(tx.parameter);
+    }
+}
+
+QString EvernoteSession::createTag(QString name) {
+    try {
+        Tag reference_tag;
+        reference_tag.name = name.toStdString();
+        reference_tag.__isset.name = true;
+        syncClient->createTag(reference_tag, Settings::instance()->getAuthToken().toStdString(), reference_tag);
+        return QString::fromStdString(reference_tag.guid);
     } catch(EDAMUserException &tx) {
         qDebug() << "EvernoteSession :: update tags failed: " << tx.what() << " error code: " << tx.errorCode;
         qDebug() << " parameter " << QString::fromStdString(tx.parameter);

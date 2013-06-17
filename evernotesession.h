@@ -83,6 +83,8 @@ public slots:
     void updateNoteTags(NoteWrapper* note);
     void deleteNote(NoteWrapper* note);
 
+    QString createTag(QString name);
+
     void exit();
     static void drop();
     void logout();

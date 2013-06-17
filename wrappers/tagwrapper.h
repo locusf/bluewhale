@@ -12,8 +12,8 @@ using namespace evernote::edam;
 class TagWrapper : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString name READ getName)
-    Q_PROPERTY(QString guid READ getGuid)
+    Q_PROPERTY(QString name READ getName WRITE setName)
+    Q_PROPERTY(QString guid READ getGuid WRITE setGuid)
 
 public:
     explicit TagWrapper(QObject *parent = 0);
@@ -25,6 +25,8 @@ signals:
 public slots:
     QString getName();
     QString getGuid();
+    void setName(QString name);
+    void setGuid(QString guid);
 };
 
 #endif // TAGWRAPPER_H

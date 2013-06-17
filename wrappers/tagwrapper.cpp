@@ -14,3 +14,9 @@ QString TagWrapper::getName(){
 QString TagWrapper::getGuid(){
     return QString::fromStdString(tag.guid);
 }
+void TagWrapper::setGuid(QString guid){
+    this->tag.guid = guid.toStdString();
+}
+void TagWrapper::setName(QString name){
+    this->tag.name = name.toStdString();
+}

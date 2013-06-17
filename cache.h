@@ -44,6 +44,7 @@ public slots:
     NotebookWrapper* getNotebook(NoteWrapper* note);
     NotebookWrapper* getFirstNoteBook();
     TagWrapper* getTagForGuid(QString guid);
+    QString genGuid();
 private:
     static Cache* m_instance;
     QVector <Tag>* tags;

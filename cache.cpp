@@ -1,7 +1,7 @@
 #include "cache.h"
 #include <QFileDialog>
 #include <QDebug>
-
+#include <QUuid>
 #include <QtCore>
 Cache* Cache::m_instance = NULL;
 
@@ -90,6 +90,10 @@ TagWrapper* Cache::getTagForGuid(QString guid) {
             return new TagWrapper(tags->at(i));
         }
     }
+}
+
+QString Cache::genGuid() {
+    return QUuid::createUuid().toString().replace("{","").replace("}","");
 }
 
 /*void Cache::loadTags(){
