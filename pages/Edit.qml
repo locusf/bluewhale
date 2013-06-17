@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import Sailfish.Silica 1.0
+import QtWebKit 1.0
 
 Page {
     id: editpage
@@ -7,7 +8,6 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: areacol.height
-
         RemorsePopup {
             id: deleteRemorse
         }
@@ -22,23 +22,13 @@ Page {
                     }, 2000)
                 }
             }
-            MenuItem {
-                text: "Save"
-                onClicked: {
-                    targetNote.title = txtTitle.text
-                    targetNote.noteContent = notearea.text
-                    EvernoteSession.updateNote(targetNote)
-                    pageStack.pop()
-                    EvernoteSession.syncAsync()
-                }
-            }
+
         }
         Connections {
             target: EvernoteSession
             onNoteContentDownloaded: {
                 txtTitle.text = targetNote.title
-                notearea.text = Cache.getNoteContent(targetNote)
-                tagsmenu.show(targetNote.tagGuids)
+                notearea.html = Cache.getNoteContent(targetNote)
             }
         }
 
@@ -46,7 +36,7 @@ Page {
             id: areacol
             width: parent.width
             PageHeader {
-                title: targetNote.title
+                title: "View note"
             }
 
             Label {
@@ -55,26 +45,26 @@ Page {
             TextField {
                 id: txtTitle
                 width: parent.width
+                readOnly: true
             }
-            ComboBox {
-                id: tagsbox
-                label: "Tags"
-                width: parent.width
-                menu: ContextMenu {
-                    id: tagsmenu
-                    MenuItem { text: "automatic" }
-                    MenuItem { text: "manual" }
-                }
+            Button {
+                text: "Tags"
+                onClicked: pageStack.push(Qt.resolvedUrl("Tags.qml"), {targetNote: targetNote})
             }
-
             Label {
                 text: "Content"
             }
-
-            TextArea {
+            WebView {
                 id: notearea
+                width: parent.width
+                MouseArea {
+                    width: parent.width
+                    height: parent.height
+                    onPressAndHold: {
+                        pageStack.push(Qt.resolvedUrl("EditContent.qml"), {targetNote: targetNote})
+                    }
+                }
             }
         }
     }
-
 }

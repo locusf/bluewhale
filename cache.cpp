@@ -84,6 +84,13 @@ NotebookWrapper* Cache::getNotebook(NoteWrapper* note){
 NotebookWrapper* Cache::getFirstNoteBook() {
     return new NotebookWrapper(notebooks->at(0));
 }
+TagWrapper* Cache::getTagForGuid(QString guid) {
+    for(int i=0; i<tags->size(); i++) {
+        if(tags->at(i).guid == guid.toStdString()) {
+            return new TagWrapper(tags->at(i));
+        }
+    }
+}
 
 /*void Cache::loadTags(){
     if(isTagsLoaded() || EvernoteSession::instance()->isSyncInProgress()){

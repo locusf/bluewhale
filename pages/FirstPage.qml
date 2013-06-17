@@ -69,7 +69,6 @@ Page {
             onTriggered: {
                 EvernoteSession.syncAsync()
             }
-
         }
         Connections {
             target: Cache
@@ -78,7 +77,6 @@ Page {
             }
 
             onNoteAdded: {
-                console.log("Note load ok " + note.title)
                 notesmodel.append(note)
             }
         }

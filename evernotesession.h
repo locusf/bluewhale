@@ -80,6 +80,7 @@ public slots:
 
     void addNote(NoteWrapper* note);
     void updateNote(NoteWrapper* note);
+    void updateNoteTags(NoteWrapper* note);
     void deleteNote(NoteWrapper* note);
 
     void exit();

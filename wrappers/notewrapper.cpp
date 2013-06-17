@@ -34,11 +34,16 @@ QString NoteWrapper::getNotebookGUID(){
 }
 QVariantList NoteWrapper::getTagGuids(){
     QVariantList result;
-    qDebug() << note.tagGuids.size();
     for(int i=0;i<note.tagGuids.size();i++){
         result.append(QString::fromStdString(note.tagGuids.at(i)));
     }
     return result;
+}
+void NoteWrapper::setTagGuids(QVariantList tags) {
+    note.tagGuids.clear();
+    for (int i=0; i < tags.count(); i++) {
+        note.tagGuids.push_back(QString(tags.at(i).toString()).toStdString());
+    }
 }
 
 QString NoteWrapper::getNoteContent() {
