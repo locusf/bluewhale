@@ -401,9 +401,9 @@ void EvernoteSession::updateNote(NoteWrapper *note) {
         recreateSyncClient(false);
         Note reference_note;
         reference_note.__isset.title = true;
-        reference_note.__isset.content = true;
+        /*reference_note.__isset.content = true;
         reference_note.__isset.contentHash = true;
-        reference_note.__isset.contentLength = true;
+        reference_note.__isset.contentLength = true;*/
         reference_note.__isset.guid = true;
         reference_note.title = note->note.title;
         reference_note.guid = note->note.guid;

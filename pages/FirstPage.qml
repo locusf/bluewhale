@@ -40,7 +40,7 @@ Page {
                 }
             }
             onClicked: {
-                var editpage = Qt.resolvedUrl("Edit.qml")
+                var editpage = Qt.resolvedUrl("View.qml")
                 var note = Cache.getNote(index)
                 pageStack.push(editpage, {targetNote: note}, 0)
                 EvernoteSession.getNoteContentAsync(note)
