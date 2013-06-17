@@ -1,6 +1,7 @@
 #include <QDebug>
 
 #include <QtCore>
+#include <QTextDocument>
 #include "evernotesession.h"
 const std::string EvernoteSession::CONSUMER_KEY = "everel";
 const std::string EvernoteSession::CONSUMER_SECRET = "201d20eb3ee1f74d";
@@ -401,13 +402,16 @@ void EvernoteSession::updateNote(NoteWrapper *note) {
         recreateSyncClient(false);
         Note reference_note;
         reference_note.__isset.title = true;
-        /*reference_note.__isset.content = true;
-        reference_note.__isset.contentHash = true;
+        reference_note.__isset.content = true;
+        /*reference_note.__isset.contentHash = true;
         reference_note.__isset.contentLength = true;*/
         reference_note.__isset.guid = true;
         reference_note.title = note->note.title;
         reference_note.guid = note->note.guid;
-        std::string assembled_content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>" + QString::fromStdString(note->note.content).replace("\n", "<br />").toStdString() + "</en-note>";
+        QTextDocument doc;
+        doc.setHtml(QString::fromStdString(note->note.content));
+        std::string assembled_content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>" + doc.toPlainText().replace("\n","<br />").toStdString() + "</en-note>";
+        qDebug() << QString::fromStdString(assembled_content);
         reference_note.content = assembled_content;
         reference_note.contentLength = assembled_content.size();
         QCryptographicHash hash( QCryptographicHash::Md5 );

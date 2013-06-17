@@ -24,6 +24,7 @@ Page {
                     EvernoteSession.updateNote(targetNote)
                     pageStack.pop()
                     EvernoteSession.syncAsync()
+                    EvernoteSession.getNoteContentAsync(targetNote)
                 }
             }
         }

@@ -60,7 +60,7 @@ Page {
                 MouseArea {
                     width: parent.width
                     height: parent.height
-                    onPressAndHold: {
+                    onClicked: {
                         pageStack.push(Qt.resolvedUrl("EditContent.qml"), {targetNote: targetNote})
                     }
                 }
