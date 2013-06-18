@@ -33,11 +33,31 @@ Page {
     }
 
     SilicaFlickable {
-        height: tagcol.height
+        contentHeight: childrenRect.height
         anchors.fill: parent
         PullDownMenu {
             MenuItem {
-                text: "foo"
+                text: "Save tags"
+                onClicked: {
+                    var i = 0;
+                    var tags = enabledmodel
+                    var sel = []
+                    for (i = 0; i < tags.count; i++) {
+                        sel.push(tags.get(i).guid)
+                    }
+                    targetNote.tagGuids = sel
+                    EvernoteSession.updateNoteTags(targetNote)
+                    pageStack.pop()
+                    EvernoteSession.syncAsync()
+                    EvernoteSession.getNoteContentAsync(targetNote)
+                }
+            }
+            MenuItem {
+                text: "Add tag"
+                onClicked: {
+                    tagfield.visible = true
+                    tagfield.forceActiveFocus()
+                }
             }
         }
         Column {
@@ -45,27 +65,6 @@ Page {
             PageHeader {
                 title: "Tags"
             }
-            Row {
-                spacing: theme.paddingLarge
-                anchors.horizontalCenter: parent.horizontalCenter
-                Button {
-                    text: "Save tags"
-                    onClicked: {
-                        var i = 0;
-                        var tags = enabledmodel
-                        var sel = []
-                        for (i = 0; i < tags.count; i++) {
-                            sel.push(tags.get(i).guid)
-                        }
-                        targetNote.tagGuids = sel
-                        EvernoteSession.updateNoteTags(targetNote)
-                        pageStack.pop()
-                        EvernoteSession.syncAsync()
-                        EvernoteSession.getNoteContentAsync(targetNote)
-                    }
-                }
-            }
-
             Repeater {
                 model: ListModel { id: enabledmodel }
                 delegate: TextSwitch {
@@ -84,17 +83,6 @@ Page {
                     onClicked: {
                         enabledmodel.append({name:name, guid: guid})
                         alltagmodel.remove(index)
-                    }
-                }
-            }
-            Row {
-                spacing: theme.paddingLarge
-                anchors.horizontalCenter: parent.horizontalCenter
-                Button {
-                    text: "Add tag"
-                    onClicked: {
-                        tagfield.visible = true
-                        tagfield.forceActiveFocus()
                     }
                 }
             }

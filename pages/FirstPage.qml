@@ -5,7 +5,6 @@ import Sailfish.Silica 1.0
 Page {
     id: page
     
-    // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaListView {
         anchors.fill: parent
         header: PageHeader {
