@@ -55,7 +55,14 @@ SOURCES += main.cpp \
     wrappers/notewrapper.cpp \
     fileutils.cpp \
     wrappers/resourcewrapper.cpp \
-    wrappers/notebookwrapper.cpp
+    wrappers/notebookwrapper.cpp \
+    kQOAuth/kqoauthmanager.cpp \
+    kQOAuth/kqoauthrequest.cpp \
+    kQOAuth/kqoauthutils.cpp \
+    kQOAuth/kqoauthauthreplyserver.cpp \
+    kQOAuth/kqoauthrequest_1.cpp \
+    kQOAuth/kqoauthrequest_xauth.cpp \
+    oauth.cpp
 
 
 # C++ headers
@@ -132,7 +139,20 @@ HEADERS += edam/UserStore_constants.h \
     wrappers/notewrapper.h \
     fileutils.h \
     wrappers/resourcewrapper.h \
-    wrappers/notebookwrapper.h
+    wrappers/notebookwrapper.h \
+    kQOAuth/kqoauthmanager.h \
+    kQOAuth/kqoauthrequest.h \
+    kQOAuth/kqoauthrequest_1.h \
+    kQOAuth/kqoauthrequest_xauth.h \
+    kQOAuth/kqoauthglobals.h \
+    kQOAuth/kqoauthrequest_p.h \
+    kQOAuth/kqoauthmanager_p.h \
+    kQOAuth/kqoauthauthreplyserver.h \
+    kQOAuth/kqoauthauthreplyserver_p.h \
+    kQOAuth/kqoauthutils.h \
+    kQOAuth/kqoauthrequest_xauth_p.h \
+    oauth.h
+
 
 # QML files and folders
 qml.files = *.qml pages cover main.qml

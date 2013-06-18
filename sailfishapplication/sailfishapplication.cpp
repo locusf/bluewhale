@@ -54,6 +54,7 @@ QDeclarativeView *Sailfish::createView(const QString &file)
     view->rootContext()->setContextProperty("DatabaseManager", DatabaseManager::instance());
     view->rootContext()->setContextProperty("Cache", Cache::instance());
     view->rootContext()->setContextProperty("Settings", Settings::instance());
+    view->rootContext()->setContextProperty("OAuth", OAuth::instance());
     return view;
 }
 

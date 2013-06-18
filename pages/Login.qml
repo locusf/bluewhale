@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import Sailfish.Silica 1.0
+import QtWebKit 1.0
 
 Page {
     id: editpage
@@ -12,11 +13,7 @@ Page {
             MenuItem {
                 text: "Save login"
                 onClicked: {
-                    Settings.setUsername(userfield.text)
-                    Settings.setPassword(passwdfield.text)
-                    pageStack.pop()
-                    EvernoteSession.authAsync(userfield.text, passwdfield.text)
-                    EvernoteSession.syncAsync()
+                    OAuth.getAccess(oauthview)
                 }
             }
         }
@@ -27,20 +24,10 @@ Page {
             PageHeader {
                 title: "Login"
             }
-            Label {
-                text: "User name"
-            }
-            TextField {
-                id: userfield
+            WebView {
+                id: oauthview
+                objectName: "oauthviewer"
                 width: parent.width
-            }
-            Label {
-                text: "Password"
-            }
-            TextField {
-                id:passwdfield
-                width: parent.width
-                echoMode: TextInput.Password
             }
         }
     }

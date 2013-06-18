@@ -1,4 +1,4 @@
-QT += declarative sql
+QT += declarative sql network webkit
 
 SOURCES += $$PWD/sailfishapplication.cpp
 HEADERS += $$PWD/sailfishapplication.h

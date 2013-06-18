@@ -7,6 +7,7 @@
 #include "wrappers/notebookwrapper.h"
 #include "wrappers/resourcewrapper.h"
 #include "wrappers/tagwrapper.h"
+#include "oauth.h"
 
 class QString;
 class QApplication;
