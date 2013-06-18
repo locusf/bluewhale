@@ -7,6 +7,7 @@ Page {
     
     SilicaListView {
         anchors.fill: parent
+        contentHeight: childrenRect.height
         header: PageHeader {
             title: "Bluewhale"
         }
@@ -79,13 +80,6 @@ Page {
                 notesmodel.append(note)
             }
         }
-
-
-
-        // Tell SilicaFlickable the height of its content.
-        contentHeight: childrenRect.height
-        
-
     }
 }
 

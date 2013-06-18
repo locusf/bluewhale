@@ -3,12 +3,7 @@ import Sailfish.Silica 1.0
 
 CoverBackground {
     CoverPlaceholder {
-        id: label
-        anchors.centerIn: parent
         text: "Bluewhale"
+        icon.source: "bluewhale.jpg"
     }
-    color: "steelblue"
-    opacity: 0.50
 }
-
-
