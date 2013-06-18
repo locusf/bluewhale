@@ -146,4 +146,5 @@ include(sailfishapplication/sailfishapplication.pri)
 OTHER_FILES = rpm/bluewhale.yaml \
     pages/Tags.qml \
     pages/View.qml \
-    README.txt
+    README.txt \
+    LICENCE.txt
