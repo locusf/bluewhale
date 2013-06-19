@@ -60,4 +60,20 @@ void NoteWrapper::setTitle(QString title)
     this->note.title = title.toStdString();
 }
 
+QString NoteWrapper::getTagsString()
+{
+    QString result;
+    if (note.tagGuids.size() == 0) {
+        result = "No tags  ";
+    } else {
+        result = "Tags: ";
+    }
+    for (int i = 0; i < note.tagGuids.size(); i++)
+    {
+        result += Cache::instance()->getTagForGuid(QString::fromStdString(note.tagGuids.at(i)))->getName() + ", ";
+    }
+    result.chop(2);
+    return result;
+}
+
 \

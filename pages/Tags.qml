@@ -72,6 +72,7 @@ Page {
                     checked: true
                     automaticCheck: false
                     onPressAndHold: {
+                        alltagmodel.append({name:name, guid:guid})
                         enabledmodel.remove(index)
                     }
                 }

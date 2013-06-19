@@ -17,6 +17,7 @@ Page {
         }
         model: notesmodel
         delegate: BackgroundItem {
+            height: childrenRect.height
             Label {
                 id: ntitle
                 text: title
@@ -29,9 +30,11 @@ Page {
                 }
             }
             Label {
+                id: createdlbl
                 text: "Created on " + dateCreated
                 font.pixelSize: theme.fontSizeExtraSmall * 3 / 4
                 font.italic: true
+                width: parent.width
                 anchors {
                     top: ntitle.bottom
                     topMargin: 4
@@ -39,6 +42,22 @@ Page {
                     right: parent.right
                 }
             }
+            Label {
+                id: taglbl
+                text: tagString
+                font.italic: true
+                font.pixelSize: theme.fontSizeExtraSmall * 3 / 4
+                color: theme.secondaryColor
+                width: parent.width
+                truncationMode: TruncationMode.Fade
+                anchors {
+                    top: createdlbl.bottom
+                    topMargin: 4
+                    left: parent.left
+                    right: parent.right
+                }
+            }
+
             onClicked: {
                 var editpage = Qt.resolvedUrl("View.qml")
                 var note = Cache.getNote(index)
@@ -68,6 +87,7 @@ Page {
             running: true
             onTriggered: {
                 EvernoteSession.syncAsync()
+
             }
         }
         Connections {
@@ -77,6 +97,7 @@ Page {
             }
 
             onNoteAdded: {
+                EvernoteSession.getNoteTags(note)
                 notesmodel.append(note)
             }
         }

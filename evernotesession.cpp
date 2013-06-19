@@ -457,3 +457,8 @@ void EvernoteSession::deleteNote(NoteWrapper *note) {
         qDebug() << "EvernoteSession :: delete failed" << tx.what();
     }
 }
+
+void EvernoteSession::getNoteTags(NoteWrapper *note)
+{
+    note->note.tagGuids = DatabaseManager::instance()->getNoteTagGuids(note->note);
+}

@@ -77,6 +77,7 @@ public slots:
 
     void getNoteContentAsync(NoteWrapper* note);
     void getNoteContent(NoteWrapper* note);
+    void getNoteTags(NoteWrapper* note);
 
     void addNote(NoteWrapper* note);
     void updateNote(NoteWrapper* note);
