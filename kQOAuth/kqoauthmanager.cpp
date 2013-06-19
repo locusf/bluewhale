@@ -426,19 +426,19 @@ QNetworkAccessManager * KQOAuthManager::networkManager() const {
 
 //////////// Public convenience API /////////////
 
-void KQOAuthManager::getUserAuthorization(QUrl authorizationEndpoint, QWebView* browser) {
+QUrl KQOAuthManager::getUserAuthorization(QUrl authorizationEndpoint) {
     Q_D(KQOAuthManager);
 
     if (!d->hasTemporaryToken) {
         qWarning() << "No temporary tokens retreieved. Cannot get user authorization.";
         d->error = KQOAuthManager::RequestUnauthorized;
-        return;
+        return QUrl();
     }
 
     if (!authorizationEndpoint.isValid()) {
         qWarning() << "Authorization endpoint not valid. Cannot proceed.";
         d->error = KQOAuthManager::RequestEndpointError;
-        return;
+        return QUrl();
     }
 
     d->error = KQOAuthManager::NoError;
@@ -456,7 +456,7 @@ void KQOAuthManager::getUserAuthorization(QUrl authorizationEndpoint, QWebView* 
 
     // Open the user's default browser to the resource authorization page provided
     // by the service.
-    browser->load(openWebPageUrl);
+    return openWebPageUrl;
 }
 
 void KQOAuthManager::getUserAccessTokens(QUrl accessTokenEndpoint) {

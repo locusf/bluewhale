@@ -17,9 +17,10 @@ public:
     void deinit();
     static OAuth* instance();
 signals:
-    
+    void browserAuth(QString url);
+    void requestDone();
 public slots:
-    void getAccess(QObject* browser);
+    void getAccess();
     void onTemporaryTokenReceived(QString token, QString tokenSecret);
     void onAuthorizationReceived(QString token, QString verifier);
     void onAccessTokenReceived(QString token, QString store_url);
@@ -29,7 +30,6 @@ private:
     KQOAuthRequest* mOauthRequest;
     KQOAuthManager* mOauthManager;
     static OAuth* m_instance;
-    QWebView* m_browser;
 };
 
 #endif // OAUTH_H

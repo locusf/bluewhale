@@ -5,8 +5,7 @@ OAuth* OAuth::m_instance = NULL;
 OAuth::OAuth(QObject *parent) :
     QObject(parent),
     mOauthManager(0),
-    mOauthRequest(0),
-    m_browser(0)
+    mOauthRequest(0)
 {
 }
 void OAuth::init( void )
@@ -25,6 +24,8 @@ void OAuth::init( void )
       this, SLOT(onAccessTokenReceived(QString,QString)));
     connect(mOauthManager, SIGNAL(requestReady(QByteArray)),
       this, SLOT(onRequestReady(QByteArray)));
+    connect(mOauthManager, SIGNAL(authorizedRequestDone()),
+      this, SLOT(requestDone() ));
 }
 
 void OAuth::deinit()
@@ -63,10 +64,9 @@ OAuth* OAuth::instance(){
     return m_instance;
 }
 
-void OAuth::getAccess(QObject* browser)
+void OAuth::getAccess()
 {
     init();
-    m_browser = (QWebView*)browser;
     QString url = QString("https://sandbox.evernote.com/oauth");
     mOauthRequest->initRequest(KQOAuthRequest::TemporaryCredentials, QUrl(url)); //"https://www.evernote.com/oauth"
     QString consumer_key = "locusf";
@@ -90,7 +90,7 @@ void OAuth::onTemporaryTokenReceived(QString token, QString tokenSecret)
     if( mOauthManager->lastError() == KQOAuthManager::NoError)
     {
         qDebug() << "Asking for user's permission to access protected resources. Opening URL: " << userAuthURL;
-        mOauthManager->getUserAuthorization(userAuthURL, m_browser);
+        browserAuth(mOauthManager->getUserAuthorization(userAuthURL).toString());
     }
     else
     {
@@ -118,6 +118,16 @@ void OAuth::onAccessTokenReceived(QString token, QString store_url)
 void OAuth::onRequestReady(QByteArray response)
 {
     qDebug() << "Response from the service: " << response;
+    QString strresp = response;
+    qDebug() << "Clarified response " << strresp;
+    if (strresp.lastIndexOf("edam_noteStoreUrl") != -1) {
+        QStringList tokens = strresp.split("&");
+        QString oauth_token = QUrl::fromPercentEncoding(tokens.at(0).split("=").at(1).toLocal8Bit());
+        qDebug() << "Auth token got! " << oauth_token;
+        Settings::instance()->setAuthToken(oauth_token);
+        requestDone();
+    }
+
     if( response == "" )
     {
       qDebug() << "onRequestReady :: Failed to authorize, empty response from evernote";

@@ -8,26 +8,39 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: login.height
-
-        PullDownMenu {
-            MenuItem {
-                text: "Save login"
-                onClicked: {
-                    OAuth.getAccess(oauthview)
-                }
+        HorizontalScrollDecorator {}
+        Timer {
+            interval: 1
+            running: true
+            onTriggered: {
+                OAuth.getAccess()
+            }
+        }
+        Connections {
+            target: OAuth
+            onBrowserAuth: {
+                oauthview.url = url
+            }
+            onRequestDone: {
+                console.log("Request done!")
+                pageStack.pop()
+                EvernoteSession.syncAsync()
             }
         }
 
         Column {
             id: login
             width: parent.width
+
             PageHeader {
-                title: "Login"
+                title: "Evernote login"
             }
             WebView {
                 id: oauthview
                 objectName: "oauthviewer"
                 width: parent.width
+                preferredWidth: parent.width
+                scale: 0.9
             }
         }
     }
