@@ -32,9 +32,15 @@ Page {
             id: searchinput
             visible: false
             width: parent.width
-            anchors.top: header.bottom
+            anchors {
+                top: header.bottom
+                left: parent.left
+                right: parent.right
+            }
             Keys.onReturnPressed: {
                 EvernoteSession.searchNotes(searchinput.text)
+                searchinput.visible = false
+                searchinput.text = ""
             }
         }
 
@@ -111,6 +117,13 @@ Page {
                 }
             }
         }
+        PushUpMenu {
+            MenuItem {
+                text: "Clear search"
+                onClicked: Cache.load()
+            }
+        }
+
         Timer {
             interval: 1
             running: true
