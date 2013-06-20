@@ -10,12 +10,34 @@ Page {
         contentHeight: childrenRect.height
         header: PageHeader {
             title: "Bluewhale"
+            id:header
+        }
+        Slider {
+            id: changingSlider
+            value: 30
+            minimumValue:0
+            maximumValue:100
+            enabled: true
+            visible: false
+            width: parent.width - theme.paddingLarge * 2
+            handleVisible: false
+            anchors.horizontalCenter: parent.horizontalCenter
         }
 
         ListModel {
             id: notesmodel
         }
         model: notesmodel
+        TextField {
+            id: searchinput
+            visible: false
+            width: parent.width
+            anchors.top: header.bottom
+            Keys.onReturnPressed: {
+                EvernoteSession.searchNotes(searchinput.text)
+            }
+        }
+
         delegate: BackgroundItem {
             height: childrenRect.height
             Label {
@@ -60,7 +82,7 @@ Page {
 
             onClicked: {
                 var editpage = Qt.resolvedUrl("View.qml")
-                var note = Cache.getNote(index)
+                var note = Cache.getNoteForGuid(guid)
                 pageStack.push(editpage, {targetNote: note}, 0)
                 EvernoteSession.getNoteContentAsync(note)
             }
@@ -80,6 +102,13 @@ Page {
             MenuItem {
                 text: "Add note"
                 onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))
+            }
+            MenuItem {
+                text: "Search"
+                onClicked: {
+                    searchinput.visible = true
+                    searchinput.forceActiveFocus()
+                }
             }
         }
         Timer {
@@ -107,6 +136,16 @@ Page {
             onNoteAdded: {
                 EvernoteSession.getNoteTags(note)
                 notesmodel.append(note)
+            }
+        }
+        Connections {
+            target: EvernoteSession
+            onSyncStarted: {
+                changingSlider.visible = true
+                changingSlider.value = percent
+            }
+            onSyncFinished: {
+                changingSlider.visible = false
             }
         }
     }

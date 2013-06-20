@@ -13,6 +13,11 @@ Page {
         }
         PullDownMenu {
             MenuItem {
+                text: "Attachments"
+                onClicked: pageStack.push(Qt.resolvedUrl("Attachments.qml"), {targetNote: targetNote})
+            }
+
+            MenuItem {
                 text: "Delete"
                 onClicked: {
                     deleteRemorse.execute("Deleting", function(){

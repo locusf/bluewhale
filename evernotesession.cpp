@@ -462,3 +462,34 @@ void EvernoteSession::getNoteTags(NoteWrapper *note)
 {
     note->note.tagGuids = DatabaseManager::instance()->getNoteTagGuids(note->note);
 }
+
+void EvernoteSession::searchNotes(QString query)
+{
+    try {
+        NotesMetadataList result;
+        NoteFilter filter;
+        NotesMetadataResultSpec spec;
+        spec.__isset.includeCreated = true;
+        spec.__isset.includeTagGuids = true;
+        spec.__isset.includeTitle = true;
+        spec.includeTitle = true;
+        spec.includeCreated = true;
+        spec.includeTagGuids = true;
+        query = query + "*";
+        filter.words = query.toStdString();
+        filter.__isset.words = true;
+        filter.ascending = true;
+        filter.__isset.ascending = true;
+        syncClient->findNotesMetadata(result, Settings::instance()->getAuthToken().toStdString(), filter, 0, 10, spec);
+        qDebug() << result.totalNotes;
+        if (result.totalNotes > 0) {
+            Cache::instance()->fireClearNotes();
+            for (int i = 0; i < result.notes.size(); i++){
+                Cache::instance()->fireNoteAdded(Cache::instance()->getNoteForGuid(QString::fromStdString(result.notes.at(i).guid)));
+            }
+        }
+
+    } catch(TException &tx) {
+            qDebug() << "EvernoteSession :: search failed" << tx.what();
+    }
+}

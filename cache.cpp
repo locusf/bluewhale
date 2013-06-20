@@ -91,9 +91,34 @@ TagWrapper* Cache::getTagForGuid(QString guid) {
         }
     }
 }
+NoteWrapper* Cache::getNoteForGuid(QString guid) {
+    for (int i=0; i < notes->size(); i++) {
+        if(notes->at(i).guid == guid.toStdString()) {
+            return new NoteWrapper(notes->at(i));
+        }
+    }
+}
 
 QString Cache::genGuid() {
     return QUuid::createUuid().toString().replace("{","").replace("}","");
+}
+
+ResourceWrapper* Cache::getResourceForNote(NoteWrapper* note, QString guid){
+    std::vector<Resource> resources = DatabaseManager::instance()->getNoteResources(note->note);
+    for (int i = 0; i < resources.size(); i++) {
+        Resource res = resources.at(i);
+        if (res.guid == guid.toStdString()) {
+            return new ResourceWrapper(res);
+        }
+    }
+}
+
+void Cache::fireClearNotes() {
+    clearNotes();
+}
+
+void Cache::fireNoteAdded(NoteWrapper *note) {
+    noteAdded(note);
 }
 
 /*void Cache::loadTags(){

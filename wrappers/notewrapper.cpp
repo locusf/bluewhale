@@ -18,6 +18,11 @@ QString NoteWrapper::getTitle(){
 Guid NoteWrapper::getGuid(){
     return note.guid;
 }
+QString NoteWrapper::getGuidString()
+{
+    return QString::fromStdString(note.guid);
+}
+
 QString NoteWrapper::getDateCreated(){
     QDateTime date;
     date.setTime_t(note.created/1000);
@@ -74,6 +79,14 @@ QString NoteWrapper::getTagsString()
     }
     result.chop(2);
     return result;
+}
+
+QVariantList NoteWrapper::getResources() {
+    QVariantList resources;
+    for (int i=0; i < note.resources.size(); i++) {
+        resources.append(QString::fromStdString(note.resources.at(i).guid));
+    }
+    return resources;
 }
 
 \

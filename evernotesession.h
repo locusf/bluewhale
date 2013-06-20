@@ -86,6 +86,7 @@ public slots:
 
     QString createTag(QString name);
 
+    void searchNotes(QString query);
     void exit();
     static void drop();
     void logout();

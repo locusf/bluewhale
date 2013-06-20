@@ -15,6 +15,7 @@ class ResourceWrapper : public QObject
     Q_OBJECT
     Q_PROPERTY(QString hash READ getHash)
     Q_PROPERTY(QString guid READ getGuid)
+    Q_PROPERTY(int size READ getSize)
     Q_PROPERTY(QString filename READ getFilename)
     Q_PROPERTY(QString fullPath READ getFullPath)
 
@@ -32,6 +33,7 @@ public slots:
     QString getFilename();
     QString getFullPath();
     static QString convertToHex(std::string plain);
+    int getSize();
 };
 
 #endif // RESOURCEWRAPPER_H

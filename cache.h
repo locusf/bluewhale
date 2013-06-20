@@ -43,8 +43,12 @@ public slots:
     QString getCacheFileName(NoteWrapper* note);
     NotebookWrapper* getNotebook(NoteWrapper* note);
     NotebookWrapper* getFirstNoteBook();
+    NoteWrapper* getNoteForGuid(QString guid);
     TagWrapper* getTagForGuid(QString guid);
     QString genGuid();
+    ResourceWrapper* getResourceForNote(NoteWrapper* note, QString guid);
+    void fireClearNotes();
+    void fireNoteAdded(NoteWrapper* note);
 private:
     static Cache* m_instance;
     QVector <Tag>* tags;

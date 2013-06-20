@@ -6,8 +6,9 @@ Page {
     id: addpage
     SilicaFlickable {
         anchors.fill: parent
-        //PullDownMenu {
-            Button {
+        contentHeight: childrenRect.height
+        PullDownMenu {
+            MenuItem {
                 text: "Save"
                 onClicked: {
                     var note = Qt.createQmlObject("import com.evernote.types 1.0; Note {}", addpage)
@@ -18,7 +19,7 @@ Page {
                     EvernoteSession.syncAsync()
                 }
             }
-        //}
+        }
         Column {
             id: areacol
             width: parent.width

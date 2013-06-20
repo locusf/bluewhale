@@ -36,3 +36,6 @@ QString ResourceWrapper::getFullPath(){
     return FileUtils::resourceContentFilePath(r);
 }
 
+int ResourceWrapper::getSize() {
+    return r.data.size;
+}
