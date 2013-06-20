@@ -87,9 +87,17 @@ Page {
             running: true
             onTriggered: {
                 EvernoteSession.syncAsync()
-
             }
         }
+        Timer {
+            interval: 900000
+            repeat: true
+            running: true
+            onTriggered: {
+                EvernoteSession.syncAsync()
+            }
+        }
+
         Connections {
             target: Cache
             onClearNotes: {
