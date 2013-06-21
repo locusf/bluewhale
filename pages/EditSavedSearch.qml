@@ -22,10 +22,10 @@ Page {
                     search.name = txtTitle.text
                     search.query = notearea.text
                     EvernoteSession.updateSavedSearch(search)
+                    pageStack.pop()
                     EvernoteSession.syncAsync()
                     Cache.fireClearSearches()
                     Cache.fillWithSavedSearches()
-                    pageStack.pop()
                 }
             }
         }

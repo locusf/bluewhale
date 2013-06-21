@@ -109,7 +109,10 @@ Page {
                 text: "Saved searches"
                 onClicked: pageStack.push(Qt.resolvedUrl("SavedSearch.qml"))
             }
-
+            MenuItem {
+                text: "Clear search"
+                onClicked: Cache.load()
+            }
             MenuItem {
                 text: "Add note"
                 onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))

@@ -15,10 +15,10 @@ Page {
                     search.name = txtTitle.text
                     search.query = notearea.text
                     EvernoteSession.addSavedSearch(search)
-                    Cache.fireClearSearches()
-                    Cache.fillWithSavedSearches()
                     pageStack.pop()
                     EvernoteSession.syncAsync()
+                    Cache.fireClearSearches()
+                    Cache.fillWithSavedSearches()
                 }
             }
         }
@@ -26,17 +26,17 @@ Page {
             id: areacol
             width: parent.width
             PageHeader {
-                title: "New Note"
+                title: "New Saved search"
             }
             Label {
-                text: "Title"
+                text: "Name"
             }
             TextField {
                 id: txtTitle
                 width: parent.width
             }
             Label {
-                text: "Content"
+                text: "Query"
             }
             TextField {
                 id: notearea
