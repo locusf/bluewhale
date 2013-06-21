@@ -34,6 +34,7 @@ void Cache::load(){
     notes = DatabaseManager::instance()->getNotes();
     searches = DatabaseManager::instance()->getSavedSearches();
     clearNotes();
+    clearSearches();
     qDebug() << "Notes size: " << notes->size();
     for(int i=0;i<notes->size();i++){
         Note note = notes->at(i);
@@ -138,6 +139,10 @@ void Cache::fireClearNotes() {
 
 void Cache::fireNoteAdded(NoteWrapper *note) {
     noteAdded(note);
+}
+
+void Cache::fireClearSearches() {
+    clearSearches();
 }
 
 /*void Cache::loadTags(){

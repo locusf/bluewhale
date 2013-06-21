@@ -22,6 +22,7 @@
 #include "settings.h"
 #include "fileutils.h"
 #include "wrappers/resourcewrapper.h"
+#include "wrappers/savedsearchwrapper.h"
 
 using namespace std;
 using namespace boost;
@@ -83,6 +84,9 @@ public slots:
     void updateNote(NoteWrapper* note);
     void updateNoteTags(NoteWrapper* note);
     void deleteNote(NoteWrapper* note);
+
+    void addSavedSearch(SavedSearchWrapper* search);
+    void updateSavedSearch(SavedSearchWrapper* search);
 
     QString createTag(QString name);
 

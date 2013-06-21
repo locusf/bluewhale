@@ -505,3 +505,31 @@ void EvernoteSession::searchNotes(QString query)
             qDebug() << "EvernoteSession :: search failed" << tx.what();
     }
 }
+
+void EvernoteSession::addSavedSearch(SavedSearchWrapper *search) {
+    try {
+        SavedSearch ref_search;
+        ref_search.__isset.name = true;
+        ref_search.__isset.query = true;
+        ref_search.name = search->getName().toStdString();
+        ref_search.query = search->getQuery().toStdString();
+        syncClient->createSearch(ref_search, Settings::instance()->getAuthToken().toStdString(), ref_search);
+    } catch(EDAMUserException &tx) {
+        qDebug() << "EvernoteSession :: create search failed: " << tx.what() << " error code: " << tx.errorCode << " parameter " << QString::fromStdString(tx.parameter);
+    }
+}
+
+void EvernoteSession::updateSavedSearch(SavedSearchWrapper *search) {
+    try {
+        SavedSearch ref_search;
+        ref_search.__isset.name = true;
+        ref_search.__isset.query = true;
+        ref_search.__isset.guid = true;
+        ref_search.name = search->getName().toStdString();
+        ref_search.query = search->getQuery().toStdString();
+        ref_search.guid = search->getGuid().toStdString();
+        syncClient->updateSearch(Settings::instance()->getAuthToken().toStdString(), ref_search);
+    } catch(EDAMUserException &tx) {
+        qDebug() << "EvernoteSession :: update search failed: " << tx.what() << " error code: " << tx.errorCode << " parameter " << QString::fromStdString(tx.parameter);
+    }
+}

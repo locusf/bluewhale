@@ -12,8 +12,9 @@ using namespace evernote::edam;
 class SavedSearchWrapper : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString name READ getName)
-    Q_PROPERTY(QString query READ getQuery)
+    Q_PROPERTY(QString name READ getName WRITE setName)
+    Q_PROPERTY(QString query READ getQuery WRITE setQuery)
+    Q_PROPERTY(QString guid READ getGuid)
 public:
     explicit SavedSearchWrapper(QObject *parent = 0);
     SavedSearchWrapper(SavedSearch ssearch);
@@ -23,6 +24,9 @@ signals:
 public slots:
     QString getName();
     QString getQuery();
+    QString getGuid();
+    void setName(QString name);
+    void setQuery(QString query);
 private:
     SavedSearch search;
 };

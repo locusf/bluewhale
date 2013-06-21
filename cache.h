@@ -29,6 +29,7 @@ public:
 
 signals:
     void clearNotes();
+    void clearSearches();
     void noteAdded(NoteWrapper* note);
     void tagFired(TagWrapper* tag);
     void notebookFired(NotebookWrapper* notebook);
@@ -55,6 +56,7 @@ public slots:
 
     void fireClearNotes();
     void fireNoteAdded(NoteWrapper* note);
+    void fireClearSearches();
 private:
     static Cache* m_instance;
     QVector <Tag>* tags;

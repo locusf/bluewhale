@@ -15,6 +15,15 @@ Page {
             enabled: searchmodel.count == 0
             text: "No saved searches"
         }
+        PullDownMenu {
+            MenuItem {
+                text: "New saved search"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("AddSavedSearch.qml"))
+                }
+            }
+        }
+
         Timer {
             interval: 1
             running: true
@@ -26,6 +35,9 @@ Page {
             target: Cache
             onSavedSearchFired: {
                 searchmodel.append(search);
+            }
+            onClearSearches: {
+                searchmodel.clear()
             }
         }
         delegate: BackgroundItem {
@@ -56,9 +68,12 @@ Page {
             }
             onClicked: {
                 pageStack.pop()
-                console.log(query)
                 var squery = query.replace("\"","")
                 EvernoteSession.searchNotes(squery)
+            }
+            onPressAndHold: {
+                var ssearch = Cache.getSavedSearchForGuid(guid)
+                pageStack.push(Qt.resolvedUrl("EditSavedSearch.qml"), {search: ssearch})
             }
         }
     }
