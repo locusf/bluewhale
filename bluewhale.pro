@@ -62,7 +62,8 @@ SOURCES += main.cpp \
     kQOAuth/kqoauthauthreplyserver.cpp \
     kQOAuth/kqoauthrequest_1.cpp \
     kQOAuth/kqoauthrequest_xauth.cpp \
-    oauth.cpp
+    oauth.cpp \
+    wrappers/savedsearchwrapper.cpp
 
 
 # C++ headers
@@ -151,7 +152,8 @@ HEADERS += edam/UserStore_constants.h \
     kQOAuth/kqoauthauthreplyserver_p.h \
     kQOAuth/kqoauthutils.h \
     kQOAuth/kqoauthrequest_xauth_p.h \
-    oauth.h
+    oauth.h \
+    wrappers/savedsearchwrapper.h
 
 
 # QML files and folders

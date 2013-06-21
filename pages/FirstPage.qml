@@ -106,6 +106,11 @@ Page {
                 onClicked: EvernoteSession.syncAsync()
             }
             MenuItem {
+                text: "Saved searches"
+                onClicked: pageStack.push(Qt.resolvedUrl("SavedSearch.qml"))
+            }
+
+            MenuItem {
                 text: "Add note"
                 onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))
             }

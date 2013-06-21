@@ -326,6 +326,18 @@ void EvernoteSession::sync(){
                         DatabaseManager::instance()->commitTransaction();
                     }
                     syncStarted(percent);
+                    std::vector <SavedSearch> searches = chunk.searches;
+                    qDebug() << "EvernoteSession :: searches " << chunk.searches.size();
+                    if(!searches.empty()) {
+                        DatabaseManager::instance()->beginTransacton();
+                        for(int i=0; i < searches.size(); i++) {
+                            SavedSearch search = searches.at(i);
+                            DatabaseManager::instance()->saveSavedSearch(search);
+                            qDebug() << "EvernoteSession :: search " << search.name.c_str();
+                        }
+                        DatabaseManager::instance()->commitTransaction();
+                    }
+                    syncStarted(percent);
 
                     qDebug() << "expunged notes: " << chunk.expungedNotes.size();
 

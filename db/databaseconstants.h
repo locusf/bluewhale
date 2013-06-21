@@ -46,6 +46,11 @@ public:
     static const QString SELECT_RESOURCES_FOR_NOTE;
     static const QString DELETE_NOTE_RESOURCES;
 
+    static const QString SAVEDSEARCH_TABLE;
+    static const QString CREATE_SAVEDSEARCH_TABLE;
+    static const QString INSERT_SAVEDSEARCH;
+    static const QString SELECT_ALL_SAVEDSEARCH;
+    static const QString DELETE_SAVEDSEARCH;
 signals:
 
 public slots:

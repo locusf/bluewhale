@@ -16,6 +16,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType <NoteWrapper> ("com.evernote.types",1,0, "Note");
     qmlRegisterType <ResourceWrapper> ("com.evernote.types",1,0, "Resource");
     qmlRegisterType <NotebookWrapper> ("com.evernote.types",1,0, "Notebook");
+    qmlRegisterType <SavedSearchWrapper> ("com.evernote.types",1,0, "SavedSearch");
     Sailfish::showView(view.data());
 
 

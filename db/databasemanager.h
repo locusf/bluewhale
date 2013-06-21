@@ -54,6 +54,10 @@ public slots:
     bool saveNoteTags(Note note);
     void deleteNoteTags(Note note);
 
+    bool saveSavedSearch(SavedSearch ssearch);
+    void deleteSavedSearch(SavedSearch ssearch);
+    QVector <SavedSearch>* getSavedSearches();
+
     std::vector <std::string> getNoteTagGuids(Note note);
     std::vector <Resource> getNoteResources(Note note);
 

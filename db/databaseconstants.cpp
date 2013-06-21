@@ -159,6 +159,19 @@ const QString DatabaseConstants::INSERT_RESOURCE = INSERT_REPLACE+RESOURCES_TABL
 const QString DatabaseConstants::SELECT_RESOURCES_FOR_NOTE = "SELECT * FROM "+RESOURCES_TABLE+ " WHERE noteGuid=?";
 const QString DatabaseConstants::DELETE_NOTE_RESOURCES = "DELETE FROM "+RESOURCES_TABLE+" WHERE noteGuid=?";
 
+const QString DatabaseConstants::SAVEDSEARCH_TABLE = "savedsearch";
+const QString DatabaseConstants::CREATE_SAVEDSEARCH_TABLE = CREATE_TABLE+SAVEDSEARCH_TABLE + "("+
+        "guid TEXT PRIMARY KEY,"+
+        "name TEXT,"+
+        "query TEXT"+
+        ")";
+const QString DatabaseConstants::INSERT_SAVEDSEARCH = INSERT_REPLACE+SAVEDSEARCH_TABLE+
+        " (guid ,"+
+        "name ,"+
+        "query"
+        +") VALUES (?,?,?)";
+const QString DatabaseConstants::SELECT_ALL_SAVEDSEARCH = "SELECT * FROM "+SAVEDSEARCH_TABLE +" ORDER BY name DESC";
+const QString DatabaseConstants::DELETE_SAVEDSEARCH = "DELET FROM "+SAVEDSEARCH_TABLE+" WHERE guid=?";
 
 DatabaseConstants::DatabaseConstants(QObject *parent) :
     QObject(parent)

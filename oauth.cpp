@@ -68,7 +68,7 @@ void OAuth::getAccess()
 {
     init();
     QString url = QString("https://sandbox.evernote.com/oauth");
-    mOauthRequest->initRequest(KQOAuthRequest::TemporaryCredentials, QUrl(url)); //"https://www.evernote.com/oauth"
+    mOauthRequest->initRequest(KQOAuthRequest::TemporaryCredentials, QUrl(url)); //"https://sandbox.evernote.com/oauth"
     QString consumer_key = "locusf";
     QString consumer_secret = "011e5c43cc39448c";
     mOauthRequest->setConsumerKey(consumer_key);

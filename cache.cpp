@@ -32,6 +32,7 @@ void Cache::load(){
     tags = DatabaseManager::instance()->getTags();
     notebooks = DatabaseManager::instance()->getNotebooks();
     notes = DatabaseManager::instance()->getNotes();
+    searches = DatabaseManager::instance()->getSavedSearches();
     clearNotes();
     qDebug() << "Notes size: " << notes->size();
     for(int i=0;i<notes->size();i++){
@@ -70,6 +71,14 @@ void Cache::fillWithNotebooks(){
         notebookFired(wrapper);
     }
 }
+void Cache::fillWithSavedSearches() {
+    for(int i=0; i < searches->size(); i++) {
+        SavedSearch search = searches->at(i);
+        SavedSearchWrapper* wrapper = new SavedSearchWrapper(search);
+        savedSearchFired(wrapper);
+    }
+}
+
 QString Cache::getCacheFileName(NoteWrapper* note){
     return FileUtils::noteContentFilePath(note);
 }
@@ -95,6 +104,16 @@ NoteWrapper* Cache::getNoteForGuid(QString guid) {
     for (int i=0; i < notes->size(); i++) {
         if(notes->at(i).guid == guid.toStdString()) {
             return new NoteWrapper(notes->at(i));
+        }
+    }
+}
+SavedSearchWrapper* Cache::getSavedSearch(int index) {
+    return new SavedSearchWrapper(searches->at(index));
+}
+SavedSearchWrapper* Cache::getSavedSearchForGuid(QString guid) {
+    for (int i=0; i < searches->size(); i++) {
+        if(searches->at(i).guid == guid.toStdString()) {
+            return new SavedSearchWrapper(searches->at(i));
         }
     }
 }

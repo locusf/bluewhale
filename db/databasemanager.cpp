@@ -57,6 +57,7 @@ void DatabaseManager::createTables(){
     queries.append(DatabaseConstants::CREATE_NOTES_TABLE_QUERY);
     queries.append(DatabaseConstants::CREATE_NOTE_TAGS_TABLE_QUERY);
     queries.append(DatabaseConstants::CREATE_RESOURCES_TABLE);
+    queries.append(DatabaseConstants::CREATE_SAVEDSEARCH_TABLE);
 
     for(int i=0;i<queries.size();i++){
         db->exec(queries.at(i));
@@ -363,6 +364,38 @@ QVector <Note>* DatabaseManager::getNotes(){
         */
 
         result->append(note);
+    }
+    return result;
+}
+
+bool DatabaseManager::saveSavedSearch(SavedSearch ssearch) {
+    /*
+     *"guid TEXT PRIMARY KEY,"+
+        "name TEXT,"+
+        "query TEXT"+
+     */
+    QSqlQuery savedSearchQuery = QSqlQuery(DatabaseConstants::INSERT_SAVEDSEARCH, *db);
+    savedSearchQuery.addBindValue(QString::fromStdString(ssearch.guid));
+    savedSearchQuery.addBindValue(QString::fromStdString(ssearch.name));
+    savedSearchQuery.addBindValue(QString::fromStdString(ssearch.query));
+    savedSearchQuery.exec();
+}
+void DatabaseManager::deleteSavedSearch(SavedSearch ssearch) {
+    QSqlQuery query = QSqlQuery(DatabaseConstants::DELETE_SAVEDSEARCH, *db);
+    query.addBindValue(QString::fromStdString(ssearch.guid));
+    query.exec();
+}
+
+QVector<SavedSearch>* DatabaseManager::getSavedSearches() {
+    QVector<SavedSearch>* result = new QVector<SavedSearch>();
+    QSqlQuery query = QSqlQuery(DatabaseConstants::SELECT_ALL_SAVEDSEARCH, *db);
+    bool ok = query.exec();
+    while(query.next()){
+        SavedSearch search;
+        search.name = query.record().value("name").toString().toStdString();
+        search.guid = query.record().value("guid").toString().toStdString();
+        search.query = query.record().value("query").toString().toStdString();
+        result->append(search);
     }
     return result;
 }

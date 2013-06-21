@@ -8,6 +8,7 @@
 #include "wrappers/tagwrapper.h"
 #include "wrappers/notewrapper.h"
 #include "wrappers/notebookwrapper.h"
+#include "wrappers/savedsearchwrapper.h"
 #include "db/databaseconstants.h"
 #include "db/databasemanager.h"
 #include "settings.h"
@@ -31,6 +32,7 @@ signals:
     void noteAdded(NoteWrapper* note);
     void tagFired(TagWrapper* tag);
     void notebookFired(NotebookWrapper* notebook);
+    void savedSearchFired(SavedSearchWrapper* search);
 public slots:
     void load();
     void clear();
@@ -39,6 +41,7 @@ public slots:
     void openTestFileWindow();
     void fillWithTags();
     void fillWithNotebooks();
+    void fillWithSavedSearches();
     QString getNoteContent(NoteWrapper* note);
     QString getCacheFileName(NoteWrapper* note);
     NotebookWrapper* getNotebook(NoteWrapper* note);
@@ -47,6 +50,9 @@ public slots:
     TagWrapper* getTagForGuid(QString guid);
     QString genGuid();
     ResourceWrapper* getResourceForNote(NoteWrapper* note, QString guid);
+    SavedSearchWrapper* getSavedSearch(int index);
+    SavedSearchWrapper* getSavedSearchForGuid(QString guid);
+
     void fireClearNotes();
     void fireNoteAdded(NoteWrapper* note);
 private:
@@ -54,6 +60,7 @@ private:
     QVector <Tag>* tags;
     QVector <Notebook>* notebooks;
     QVector <Note>* notes;
+    QVector <SavedSearch>* searches;
 };
 
 #endif // CACHE_H
