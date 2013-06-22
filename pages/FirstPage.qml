@@ -102,10 +102,6 @@ Page {
             }
 
             MenuItem {
-                text: "Sync"
-                onClicked: EvernoteSession.syncAsync()
-            }
-            MenuItem {
                 text: "Saved searches"
                 onClicked: pageStack.push(Qt.resolvedUrl("SavedSearch.qml"))
             }
@@ -113,6 +109,11 @@ Page {
                 text: "Clear search"
                 onClicked: Cache.load()
             }
+            MenuItem {
+                text: "Notebooks"
+                onClicked: pageStack.push(Qt.resolvedUrl("ViewNoteBooks.qml"))
+            }
+
             MenuItem {
                 text: "Add note"
                 onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))
@@ -124,6 +125,11 @@ Page {
                     searchinput.forceActiveFocus()
                 }
             }
+            MenuItem {
+                text: "Sync"
+                onClicked: EvernoteSession.syncAsync()
+            }
+
         }
         PushUpMenu {
             MenuItem {

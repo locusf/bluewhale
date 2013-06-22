@@ -15,8 +15,8 @@ const QString DatabaseConstants::INSERT_TAG_QUERY= INSERT_REPLACE+TAGS_TABLE+" (
 const QString DatabaseConstants::SELECT_TAGS_QUERY = "SELECT * FROM "+TAGS_TABLE +" ORDER BY name ASC";
 
 const QString DatabaseConstants::NOTEBOOKS_TABLE = "notebooks";
-const QString DatabaseConstants::CREATE_NOTEBOOKS_TABLE_QUERY= CREATE_TABLE + NOTEBOOKS_TABLE + " (guid TEXT PRIMARY KEY, name TEXT, usn NUMBER)";
-const QString DatabaseConstants::INSERT_NOTEBOOK_QUERY = INSERT_REPLACE+NOTEBOOKS_TABLE+" (guid, name, usn) VALUES(?,?,?)";
+const QString DatabaseConstants::CREATE_NOTEBOOKS_TABLE_QUERY = CREATE_TABLE + NOTEBOOKS_TABLE + " (guid TEXT PRIMARY KEY, name TEXT, idefault INT, usn INT)";
+const QString DatabaseConstants::INSERT_NOTEBOOK_QUERY = INSERT_REPLACE+NOTEBOOKS_TABLE+" (guid, name, idefault, usn) VALUES(?,?,?,?)";
 const QString DatabaseConstants::SELECT_NOTEBOOKS_QUERY = "SELECT * FROM "+NOTEBOOKS_TABLE +" ORDER BY name ASC";
 
 const QString DatabaseConstants::NOTES_TABLE="notes";

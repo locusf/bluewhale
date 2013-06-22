@@ -24,6 +24,8 @@ class Cache : public QObject
     Q_OBJECT
 public:
     static Cache* instance();
+    static Notebook* selectedNotebook();
+
     Cache(QObject *parent = 0);
     ~Cache();
 
@@ -37,6 +39,7 @@ signals:
 public slots:
     void load();
     void clear();
+    void setSelectedNotebook(QString guid);
     NoteWrapper* getNote(int index);
     void clearFileCache();
     void openTestFileWindow();
@@ -59,6 +62,7 @@ public slots:
     void fireClearSearches();
 private:
     static Cache* m_instance;
+    static Notebook* m_sel_notebook;
     QVector <Tag>* tags;
     QVector <Notebook>* notebooks;
     QVector <Note>* notes;

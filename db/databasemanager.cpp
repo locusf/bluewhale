@@ -147,8 +147,10 @@ bool DatabaseManager::saveNotebook(Notebook notebook){
     QSqlQuery query = QSqlQuery(DatabaseConstants::INSERT_NOTEBOOK_QUERY, *db);
     query.addBindValue(QString::fromStdString(notebook.guid));
     query.addBindValue(QString::fromStdString(notebook.name));
+    query.addBindValue(static_cast<int>(notebook.defaultNotebook));
     query.addBindValue(notebook.updateSequenceNum);
     bool ok = query.exec();
+    qDebug() << query.boundValues();
     if(ok){
         qDebug() << "DatabaseManager :: notebook saved (" << notebook.name.c_str() << ")";
     }else{
@@ -168,6 +170,7 @@ QVector <Notebook>* DatabaseManager::getNotebooks(){
         notebook.name = query.record().value("name").toString().toStdString();
         notebook.updateSequenceNum = query.record().value("usn").toInt();
         notebook.guid = query.record().value("guid").toString().toStdString();
+        notebook.defaultNotebook = query.record().value("default") == 1 ? true : false;
         result->append(notebook);
     }
     return result;

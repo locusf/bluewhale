@@ -4,6 +4,7 @@
 #include <QUuid>
 #include <QtCore>
 Cache* Cache::m_instance = NULL;
+Notebook* Cache::m_sel_notebook = NULL;
 
 Cache::Cache(QObject *parent) :
     QObject(parent)
@@ -12,12 +13,27 @@ Cache::Cache(QObject *parent) :
     notebooks = new QVector <Notebook> ();
     notes = new QVector <Note>();
 }
+
 Cache* Cache::instance(){
    if(!m_instance){
         m_instance = new Cache();
    }
    return m_instance;
 }
+
+Notebook* Cache::selectedNotebook(){
+    return m_sel_notebook;
+}
+
+void Cache::setSelectedNotebook(QString guid){
+    for (int i=0; i < notebooks->size(); i++) {
+        Notebook notebook = notebooks->at(i);
+        if(notebook.guid == guid.toStdString()) {
+            m_sel_notebook = &notebook;
+        }
+    }
+}
+
 Cache::~Cache() {
 
 }
@@ -38,8 +54,15 @@ void Cache::load(){
     qDebug() << "Notes size: " << notes->size();
     for(int i=0;i<notes->size();i++){
         Note note = notes->at(i);
-        NoteWrapper* noteWrapper = new NoteWrapper(note);
-        noteAdded(noteWrapper);
+        if (selectedNotebook() != NULL) {
+            if (note.notebookGuid == selectedNotebook()->guid){
+                NoteWrapper* noteWrapper = new NoteWrapper(note);
+                noteAdded(noteWrapper);
+            }
+        } else {
+            NoteWrapper* noteWrapper = new NoteWrapper(note);
+            noteAdded(noteWrapper);
+        }
     }
 }
 NoteWrapper* Cache::getNote(int index){
@@ -68,6 +91,9 @@ void Cache::fillWithTags(){
 void Cache::fillWithNotebooks(){
     for(int i=0;i<notebooks->size();i++){
         Notebook notebook = notebooks->at(i);
+        if (notebook.defaultNotebook) {
+            m_sel_notebook = &notebook;
+        }
         NotebookWrapper* wrapper = new NotebookWrapper(notebook);
         notebookFired(wrapper);
     }
