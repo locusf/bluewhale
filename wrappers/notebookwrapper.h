@@ -13,7 +13,7 @@ using namespace evernote::edam;
 class NotebookWrapper : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString name READ getName)
+    Q_PROPERTY(QString name READ getName WRITE setName)
     Q_PROPERTY(QString guid READ getGuid)
 
 public:
@@ -26,6 +26,7 @@ signals:
 public slots:
     QString getName();
     QString getGuid();
+    void setName(QString name);
 };
 
 #endif // NOTEBOOKWRAPPER_H

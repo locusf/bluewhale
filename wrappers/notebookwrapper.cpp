@@ -11,6 +11,10 @@ NotebookWrapper::NotebookWrapper(Notebook notebook, QObject *parent):QObject(par
 QString NotebookWrapper::getName(){
     return QString::fromStdString(notebook.name);
 }
+void NotebookWrapper::setName(QString name){
+    this->notebook.name = name.toStdString();
+}
+
 QString NotebookWrapper::getGuid(){
     return QString::fromStdString(notebook.guid);
 }

@@ -88,6 +88,8 @@ public slots:
     void addSavedSearch(SavedSearchWrapper* search);
     void updateSavedSearch(SavedSearchWrapper* search);
 
+    void addNotebook(NotebookWrapper* notebook);
+
     QString createTag(QString name);
 
     void searchNotes(QString query);

@@ -65,6 +65,10 @@ void NoteWrapper::setTitle(QString title)
     this->note.title = title.toStdString();
 }
 
+void NoteWrapper::setNotebookGUID(QString guid) {
+    this->note.notebookGuid = guid.toStdString();
+}
+
 QString NoteWrapper::getTagsString()
 {
     QString result;

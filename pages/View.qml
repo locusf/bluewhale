@@ -38,6 +38,7 @@ Page {
             onNoteContentDownloaded: {
                 txtTitle.text = targetNote.title
                 notearea.html = Cache.getNoteContent(targetNote)
+                Cache.fillWithNotebooks()
                 if (targetNote.tagGuids.length !== 0) {
                     tagsrow.visible = true
                     var i = 0;
@@ -47,6 +48,17 @@ Page {
                         tagstitl.text += Cache.getTagForGuid(tags[i]).name + ","
                     }
                     tagstitl.text = tagstitl.text.slice(0,-1)
+                }
+            }
+        }
+        Connections {
+            target: Cache
+            onNotebookFired: {
+                notebooksmodel.append(notebook)
+                console.log(notesbox.currentIndex)
+                if (targetNote.notebookGUID == notebook.guid)
+                {
+                    notesbox.currentIndex = notebooksmodel.count - 1
                 }
             }
         }
@@ -66,8 +78,21 @@ Page {
                 width: parent.width
                 readOnly: true
             }
-
-
+            ComboBox {
+                label: "Notebook"
+                id: notesbox
+                menu: ContextMenu {
+                    Repeater {
+                        model: ListModel { id: notebooksmodel }
+                        MenuItem {
+                            text: name
+                            onClicked: {
+                                selectedNotebookGuid = guid
+                            }
+                        }
+                    }
+                }
+            }
             Row {
                 id: tagsrow
                 visible: false

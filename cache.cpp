@@ -22,6 +22,15 @@ Cache* Cache::instance(){
 }
 
 Notebook* Cache::selectedNotebook(){
+    if (!m_sel_notebook) {
+        for (int i=0; i < Cache::instance()->notebooks->size(); i++) {
+            Notebook notebook = Cache::instance()->notebooks->at(i);
+            if(notebook.defaultNotebook) {
+                qDebug() << "Got notebook " << QString::fromStdString(notebook.name);
+                m_sel_notebook = const_cast<Notebook*>(&Cache::instance()->notebooks->at(i));
+            }
+        }
+    }
     return m_sel_notebook;
 }
 
@@ -29,7 +38,8 @@ void Cache::setSelectedNotebook(QString guid){
     for (int i=0; i < notebooks->size(); i++) {
         Notebook notebook = notebooks->at(i);
         if(notebook.guid == guid.toStdString()) {
-            m_sel_notebook = &notebook;
+            qDebug() << "Got notebook " << QString::fromStdString(notebook.guid);
+            m_sel_notebook = const_cast<Notebook*>(&notebooks->at(i));
         }
     }
 }
@@ -52,10 +62,12 @@ void Cache::load(){
     clearNotes();
     clearSearches();
     qDebug() << "Notes size: " << notes->size();
+    qDebug() << (m_sel_notebook == NULL);
+
     for(int i=0;i<notes->size();i++){
         Note note = notes->at(i);
-        if (selectedNotebook() != NULL) {
-            if (note.notebookGuid == selectedNotebook()->guid){
+        if (m_sel_notebook) {
+            if (note.notebookGuid == m_sel_notebook->guid){
                 NoteWrapper* noteWrapper = new NoteWrapper(note);
                 noteAdded(noteWrapper);
             }

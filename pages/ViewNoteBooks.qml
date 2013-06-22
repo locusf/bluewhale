@@ -11,6 +11,15 @@ Page {
         header: PageHeader {
             title: "Notebooks"
         }
+        PullDownMenu {
+            MenuItem {
+                text: "New notebook"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("AddNotebook.qml"))
+                }
+            }
+        }
+
         delegate: BackgroundItem {
             Label {
                 text: name

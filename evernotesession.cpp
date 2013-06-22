@@ -390,8 +390,8 @@ void EvernoteSession::addNote(NoteWrapper *note) {
         reference_note.__isset.content = true;
         reference_note.__isset.contentHash = true;
         reference_note.__isset.contentLength = true;
-        reference_note.notebookGuid = Cache::selectedNotebook()->guid;
         reference_note.__isset.notebookGuid = true;
+        reference_note.notebookGuid = note->note.notebookGuid;
         std::string assembled_content = note->note.content;
         reference_note.content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>" + QString::fromStdString(assembled_content).replace("\n", "<br />").toStdString() + "</en-note>";
         reference_note.contentLength = assembled_content.size();
@@ -529,6 +529,17 @@ void EvernoteSession::updateSavedSearch(SavedSearchWrapper *search) {
         ref_search.query = search->getQuery().toStdString();
         ref_search.guid = search->getGuid().toStdString();
         syncClient->updateSearch(Settings::instance()->getAuthToken().toStdString(), ref_search);
+    } catch(EDAMUserException &tx) {
+        qDebug() << "EvernoteSession :: update search failed: " << tx.what() << " error code: " << tx.errorCode << " parameter " << QString::fromStdString(tx.parameter);
+    }
+}
+
+void EvernoteSession::addNotebook(NotebookWrapper *notebook){
+    try {
+        Notebook ref_notebook;
+        ref_notebook.__isset.name = true;
+        ref_notebook.name = notebook->getName().toStdString();
+        syncClient->createNotebook(ref_notebook, Settings::instance()->getAuthToken().toStdString(), ref_notebook);
     } catch(EDAMUserException &tx) {
         qDebug() << "EvernoteSession :: update search failed: " << tx.what() << " error code: " << tx.errorCode << " parameter " << QString::fromStdString(tx.parameter);
     }
