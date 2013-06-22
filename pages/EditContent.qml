@@ -5,13 +5,26 @@ import Sailfish.Silica 1.0
 Page {
     id: editpage
     property variant targetNote;
+    property string selectedNotebookGuid;
     Timer {
         interval: 1
         running: true
         onTriggered: {
-            notearea.text = targetNote.noteContent
+            Cache.fillWithNotebooks()
         }
     }
+    Connections {
+        target: Cache
+        onNotebookFired: {
+            notebooksmodel.append(notebook)
+            if (targetNote.notebookGUID == notebook.guid)
+            {
+                notesbox.currentIndex = notebooksmodel.count - 1
+            }
+        }
+    }
+
+
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: areacol.height
@@ -21,6 +34,7 @@ Page {
                 onClicked: {
                     targetNote.title = txtTitle.text
                     targetNote.noteContent = notearea.text
+                    targetNote.notebookGUID = selectedNotebookGuid
                     EvernoteSession.updateNote(targetNote)
                     pageStack.pop()
                     EvernoteSession.syncAsync()
@@ -39,8 +53,24 @@ Page {
                 text: targetNote.title
             }
 
+            ComboBox {
+                label: "Notebook"
+                id: notesbox
+                menu: ContextMenu {
+                    Repeater {
+                        model: ListModel { id: notebooksmodel }
+                        MenuItem {
+                            text: name
+                            onClicked: {
+                                selectedNotebookGuid = guid
+                            }
+                        }
+                    }
+                }
+            }
             TextArea {
                 width: parent.width
+                text: targetNote.noteContent
                 id: notearea
             }
         }
