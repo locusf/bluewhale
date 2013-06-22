@@ -23,7 +23,7 @@ Page {
                     search.query = notearea.text
                     EvernoteSession.updateSavedSearch(search)
                     pageStack.pop()
-                    EvernoteSession.syncAsync()
+                    EvernoteSession.sync()
                     Cache.fireClearSearches()
                     Cache.fillWithSavedSearches()
                 }
