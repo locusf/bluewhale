@@ -56,6 +56,7 @@ public slots:
     ResourceWrapper* getResourceForNote(NoteWrapper* note, QString guid);
     SavedSearchWrapper* getSavedSearch(int index);
     SavedSearchWrapper* getSavedSearchForGuid(QString guid);
+    void setToDefaultNotebook();
 
     void fireClearNotes();
     void fireNoteAdded(NoteWrapper* note);

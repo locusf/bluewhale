@@ -4,7 +4,10 @@ import Sailfish.Silica 1.0
 
 Page {
     id: page
-    
+    function clearSearch() {
+        Cache.setToDefaultNotebook()
+        Cache.load()
+    }
     SilicaListView {
         anchors.fill: parent
         contentHeight: childrenRect.height
@@ -12,6 +15,8 @@ Page {
             title: "Bluewhale"
             id:header
         }
+
+
         Slider {
             id: changingSlider
             value: 30
@@ -111,7 +116,7 @@ Page {
             }
             MenuItem {
                 text: "Clear search"
-                onClicked: Cache.load()
+                onClicked: clearSearch()
             }
             MenuItem {
                 text: "Notebooks"
@@ -143,7 +148,7 @@ Page {
         PushUpMenu {
             MenuItem {
                 text: "Clear search"
-                onClicked: Cache.load()
+                onClicked: clearSearch()
             }
         }
 

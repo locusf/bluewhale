@@ -62,7 +62,6 @@ void Cache::load(){
     clearNotes();
     clearSearches();
     qDebug() << "Notes size: " << notes->size();
-    qDebug() << (m_sel_notebook == NULL);
 
     for(int i=0;i<notes->size();i++){
         Note note = notes->at(i);
@@ -169,6 +168,11 @@ ResourceWrapper* Cache::getResourceForNote(NoteWrapper* note, QString guid){
             return new ResourceWrapper(res);
         }
     }
+}
+
+void Cache::setToDefaultNotebook()
+{
+    m_sel_notebook = NULL;
 }
 
 void Cache::fireClearNotes() {
