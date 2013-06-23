@@ -17,6 +17,12 @@ Page {
         contentHeight: areacol.height
         PullDownMenu {
             MenuItem {
+                text: "Help"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("help/EditSavedSearch.qml"));
+                }
+            }
+            MenuItem {
                 text: "Save"
                 onClicked: {
                     search.name = txtTitle.text

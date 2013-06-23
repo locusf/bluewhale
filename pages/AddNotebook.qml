@@ -10,6 +10,12 @@ Page {
         contentHeight: childrenRect.height
         PullDownMenu {
             MenuItem {
+                text: "Help"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("help/AddNotebook.qml"));
+                }
+            }
+            MenuItem {
                 text: "Save"
                 onClicked: {
                     var notebook = Qt.createQmlObject("import com.evernote.types 1.0; Notebook {}", addnotebookpage)

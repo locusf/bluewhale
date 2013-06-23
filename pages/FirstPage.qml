@@ -28,6 +28,10 @@ Page {
             id: notesmodel
         }
         model: notesmodel
+        ViewPlaceholder {
+            enabled: notesmodel.count == 0
+            text: "No notes for this notebook."
+        }
         TextField {
             id: searchinput
             visible: false
@@ -113,7 +117,12 @@ Page {
                 text: "Notebooks"
                 onClicked: pageStack.push(Qt.resolvedUrl("ViewNoteBooks.qml"))
             }
-
+            MenuItem {
+                text: "Help"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("help/FirstPage.qml"));
+                }
+            }
             MenuItem {
                 text: "Add note"
                 onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))

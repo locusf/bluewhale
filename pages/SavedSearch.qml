@@ -17,6 +17,12 @@ Page {
         }
         PullDownMenu {
             MenuItem {
+                text: "Help"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("help/SavedSearch.qml"));
+                }
+            }
+            MenuItem {
                 text: "New saved search"
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("AddSavedSearch.qml"))

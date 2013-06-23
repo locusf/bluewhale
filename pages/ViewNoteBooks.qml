@@ -13,6 +13,12 @@ Page {
         }
         PullDownMenu {
             MenuItem {
+                text: "Help"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("help/ViewNotebooks.qml"));
+                }
+            }
+            MenuItem {
                 text: "New notebook"
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("AddNotebook.qml"))

@@ -169,4 +169,5 @@ OTHER_FILES = rpm/bluewhale.yaml \
     pages/Tags.qml \
     pages/View.qml \
     README.txt \
-    LICENCE.txt
+    LICENCE.txt \
+    pages/help/SavedSearch.qml

@@ -11,7 +11,14 @@ Page {
         RemorsePopup {
             id: deleteRemorse
         }
+
         PullDownMenu {
+            MenuItem {
+                text: "Help"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("help/View.qml"));
+                }
+            }
             MenuItem {
                 text: "Attachments"
                 onClicked: pageStack.push(Qt.resolvedUrl("Attachments.qml"), {targetNote: targetNote})

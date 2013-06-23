@@ -8,7 +8,15 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: login.height
-        HorizontalScrollDecorator {}
+        PullDownMenu {
+            MenuItem {
+                text: "Help"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("help/Login.qml"));
+                }
+            }
+        }
+
         Timer {
             interval: 1
             running: true

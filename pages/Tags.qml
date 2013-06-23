@@ -37,6 +37,12 @@ Page {
         anchors.fill: parent
         PullDownMenu {
             MenuItem {
+                text: "Help"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("help/Tags.qml"));
+                }
+            }
+            MenuItem {
                 text: "Save tags"
                 onClicked: {
                     var i = 0;
