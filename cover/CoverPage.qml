@@ -4,9 +4,8 @@ import Sailfish.Silica 1.0
 Rectangle {
     id: parentrect
     anchors.fill: parent
-    color: "steelblue"
     gradient: Gradient {
-        GradientStop { position: 0.0; color: "lightsteelblue" }
+        GradientStop { position: 0.0; color: "orange" }
         GradientStop { position: 1.0; color: "steelblue" }
     }
     Timer {
@@ -16,11 +15,18 @@ Rectangle {
             Cache.load()
         }
     }
+    Timer {
+        interval: 900000
+        repeat: true
+        running: true
+        onTriggered: {
+            Cache.load()
+        }
+    }
     CoverActionList {
         CoverAction {
             iconSource: "image://theme/icon-cover-next"
             onTriggered: {
-                console.log(notesmodel.count)
                 notesmodel.clear()
                 Cache.setNextNotebook()
                 Cache.load()
@@ -31,6 +37,7 @@ Rectangle {
             iconSource: "image://theme/icon-cover-sync"
             onTriggered: {
                 EvernoteSession.syncAsync()
+                Cache.load()
             }
         }
     }
