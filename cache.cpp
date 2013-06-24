@@ -7,7 +7,8 @@ Cache* Cache::m_instance = NULL;
 Notebook* Cache::m_sel_notebook = NULL;
 
 Cache::Cache(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    nextNotebook(0)
 {
     tags = new QVector <Tag> ();
     notebooks = new QVector <Notebook> ();
@@ -19,6 +20,16 @@ Cache* Cache::instance(){
         m_instance = new Cache();
    }
    return m_instance;
+}
+void Cache::setNextNotebook()
+{
+    m_sel_notebook = const_cast<Notebook*>(&notebooks->at(nextNotebook));
+    notebookFired(new NotebookWrapper(notebooks->at(nextNotebook)));
+    nextNotebook++;
+    if (nextNotebook >= notebooks->size()) {
+        nextNotebook = 0;
+    }
+
 }
 
 Notebook* Cache::selectedNotebook(){

@@ -57,6 +57,7 @@ public slots:
     SavedSearchWrapper* getSavedSearch(int index);
     SavedSearchWrapper* getSavedSearchForGuid(QString guid);
     void setToDefaultNotebook();
+    void setNextNotebook();
 
     void fireClearNotes();
     void fireNoteAdded(NoteWrapper* note);
@@ -68,6 +69,7 @@ private:
     QVector <Notebook>* notebooks;
     QVector <Note>* notes;
     QVector <SavedSearch>* searches;
+    int nextNotebook;
 };
 
 #endif // CACHE_H
