@@ -22,18 +22,20 @@ Rectangle {
         }
     }
     Column {
-        id: notescol
         width: parent.width
         PageHeader {
+            height: childrenRect.height
             title: "Bluewhale"
         }
         Repeater {
             model: ListModel {id: notesmodel}
             delegate: Item {
                 height: childrenRect.height
+                width: parent.width
                 Label {
                     width: parent.width
                     text: title
+                    font.pixelSize: theme.fontSizeExtraSmall
                     truncationMode: TruncationMode.Fade
                 }
             }
