@@ -17,6 +17,9 @@ Page {
             id:header
         }
 
+        RemorsePopup {
+            id: deleteRemorse
+        }
 
         Slider {
             id: changingSlider
@@ -117,6 +120,12 @@ Page {
                 var note = Cache.getNoteForGuid(guid)
                 pageStack.push(editpage, {targetNote: note}, 0)
                 EvernoteSession.getNoteContentAsync(note)
+            }
+            onPressAndHold: {
+                deleteRemorse.execute("Deleting " + title, function(){
+                    EvernoteSession.deleteNote(Cache.getNoteForGuid(guid))
+                    notesmodel.remove(index)
+                })
             }
         }
 
