@@ -38,6 +38,7 @@ signals:
     void savedSearchFired(SavedSearchWrapper* search);
 public slots:
     void load();
+    void softLoad();
     void clear();
     void setSelectedNotebook(QString guid);
     NoteWrapper* getNote(int index);

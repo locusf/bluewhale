@@ -12,7 +12,7 @@ Rectangle {
         interval: 1
         running: true
         onTriggered: {
-            Cache.load()
+            Cache.softLoad()
         }
     }
     Timer {
@@ -20,7 +20,7 @@ Rectangle {
         repeat: true
         running: true
         onTriggered: {
-            Cache.load()
+            Cache.softLoad()
         }
     }
     CoverActionList {
@@ -29,7 +29,7 @@ Rectangle {
             onTriggered: {
                 notesmodel.clear()
                 Cache.setNextNotebook()
-                Cache.load()
+                Cache.softLoad()
             }
         }
 
@@ -37,7 +37,7 @@ Rectangle {
             iconSource: "image://theme/icon-cover-sync"
             onTriggered: {
                 EvernoteSession.syncAsync()
-                Cache.load()
+                Cache.softLoad()
             }
         }
     }

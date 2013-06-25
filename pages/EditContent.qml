@@ -11,6 +11,7 @@ Page {
         running: true
         onTriggered: {
             Cache.fillWithNotebooks()
+            selectedNotebookGuid = targetNote.notebookGUID
         }
     }
     Connections {

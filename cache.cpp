@@ -65,6 +65,26 @@ void Cache::clear(){
     notes->clear();
 
 }
+
+void Cache::softLoad() {
+    clearNotes();
+    clearSearches();
+    qDebug() << "Notes size: " << notes->size();
+
+    for(int i=0;i<notes->size();i++){
+        Note note = notes->at(i);
+        if (m_sel_notebook) {
+            if (note.notebookGuid == m_sel_notebook->guid){
+                NoteWrapper* noteWrapper = new NoteWrapper(note);
+                noteAdded(noteWrapper);
+            }
+        } else {
+            NoteWrapper* noteWrapper = new NoteWrapper(note);
+            noteAdded(noteWrapper);
+        }
+    }
+}
+
 void Cache::load(){
     tags = DatabaseManager::instance()->getTags();
     notebooks = DatabaseManager::instance()->getNotebooks();
