@@ -11,6 +11,7 @@ Page {
     SilicaListView {
         anchors.fill: parent
         contentHeight: childrenRect.height
+
         header: PageHeader {
             title: "Bluewhale"
             id:header
@@ -37,6 +38,7 @@ Page {
             enabled: notesmodel.count == 0
             text: "No notes for this notebook."
         }
+
         TextField {
             id: searchinput
             visible: false
@@ -92,6 +94,21 @@ Page {
                     topMargin: 4
                     left: parent.left
                     right: parent.right
+                }
+            }
+            Label {
+                id: notebooklbl
+                text: notebookName
+                font.italic: true
+                font.pixelSize: theme.fontSizeExtraSmall * 3 / 4
+                color: theme.secondaryColor
+                width: parent.width
+                truncationMode: TruncationMode.Fade
+                horizontalAlignment: Text.AlignRight
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: createdlbl.bottom
                 }
             }
 

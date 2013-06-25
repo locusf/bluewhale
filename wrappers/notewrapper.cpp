@@ -37,6 +37,11 @@ QString NoteWrapper::getNoteContentUrl(){
 QString NoteWrapper::getNotebookGUID(){
     return QString::fromStdString(note.notebookGuid);
 }
+QString NoteWrapper::getNotebookName()
+{
+    return Cache::instance()->getNotebook(this)->getName();
+}
+
 QVariantList NoteWrapper::getTagGuids(){
     QVariantList result;
     for(int i=0;i<note.tagGuids.size();i++){

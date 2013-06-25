@@ -19,6 +19,7 @@ class NoteWrapper : public QObject
     Q_PROPERTY(QString noteContent READ getNoteContent WRITE setContent)
     Q_PROPERTY(QString noteContentUrl READ getNoteContentUrl)
     Q_PROPERTY(QString notebookGUID READ getNotebookGUID WRITE setNotebookGUID)
+    Q_PROPERTY(QString notebookName READ getNotebookName)
     Q_PROPERTY(QVariantList  tagGuids READ getTagGuids WRITE setTagGuids)
     Q_PROPERTY(QString tagString READ getTagsString)
     Q_PROPERTY(QVariantList resources READ getResources)
@@ -36,6 +37,7 @@ public slots:
     QString getNoteContentUrl();
     QString getNoteContent();
     QString getNotebookGUID();
+    QString getNotebookName();
     QVariantList getTagGuids();
     QString getTagsString();
     QVariantList getResources();
