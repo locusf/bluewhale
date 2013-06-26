@@ -34,6 +34,15 @@ Page {
                 text: "Adding a note is simple, use the pulley menu and select 'Add Note' item.<br />To modify a note, tap it first to open the view of the note. Then tap on the content area to edit the note."
             }
             SectionHeader {
+                text: "Removing notes"
+            }
+            Label {
+                width: parent.width
+                wrapMode: Text.WordWrap
+                text: "Removing notes is as easy as long pressing a note in the main view or tapping and selecting 'Delete' from the pulley menu."
+            }
+
+            SectionHeader {
                 text: "Searching"
             }
             Label {
