@@ -87,6 +87,11 @@ Page {
                     width: parent.width
                     anchors.left: notesbox.right + 1
                     truncationMode: TruncationMode.Fade
+                    MouseArea {
+                        width: parent.width
+                        height: parent.height
+                        onClicked: pageStack.push(Qt.resolvedUrl("EditContent.qml"), {targetNote: targetNote})
+                    }
                 }
             }
             Row {
