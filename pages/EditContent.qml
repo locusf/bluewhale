@@ -6,6 +6,9 @@ Page {
     id: editpage
     property variant targetNote;
     property string selectedNotebookGuid;
+    property int selectedHour;
+    property int selectedMinute;
+    property variant selectedDate;
     Timer {
         interval: 1
         running: true
@@ -75,6 +78,44 @@ Page {
                     }
                 }
             }
+            SectionHeader {
+                text: "Reminder"
+            }
+            Row {
+                spacing: 80
+                Button {
+                    text: "Time"
+                    onClicked: {
+                        var dialog = pageStack.openDialog("Sailfish.Silica.TimePickerDialog", {
+                            hourMode: DateTime.TwentyFourHours,
+                            hour: 12,
+                            minute: 00
+                        })
+                        dialog.accepted.connect(function() {
+                            selectedHour = dialog.hour
+                            selectedMinute = dialog.minute
+                        })
+                    }
+                }
+                Button {
+                    text: "Date"
+                    onClicked: {
+                        var date = new Date()
+
+                        var dialog = pageStack.openDialog("Sailfish.Silica.DatePickerDialog", {
+                            day: date.getDate(),
+                            month: date.getMonth() + 1,
+                            year: date.getFullYear()
+                        })
+
+                        dialog.accepted.connect(function() {
+                            selectedDate = dialog.date
+                        })
+                    }
+
+                }
+            }
+
             TextArea {
                 width: parent.width
                 text: targetNote.noteContent
