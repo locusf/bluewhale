@@ -8,7 +8,8 @@ Page {
     property string selectedNotebookGuid;
     property int selectedHour;
     property int selectedMinute;
-    property variant selectedDate;
+    property date selectedDate;
+    property date selectedTime;
     Timer {
         interval: 1
         running: true
@@ -45,7 +46,13 @@ Page {
                     targetNote.title = txtTitle.text
                     targetNote.noteContent = notearea.text
                     targetNote.notebookGUID = selectedNotebookGuid
-                    EvernoteSession.updateNote(targetNote)
+                    var combdate = new Date(selectedDate.getFullYear(),
+                                            selectedDate.getMonth(),
+                                            selectedDate.getDate(),
+                                            selectedTime.getHours(),
+                                            selectedTime.getMinutes())
+                    console.log(combdate)
+                    EvernoteSession.updateNote(targetNote, combdate)
                     pageStack.pop()
                     EvernoteSession.syncAsync()
                     EvernoteSession.getNoteContentAsync(targetNote)
@@ -92,8 +99,7 @@ Page {
                             minute: 00
                         })
                         dialog.accepted.connect(function() {
-                            selectedHour = dialog.hour
-                            selectedMinute = dialog.minute
+                            selectedTime = dialog.time
                         })
                     }
                 }

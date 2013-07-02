@@ -81,7 +81,7 @@ public slots:
     void getNoteTags(NoteWrapper* note);
 
     void addNote(NoteWrapper* note);
-    void updateNote(NoteWrapper* note);
+    void updateNote(NoteWrapper* note, QDateTime date);
     void updateNoteTags(NoteWrapper* note);
     void deleteNote(NoteWrapper* note);
 

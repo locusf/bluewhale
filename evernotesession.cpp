@@ -1,6 +1,7 @@
 #include <QDebug>
 
 #include <QtCore>
+#include <QDateTime>
 #include <QTextDocument>
 #include "evernotesession.h"
 const std::string EvernoteSession::CONSUMER_KEY = "everel";
@@ -408,11 +409,20 @@ void EvernoteSession::addNote(NoteWrapper *note) {
     }
 }
 
-void EvernoteSession::updateNote(NoteWrapper *note) {
+void EvernoteSession::updateNote(NoteWrapper *note, QDateTime date) {
     Note ret;
     try {
         recreateSyncClient(false);
         Note reference_note;
+        NoteAttributes attrs;
+        qDebug() << "Date from QML: " << date.toMSecsSinceEpoch();
+
+        if (date.toMSecsSinceEpoch() > 0) {
+            attrs.reminderTime = date.toMSecsSinceEpoch();
+            attrs.__isset.reminderTime = true;
+            reference_note.attributes = attrs;
+            reference_note.__isset.attributes = true;
+        }
         reference_note.__isset.title = true;
         reference_note.__isset.content = true;
         reference_note.__isset.guid = true;
