@@ -409,16 +409,15 @@ void EvernoteSession::addNote(NoteWrapper *note) {
     }
 }
 
-void EvernoteSession::updateNote(NoteWrapper *note, QDateTime date) {
+void EvernoteSession::updateNote(NoteWrapper *note) {
     Note ret;
     try {
         recreateSyncClient(false);
         Note reference_note;
         NoteAttributes attrs;
-        qDebug() << "Date from QML: " << date.toMSecsSinceEpoch();
 
-        if (date.toMSecsSinceEpoch() > 0) {
-            attrs.reminderTime = date.toMSecsSinceEpoch();
+        if (note->getReminderDate().toMSecsSinceEpoch() > 0) {
+            attrs.reminderTime = note->note.attributes.reminderTime;
             attrs.__isset.reminderTime = true;
             reference_note.attributes = attrs;
             reference_note.__isset.attributes = true;

@@ -14,7 +14,7 @@ Page {
             Label {
                 width: parent.width
                 wrapMode: Text.WordWrap
-                text: "Use title field and content text area to edit a note <br />NB: Only page breaks are formatted, the content is saved as plain text.<br />Use the pulley menu to save your modifications."
+                text: "Use title field and content text area to edit a note <br />NB: Only page breaks are formatted, the content is saved as plain text.<br />Use the pulley menu to save your modifications. <br/>To add reminders, use the buttons in the page, one for date and one for time."
             }
         }
     }

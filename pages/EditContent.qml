@@ -16,6 +16,7 @@ Page {
         onTriggered: {
             Cache.fillWithNotebooks()
             selectedNotebookGuid = targetNote.notebookGUID
+            console.log(targetNote.reminder)
         }
     }
     Connections {
@@ -51,8 +52,8 @@ Page {
                                             selectedDate.getDate(),
                                             selectedTime.getHours(),
                                             selectedTime.getMinutes())
-                    console.log(combdate)
-                    EvernoteSession.updateNote(targetNote, combdate)
+                    targetNote.reminder = combdate
+                    EvernoteSession.updateNote(targetNote)
                     pageStack.pop()
                     EvernoteSession.syncAsync()
                     EvernoteSession.getNoteContentAsync(targetNote)
@@ -93,10 +94,11 @@ Page {
                 Button {
                     text: "Time"
                     onClicked: {
+                        var date = targetNote.reminder || new Date()
                         var dialog = pageStack.openDialog("Sailfish.Silica.TimePickerDialog", {
                             hourMode: DateTime.TwentyFourHours,
-                            hour: 12,
-                            minute: 00
+                            hour: date.getHours(),
+                            minute: date.getMinutes()
                         })
                         dialog.accepted.connect(function() {
                             selectedTime = dialog.time
@@ -106,7 +108,7 @@ Page {
                 Button {
                     text: "Date"
                     onClicked: {
-                        var date = new Date()
+                        var date = targetNote.reminder || new Date()
 
                         var dialog = pageStack.openDialog("Sailfish.Silica.DatePickerDialog", {
                             day: date.getDate(),

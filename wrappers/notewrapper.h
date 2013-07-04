@@ -7,6 +7,8 @@
 #include "edam/NoteStore_types.h"
 #include <QVariant>
 #include <QObject>
+#include <QDateTime>
+
 using namespace evernote::edam;
 using namespace std;
 class NoteWrapper : public QObject
@@ -23,6 +25,7 @@ class NoteWrapper : public QObject
     Q_PROPERTY(QVariantList  tagGuids READ getTagGuids WRITE setTagGuids)
     Q_PROPERTY(QString tagString READ getTagsString)
     Q_PROPERTY(QVariantList resources READ getResources)
+    Q_PROPERTY(QDateTime reminder READ getReminderDate WRITE setReminderDate)
 public:
     explicit NoteWrapper(QObject *parent = 0);
     NoteWrapper(Note note,QObject *parent = 0);
@@ -42,11 +45,13 @@ public slots:
     QString getTagsString();
     QVariantList getResources();
     QString getGuidString();
+    QDateTime getReminderDate();
 
     void setTitle(QString title);
     void setContent(QString content);
     void setTagGuids(QVariantList tags);
     void setNotebookGUID(QString guid);
+    void setReminderDate(QDateTime reminder);
 
 private:
 

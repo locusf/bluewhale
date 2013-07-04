@@ -81,7 +81,8 @@ const QString DatabaseConstants::CREATE_NOTES_TABLE_QUERY=CREATE_TABLE+NOTES_TAB
         "sourceApplication TEXT, "+
         "shareDate NUMBER, "+
         "placeName TEXT, "+
-        "contentClass TEXT"+
+        "contentClass TEXT, "+
+        "reminder NUMBER"+
         ")";
 const QString DatabaseConstants::INSERT_NOTE_QUERY=INSERT_REPLACE+NOTES_TABLE+" ("+
         "guid,"+
@@ -104,8 +105,9 @@ const QString DatabaseConstants::INSERT_NOTE_QUERY=INSERT_REPLACE+NOTES_TABLE+" 
         "sourceApplication , "+
         "shareDate , "+
         "placeName , "+
-        "contentClass "+
-        ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        "contentClass, "+
+        "reminder"+
+        ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 const QString DatabaseConstants::SELECT_ALL_NOTES_QUERY="SELECT * FROM "+NOTES_TABLE +" ORDER BY created DESC";
 const QString DatabaseConstants::DELETE_NOTE = "DELETE FROM "+NOTES_TABLE +" WHERE guid = ?";
 

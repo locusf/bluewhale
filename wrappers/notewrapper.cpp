@@ -98,4 +98,13 @@ QVariantList NoteWrapper::getResources() {
     return resources;
 }
 
+QDateTime NoteWrapper::getReminderDate() {
+    qDebug() << abs(this->note.attributes.reminderTime);
+    return QDateTime::fromMSecsSinceEpoch(abs(this->note.attributes.reminderTime));
+}
+
+void NoteWrapper::setReminderDate(QDateTime reminder) {
+    this->note.attributes.reminderTime = reminder.toMSecsSinceEpoch();
+}
+
 \

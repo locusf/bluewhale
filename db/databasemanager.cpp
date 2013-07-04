@@ -215,6 +215,7 @@ bool DatabaseManager::saveNote(Note note){
     query.addBindValue(note.attributes.shareDate);
     query.addBindValue(QString::fromStdString(note.attributes.placeName));
     query.addBindValue(QString::fromStdString(note.attributes.contentClass));
+    query.addBindValue(note.attributes.reminderTime ? note.attributes.reminderTime : 0);
     bool ok = query.exec();
     if(ok){
         qDebug() << "DatabaseManager :: note saved (" << note.title.c_str() << ")";
@@ -339,6 +340,7 @@ QVector <Note>* DatabaseManager::getNotes(){
     bool ok = query.exec();
     while(query.next()){
         Note note;
+        NoteAttributes attrs;
         note.guid = query.record().value("guid").toString().toStdString();
         note.title = query.record().value("title").toString().toStdString();
         note.contentHash = query.record().value("contentHash").toString().toStdString();
@@ -350,21 +352,8 @@ QVector <Note>* DatabaseManager::getNotes(){
         note.active = query.record().value("active").toBool();
         note.updateSequenceNum = query.record().value("usn").toInt();
         note.notebookGuid = query.record().value("notebookGUID").toString().toStdString();
-        /*query.addBindValue(note.attributes.subjectDate);
-        query.addBindValue(note.attributes.latitude);
-        query.addBindValue(note.attributes.longitude);
-        query.addBindValue(note.attributes.altitude);
-        query.addBindValue(QString::fromStdString(note.attributes.author));
-        query.addBindValue(QString::fromStdString(note.attributes.source));
-        query.addBindValue(QString::fromStdString(note.attributes.sourceURL));
-        query.addBindValue(QString::fromStdString(note.attributes.sourceApplication));
-        query.addBindValue(note.attributes.shareDate);
-        query.addBindValue(note.attributes.taskDate);
-        query.addBindValue(note.attributes.taskCompleteDate);
-        query.addBindValue(note.attributes.taskDueDate);
-        query.addBindValue(QString::fromStdString(note.attributes.placeName));
-        query.addBindValue(QString::fromStdString(note.attributes.contentClass));
-        */
+        attrs.reminderTime = query.record().value("reminder").toLongLong();
+        note.attributes = attrs;
 
         result->append(note);
     }
