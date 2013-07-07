@@ -6,8 +6,6 @@ Page {
     id: editpage
     property variant targetNote;
     property string selectedNotebookGuid;
-    property int selectedHour;
-    property int selectedMinute;
     property date selectedDate;
     property date selectedTime;
     Timer {
