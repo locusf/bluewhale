@@ -17,12 +17,8 @@ Page {
             }
         }
 
-        Timer {
-            interval: 1
-            running: true
-            onTriggered: {
-                OAuth.getAccess()
-            }
+        Component.onCompleted: {
+            OAuth.getAccess()
         }
         Connections {
             target: OAuth

@@ -8,14 +8,10 @@ Page {
     property string selectedNotebookGuid;
     property date selectedDate;
     property date selectedTime;
-    Timer {
-        interval: 1
-        running: true
-        onTriggered: {
-            Cache.fillWithNotebooks()
-            selectedNotebookGuid = targetNote.notebookGUID
-            console.log(targetNote.reminder)
-        }
+    Component.onCompleted: {
+        Cache.fillWithNotebooks()
+        selectedNotebookGuid = targetNote.notebookGUID
+        console.log(targetNote.reminder)
     }
     Connections {
         target: Cache

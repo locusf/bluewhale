@@ -47,12 +47,8 @@ Page {
                 notebookmodel.append(notebook)
             }
         }
-        Timer {
-            interval: 1
-            running: true
-            onTriggered: {
-                Cache.fillWithNotebooks()
-            }
+        Component.onCompleted: {
+            Cache.fillWithNotebooks()
         }
     }
 }
