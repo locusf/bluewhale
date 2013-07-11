@@ -63,7 +63,9 @@ SOURCES += main.cpp \
     kQOAuth/kqoauthrequest_1.cpp \
     kQOAuth/kqoauthrequest_xauth.cpp \
     oauth.cpp \
-    wrappers/savedsearchwrapper.cpp
+    wrappers/savedsearchwrapper.cpp \
+    testrunner.cpp \
+    cachetests.cpp
 
 
 # C++ headers
@@ -153,7 +155,9 @@ HEADERS += edam/UserStore_constants.h \
     kQOAuth/kqoauthutils.h \
     kQOAuth/kqoauthrequest_xauth_p.h \
     oauth.h \
-    wrappers/savedsearchwrapper.h
+    wrappers/savedsearchwrapper.h \
+    testrunner.h \
+    cachetests.h
 
 
 # QML files and folders
@@ -170,4 +174,5 @@ OTHER_FILES = rpm/bluewhale.yaml \
     pages/View.qml \
     README.txt \
     LICENCE.txt \
-    pages/help/SavedSearch.qml
+    pages/help/SavedSearch.qml \
+    tests/tests.pri

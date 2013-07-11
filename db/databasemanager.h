@@ -23,6 +23,7 @@ public:
     static DatabaseManager* instance();
     DatabaseManager(QObject *parent = 0);
     ~DatabaseManager();
+    void setDatabase(QSqlDatabase *db);
 
 
 signals:

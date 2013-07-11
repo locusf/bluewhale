@@ -178,8 +178,12 @@ Page {
             }
         }
 
-        Component.onCompleted: {
-            EvernoteSession.syncAsync()
+        Timer {
+            interval: 1
+            running: true
+            onTriggered: {
+                EvernoteSession.syncAsync()
+            }
         }
 
         Timer {

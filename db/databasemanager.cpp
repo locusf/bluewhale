@@ -109,6 +109,7 @@ void DatabaseManager::clear(){
     dropTable(DatabaseConstants::NOTEBOOKS_TABLE);
     dropTable(DatabaseConstants::TAGS_TABLE);
     dropTable(DatabaseConstants::NOTES_TABLE);
+    dropTable(DatabaseConstants::SAVEDSEARCH_TABLE);
 }
 bool DatabaseManager::saveTag(Tag tag){
     QSqlQuery query = QSqlQuery(DatabaseConstants::INSERT_TAG_QUERY, *db);
@@ -397,4 +398,9 @@ void DatabaseManager::beginTransacton(){
 }
 void DatabaseManager::commitTransaction(){
     this->db->commit();
+}
+
+void DatabaseManager::setDatabase(QSqlDatabase* db)
+{
+    this->db = db;
 }
