@@ -17,7 +17,7 @@
  * under the License.
  */
 
-#include "thrift/async/TAsyncChannel.h"
+#include "async/TAsyncChannel.h"
 #include <tr1/functional>
 
 namespace apache { namespace thrift { namespace async {

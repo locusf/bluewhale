@@ -17,7 +17,7 @@
  * under the License.
  */
 
-#include "thrift/transport/TTransportException.h"
+#include "transport/TTransportException.h"
 #include <boost/lexical_cast.hpp>
 #include <cstring>
 #include <stddef.h>

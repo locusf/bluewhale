@@ -2,7 +2,7 @@ QT += declarative sql network webkit testlib
 
 SOURCES += $$PWD/sailfishapplication.cpp
 HEADERS += $$PWD/sailfishapplication.h
-INCLUDEPATH += $$PWD $$PWD/../thrift
+INCLUDEPATH += $$PWD $$PWD/../thrift $$PWD/edam $$PWD/../
 
 TARGETPATH = /opt/sdk/bin
 target.path = $$TARGETPATH
@@ -22,6 +22,27 @@ DEFINES += DEPLOYMENT_PATH=\"\\\"\"$${DEPLOYMENT_PATH}/\"\\\"\"
 
 CONFIG += link_pkgconfig
 LIBS += -lrt -lz
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../kQOAuth/release/ -lkQOAuth
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../kQOAuth/debug/ -lkQOAuth
+else:unix: LIBS += -L$$OUT_PWD/../kQOAuth/ -lkQOAuth
+
+INCLUDEPATH += $$PWD/../kQOAuth
+DEPENDPATH += $$PWD/../kQOAuth
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../edam/release/ -ledam
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../edam/debug/ -ledam
+else:unix: LIBS += -L$$OUT_PWD/../edam/ -ledam
+
+INCLUDEPATH += $$PWD/../edam
+DEPENDPATH += $$PWD/../edam
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../thrift/release/ -lthrift
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../thrift/debug/ -lthrift
+else:unix: LIBS += -L$$OUT_PWD/../thrift/ -lthrift
+
+INCLUDEPATH += $$PWD/../thrift
+DEPENDPATH += $$PWD/../thrift
+
 packagesExist(qdeclarative-boostable) {
     message("Building with qdeclarative-boostable support")
     DEFINES += HAS_BOOSTER

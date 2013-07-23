@@ -21,8 +21,8 @@
 #define _THRIFT_TRANSPORT_TZLIBTRANSPORT_H_ 1
 
 #include <boost/lexical_cast.hpp>
-#include "thrift/transport/TTransport.h"
-#include "thrift/transport/TVirtualTransport.h"
+#include "transport/TTransport.h"
+#include "transport/TVirtualTransport.h"
 
 struct z_stream_s;
 

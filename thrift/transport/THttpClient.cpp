@@ -21,8 +21,8 @@
 #include <sstream>
 #include <boost/algorithm/string.hpp>
 
-#include "thrift/transport/THttpClient.h"
-#include "thrift/transport/TSocket.h"
+#include "transport/THttpClient.h"
+#include "transport/TSocket.h"
 
 namespace apache { namespace thrift { namespace transport {
 

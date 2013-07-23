@@ -24,8 +24,8 @@
 #include <arpa/inet.h>
 #include "boost/scoped_array.hpp"
 
-#include "thrift/transport/TTransport.h"
-#include "thrift/transport/TVirtualTransport.h"
+#include "transport/TTransport.h"
+#include "transport/TVirtualTransport.h"
 
 #ifdef __GNUC__
 #define TDB_LIKELY(val) (__builtin_expect((val), 1))

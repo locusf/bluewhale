@@ -18,7 +18,7 @@
  */
 
 #include "TApplicationException.h"
-#include "thrift/protocol/TProtocol.h"
+#include "protocol/TProtocol.h"
 
 namespace apache { namespace thrift {
 

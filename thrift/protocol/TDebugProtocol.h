@@ -171,7 +171,7 @@ class TDebugProtocolFactory : public TProtocolFactory {
 
 
 // TODO(dreiss): Move (part of) ThriftDebugString into a .cpp file and remove this.
-#include "thrift/transport/TBufferTransports.h"
+#include "transport/TBufferTransports.h"
 
 namespace apache { namespace thrift {
 

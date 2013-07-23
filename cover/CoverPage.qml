@@ -55,6 +55,7 @@ Rectangle {
             notesmodel.append(note)
         }
     }
+    VerticalScrollDecorator {}
     Column {
         width: parent.width
         PageHeader {
