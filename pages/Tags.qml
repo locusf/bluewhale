@@ -4,8 +4,12 @@ import Sailfish.Silica 1.0
 Page {
     id: tagspage
     property variant targetNote;
-    Component.onCompleted: {
-        Cache.fillWithTags()
+    Timer {
+        interval: 1
+        running: true
+        onTriggered: {
+            Cache.fillWithTags()
+        }
     }
     function tagInModel(tag) {
         var i = 0;

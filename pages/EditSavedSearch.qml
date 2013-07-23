@@ -5,8 +5,12 @@ import Sailfish.Silica 1.0
 Page {
     id: editsavedsearch
     property variant search;
-    Component.onCompleted: {
-        notearea.text = search.query
+    Timer {
+        interval: 1
+        running: true
+        onTriggered: {
+            notearea.text = search.query
+        }
     }
     SilicaFlickable {
         anchors.fill: parent

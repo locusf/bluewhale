@@ -47,10 +47,14 @@ Page {
                 console.log(guid)
             }
         }
-        Component.onCompleted: {
-            var i = 0
-            for (i = 0; i < targetNote.resources.length; i++) {
-                attachmodel.append(Cache.getResourceForNote(targetNote, targetNote.resources[i]))
+        Timer {
+            interval: 1
+            running: true
+            onTriggered: {
+                var i = 0
+                for (i = 0; i < targetNote.resources.length; i++) {
+                    attachmodel.append(Cache.getResourceForNote(targetNote, targetNote.resources[i]))
+                }
             }
         }
     }

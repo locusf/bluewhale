@@ -185,7 +185,6 @@ Page {
                 EvernoteSession.syncAsync()
             }
         }
-
         Timer {
             interval: 900000
             repeat: true

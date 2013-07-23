@@ -29,10 +29,13 @@ Page {
                 }
             }
         }
-        Component.onCompleted: {
-            Cache.fillWithNotebooks()
+        Timer {
+            interval: 1
+            running: true
+            onTriggered: {
+                Cache.fillWithNotebooks()
+            }
         }
-
         Connections {
             target: Cache
             onNotebookFired: {

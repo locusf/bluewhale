@@ -30,8 +30,12 @@ Page {
             }
         }
 
-        Component.onCompleted: {
-            Cache.fillWithSavedSearches()
+        Timer {
+            interval: 1
+            running: true
+            onTriggered: {
+                Cache.fillWithSavedSearches()
+            }
         }
         Connections {
             target: Cache
