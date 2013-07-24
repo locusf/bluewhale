@@ -16,9 +16,7 @@ SOURCES += ../main.cpp \
     ../wrappers/resourcewrapper.cpp \
     ../wrappers/notebookwrapper.cpp \
     ../oauth.cpp \
-    ../wrappers/savedsearchwrapper.cpp \
-    ../testrunner.cpp \
-    ../cachetests.cpp
+    ../wrappers/savedsearchwrapper.cpp
 
 # C++ headers
 HEADERS += ../evernotesession.h \
@@ -34,9 +32,7 @@ HEADERS += ../evernotesession.h \
     ../wrappers/resourcewrapper.h \
     ../wrappers/notebookwrapper.h \
     ../oauth.h \
-    ../wrappers/savedsearchwrapper.h \
-    ../testrunner.h \
-    ../cachetests.h
+    ../wrappers/savedsearchwrapper.h
 
 # QML files and folders
 qml.files = ../*.qml ../pages ../cover ../main.qml

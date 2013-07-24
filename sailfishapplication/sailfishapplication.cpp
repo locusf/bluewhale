@@ -1,4 +1,4 @@
-
+#ifndef NO_SAILFISH_MAIN
 #include <QApplication>
 #include <QDir>
 #include <QGraphicsObject>
@@ -77,3 +77,4 @@ void Sailfish::showView(QDeclarativeView* view) {
 }
 
 
+#endif

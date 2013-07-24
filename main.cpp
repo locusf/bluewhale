@@ -1,4 +1,4 @@
-
+#ifndef NO_SAILFISH_MAIN
 #include <QApplication>
 #include <QDeclarativeView>
 
@@ -7,14 +7,9 @@
 #include <QDeclarativeContext>
 
 #include "sailfishapplication.h"
-#include "testrunner.h"
-#include "cachetests.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    TestRunner runner;
-    runner.addTest(new CacheTests());
-    qDebug() << "Testing results: " << (runner.runTests()?"PASS":"FAIL");
     QScopedPointer<QApplication> app(Sailfish::createApplication(argc, argv));
     QScopedPointer<QDeclarativeView> view(Sailfish::createView("main.qml"));
     qmlRegisterType <TagWrapper> ("com.evernote.types",1,0, "Tag");
@@ -23,10 +18,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType <NotebookWrapper> ("com.evernote.types",1,0, "Notebook");
     qmlRegisterType <SavedSearchWrapper> ("com.evernote.types",1,0, "SavedSearch");
     Sailfish::showView(view.data());
-
-
-    
     return app->exec();
 }
 
-
+#endif

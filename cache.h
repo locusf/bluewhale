@@ -15,7 +15,6 @@
 #include "evernotesession.h"
 #include <QtCore>
 #include <QObject>
-#include <QStringListModel>
 using namespace evernote::edam;
 using namespace std;
 
