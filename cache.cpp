@@ -108,7 +108,11 @@ void Cache::load(){
     }
 }
 NoteWrapper* Cache::getNote(int index){
-    return new NoteWrapper(notes->at(index));
+    if (!notes->isEmpty()) {
+        return new NoteWrapper(notes->at(index));
+    } else {
+        return NULL;
+    }
 }
 QString Cache::getNoteContent(NoteWrapper* note){
     return FileUtils::readNoteContent(note);

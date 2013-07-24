@@ -5,6 +5,7 @@ TagWrapper::TagWrapper(QObject *parent) :
 {
 
 }
+
 TagWrapper::TagWrapper(Tag tag, QObject *parent):QObject(parent){
     this->tag = tag;
 }

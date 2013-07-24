@@ -28,5 +28,4 @@ public slots:
     void setName(QString name);
     void setGuid(QString guid);
 };
-
 #endif // TAGWRAPPER_H
