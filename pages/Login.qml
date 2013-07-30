@@ -15,6 +15,14 @@ Page {
                     pageStack.push(Qt.resolvedUrl("help/Login.qml"));
                 }
             }
+            MenuItem {
+                text: "Log out"
+                onClicked: {
+                    EvernoteSession.logoutAsync()
+                    pageStack.pop()
+                    EvernoteSession.syncAsync()
+                }
+            }
         }
 
         Timer {
