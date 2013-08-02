@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Sailfish.Silica.theme 1.0
 import QtWebKit 3.0
 
 Page {
@@ -83,7 +84,7 @@ Page {
                 }
                 Label {
                     id: notebooktitl
-                    color: theme.secondaryColor
+                    color: Theme.secondaryColor
                     width: parent.width
                     anchors.left: notesbox.right + 1
                     truncationMode: TruncationMode.Fade
@@ -105,7 +106,7 @@ Page {
                 }
                 Label {
                     id: tagstitl
-                    color: theme.secondaryColor
+                    color: Theme.secondaryColor
                     width: parent.width
                     anchors.left: tagslbl.right + 1
                     truncationMode: TruncationMode.Fade
