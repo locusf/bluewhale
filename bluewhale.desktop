@@ -2,7 +2,7 @@
 Type=Application
 Name=bluewhale
 Icon=icon-launcher-gallery
-Exec=LD_LIBRARY_PATH=/opt/sdk/bin invoker --type=j -s /opt/sdk/bin/bluewhale
+Exec=invoker --type=silica-qt5 -s /usr/bin/bluewhale
 Comment=Sailfish UI application
 
 

@@ -1,6 +1,6 @@
-import QtQuick 1.1
+import QtQuick 2.0
 import Sailfish.Silica 1.0
-import QtWebKit 1.0
+import QtWebKit 3.0
 
 Page {
     id: editpage
@@ -50,13 +50,14 @@ Page {
 
             PageHeader {
                 title: "Evernote login"
+                id: head
             }
+
             WebView {
                 id: oauthview
-                objectName: "oauthviewer"
                 width: parent.width
-                preferredWidth: parent.width
-                scale: 0.9
+                height: 500
+                objectName: "oauthviewer"
             }
         }
     }

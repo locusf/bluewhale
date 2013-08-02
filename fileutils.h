@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include "wrappers/notewrapper.h"
-#include <QtGui/QApplication>
 #include <QDir>
 #include <QFile>
 #include <QDebug>

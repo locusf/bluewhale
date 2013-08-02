@@ -1,31 +1,31 @@
-Name:    bluewhale
+Name: bluewhale
 Summary: Bluewhale Evernote client
 Version: 0.1
 Release: 1
-Group:   Qt/Qt
+Group: Qt/Qt
 License: LICENSE
 Sources:
-    - "%{name}-%{version}.tar.bz2"
+- '%{name}-%{version}.tar.bz2'
 Description: |
-  Bluewhale is an Evernote client for SailfishOS.
-# Qt Applications generally don't use configure and do use qmake
+  Short description of my SailfishOS Application
 Configure: none
-Builder: qmake
-# pkgconfigs we depend on to build
+Builder: qtc5
 PkgConfigBR:
-  - ""
-# Packages we depend on to build
-PkgBR:
-  - ""
-# Packages we require to run
+- Qt5Quick
+- Qt5Qml
+- Qt5Core
+- qdeclarative5-boostable
 Requires:
-  - ""
+- qt5-webkit
+- boost-devel
+- mapplauncherd-booster-silica-qt5
+- sailfishsilica-qt5
 Files:
-  - "/opt"
-
-
-
-# This is a spectacle file.
-# It is a yaml file that uses specify to manage the spec file used to package the application.
-# See https://wiki.merproject.org/wiki/Spectacle for more information
-
+- 
+- /opt/sdk/share/applications
+- /opt/sdk/share/bluewhale
+- /usr/bin
+- /usr/share/bluewhale
+- /usr/share/applications
+- /opt/sdk/bin
+PkgBR: []

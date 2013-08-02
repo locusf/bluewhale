@@ -42,7 +42,6 @@ public slots:
     void setSelectedNotebook(QString guid);
     NoteWrapper* getNote(int index);
     void clearFileCache();
-    void openTestFileWindow();
     void fillWithTags();
     void fillWithNotebooks();
     void fillWithSavedSearches();

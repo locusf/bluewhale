@@ -1,4 +1,4 @@
-QT += declarative sql network webkit testlib
+QT += qml quick sql network webkit concurrent
 
 SOURCES += $$PWD/sailfishapplication.cpp
 HEADERS += $$PWD/sailfishapplication.h

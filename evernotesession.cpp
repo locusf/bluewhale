@@ -3,6 +3,7 @@
 #include <QtCore>
 #include <QDateTime>
 #include <QTextDocument>
+#include <QtConcurrent/QtConcurrent>
 #include "evernotesession.h"
 const std::string EvernoteSession::CONSUMER_KEY = "everel";
 const std::string EvernoteSession::CONSUMER_SECRET = "201d20eb3ee1f74d";
@@ -155,7 +156,7 @@ void EvernoteSession::getNoteContent(NoteWrapper* note){
     } catch (TException &tx) {
         qDebug() << "EvernoteSession :: excetion while getNoteContent: " << tx.what();
         if(!cancelGetNote){
-            noteLoadError(QString::fromAscii(tx.what()));
+            noteLoadError(QString::fromLocal8Bit(tx.what()));
         }else{
             qDebug() << "note load canceled, supress errors";
         }
@@ -173,7 +174,7 @@ void EvernoteSession::cancelGetNoteContent(){
         }
         qDebug() << "close transport";
     }catch(TException& e){
-        qDebug() << "exception while closing transport: " << QString::fromAscii(e.what());
+        qDebug() << "exception while closing transport: " << QString::fromLocal8Bit(e.what());
     }
 }
 

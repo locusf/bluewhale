@@ -1,5 +1,6 @@
-import QtQuick 1.1
+import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Sailfish.Silica.theme 1.0
 
 Rectangle {
     id: parentrect
@@ -55,7 +56,6 @@ Rectangle {
             notesmodel.append(note)
         }
     }
-    VerticalScrollDecorator {}
     Column {
         width: parent.width
         PageHeader {
@@ -67,11 +67,10 @@ Rectangle {
             model: ListModel {id: notesmodel}
             delegate: Item {
                 height: childrenRect.height
-                width: parent.width
                 Label {
                     width: parent.width
                     text: title
-                    font.pixelSize: theme.fontSizeExtraSmall
+                    font.pixelSize: Theme.fontSizeExtraSmall
                     truncationMode: TruncationMode.Elide
                 }
             }

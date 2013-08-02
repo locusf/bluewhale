@@ -23,7 +23,6 @@
 #include <QObject>
 #include <QMultiMap>
 #include <QNetworkReply>
-#include <QtWebKit/QWebView>
 
 #include "kqoauthrequest.h"
 

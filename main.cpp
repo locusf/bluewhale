@@ -1,24 +1,28 @@
-#ifndef NO_SAILFISH_MAIN
-#include <QApplication>
-#include <QDeclarativeView>
 
-#include <QDeclarativeComponent>
-#include <QDeclarativeEngine>
-#include <QDeclarativeContext>
-
+#include <QGuiApplication>
+#include <QQuickView>
+#include <QtQml>
 #include "sailfishapplication.h"
+#include "wrappers/notebookwrapper.h"
+#include "wrappers/notewrapper.h"
+#include "wrappers/resourcewrapper.h"
+#include "wrappers/savedsearchwrapper.h"
+#include "wrappers/tagwrapper.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    QScopedPointer<QApplication> app(Sailfish::createApplication(argc, argv));
-    QScopedPointer<QDeclarativeView> view(Sailfish::createView("main.qml"));
     qmlRegisterType <TagWrapper> ("com.evernote.types",1,0, "Tag");
     qmlRegisterType <NoteWrapper> ("com.evernote.types",1,0, "Note");
     qmlRegisterType <ResourceWrapper> ("com.evernote.types",1,0, "Resource");
     qmlRegisterType <NotebookWrapper> ("com.evernote.types",1,0, "Notebook");
     qmlRegisterType <SavedSearchWrapper> ("com.evernote.types",1,0, "SavedSearch");
+
+    QScopedPointer<QGuiApplication> app(Sailfish::createApplication(argc, argv));
+    QScopedPointer<QQuickView> view(Sailfish::createView("main.qml"));
+    
     Sailfish::showView(view.data());
+    
     return app->exec();
 }
 
-#endif
+

@@ -1,6 +1,6 @@
-import QtQuick 1.1
+import QtQuick 2.0
 import Sailfish.Silica 1.0
-import QtWebKit 1.0
+import QtWebKit 3.0
 
 Page {
     id: editpage
@@ -44,7 +44,7 @@ Page {
             target: EvernoteSession
             onNoteContentDownloaded: {
                 txtTitle.text = targetNote.title
-                notearea.html = Cache.getNoteContent(targetNote)
+                notearea.loadHtml(Cache.getNoteContent(targetNote))
                 notebooktitl.text = Cache.getNotebook(targetNote).name
                 if (targetNote.tagGuids.length !== 0) {
                     tagsrow.visible = true
@@ -122,6 +122,7 @@ Page {
             WebView {
                 id: notearea
                 width: parent.width
+                height: 500
                 MouseArea {
                     width: parent.width
                     height: parent.height

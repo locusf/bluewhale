@@ -1,10 +1,10 @@
-import QtQuick 1.1
+import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "pages"
 
 ApplicationWindow
 {
-    initialPage: Qt.resolvedUrl("pages/FirstPage.qml")
+    initialPage: FirstPage { }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 }
 

@@ -1,5 +1,4 @@
 #include "cache.h"
-#include <QFileDialog>
 #include <QDebug>
 #include <QUuid>
 #include <QtCore>
@@ -121,12 +120,7 @@ QString Cache::getNoteContent(NoteWrapper* note){
 void Cache::clearFileCache(){
     FileUtils::removeNoteDir();
 }
-void Cache::openTestFileWindow(){
-    QFileDialog * fd = new QFileDialog(NULL);
-    fd->setAcceptMode(QFileDialog::AcceptOpen);
-    fd->setFileMode(QFileDialog::ExistingFiles);
-    fd->exec();
-}
+
 void Cache::fillWithTags(){
     for(int i=0;i<tags->size();i++){
         Tag tag = tags->at(i);

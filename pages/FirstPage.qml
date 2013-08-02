@@ -1,6 +1,6 @@
-import QtQuick 1.1
+import QtQuick 2.0
 import Sailfish.Silica 1.0
-
+import Sailfish.Silica.theme 1.0
 
 Page {
     id: page
@@ -28,7 +28,7 @@ Page {
             maximumValue:100
             enabled: true
             visible: false
-            width: parent.width - theme.paddingLarge * 2
+            width: parent.width - Theme.paddingLarge * 2
             handleVisible: false
             anchors.horizontalCenter: parent.horizontalCenter
         }
@@ -59,22 +59,21 @@ Page {
         }
 
         delegate: BackgroundItem {
-            height: childrenRect.height
             Label {
                 id: ntitle
                 text: title
                 width: parent.width
                 truncationMode: TruncationMode.Fade
-                font.pixelSize: theme.fontSizeMedium
+                font.pixelSize: Theme.fontSizeMedium
                 anchors {
                     left: parent.left
-                    rightMargin: theme.paddingSmall
+                    rightMargin: Theme.paddingSmall
                 }
             }
             Label {
                 id: createdlbl
                 text: "Created on " + dateCreated
-                font.pixelSize: theme.fontSizeExtraSmall * 3 / 4
+                font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
                 font.italic: true
                 width: parent.width
                 anchors {
@@ -88,8 +87,8 @@ Page {
                 id: taglbl
                 text: tagString
                 font.italic: true
-                font.pixelSize: theme.fontSizeExtraSmall * 3 / 4
-                color: theme.secondaryColor
+                font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
+                color: Theme.secondaryColor
                 width: parent.width
                 truncationMode: TruncationMode.Fade
                 anchors {
@@ -103,8 +102,8 @@ Page {
                 id: notebooklbl
                 text: notebookName
                 font.italic: true
-                font.pixelSize: theme.fontSizeExtraSmall * 3 / 4
-                color: theme.secondaryColor
+                font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
+                color: Theme.secondaryColor
                 width: parent.width
                 truncationMode: TruncationMode.Fade
                 horizontalAlignment: Text.AlignRight

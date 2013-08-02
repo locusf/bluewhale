@@ -2,22 +2,17 @@
 #ifndef SAILFISHAPPLICATION_H
 #define SAILFISHAPPLICATION_H
 
-#include "evernotesession.h"
-#include "wrappers/notewrapper.h"
-#include "wrappers/notebookwrapper.h"
-#include "wrappers/resourcewrapper.h"
-#include "wrappers/tagwrapper.h"
-#include "oauth.h"
-
 class QString;
-class QApplication;
-class QDeclarativeView;
+class QGuiApplication;
+class QQuickView;
 
 namespace Sailfish {
 
-QApplication *createApplication(int &argc, char **argv);
-QDeclarativeView *createView(const QString &);
-void showView(QDeclarativeView* view);
+QGuiApplication *createApplication(int &argc, char **argv);
+QQuickView *createView(const QString &);
+QQuickView *createView();
+void setView(QQuickView* view, const QString &);
+void showView(QQuickView* view);
 
 }
 
