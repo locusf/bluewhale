@@ -5,7 +5,10 @@ Settings* Settings::m_instance = NULL;
 Settings::Settings(QObject *parent) :
     QObject(parent)
 {
-
+    QDir notesdir("/home/user/MyDocs/.evernote/notes");
+    if (!notesdir.exists()) {
+        notesdir.mkpath(notesdir.absolutePath());
+    }
 }
 
 Settings* Settings::instance(){

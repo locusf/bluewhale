@@ -58,7 +58,10 @@ Page {
             }
         }
 
-        delegate: BackgroundItem {
+        delegate: ListItem {
+            menu: contextMenuComponent
+            ListView.onRemove: animateRemoval()
+            height: childrenRect.height + Theme.paddingSmall
             Label {
                 id: ntitle
                 text: title
@@ -113,18 +116,40 @@ Page {
                     top: createdlbl.bottom
                 }
             }
-
-            onClicked: {
+            function clickItem() {
                 var editpage = Qt.resolvedUrl("View.qml")
                 var note = Cache.getNoteForGuid(guid)
                 pageStack.push(editpage, {targetNote: note}, 0)
                 EvernoteSession.getNoteContentAsync(note)
             }
-            onPressAndHold: {
-                deleteRemorse.execute("Deleting " + title, function(){
-                    EvernoteSession.deleteNote(Cache.getNoteForGuid(guid))
-                    notesmodel.remove(index)
-                })
+            onClicked: {
+                clickItem()
+            }
+
+            Component {
+                id: contextMenuComponent
+                ContextMenu {
+                    MenuItem {
+                        text: "Edit"
+                        onClicked: {
+                            var targetNote = Cache.getNoteForGuid(guid)
+                            pageStack.push(Qt.resolvedUrl("EditContent.qml"), {targetNote: targetNote})
+                        }
+                    }
+                    MenuItem {
+                        text: "View"
+                        onClicked: {
+                            clickItem()
+                        }
+                    }
+                    MenuItem {
+                        text: "Delete"
+                        onClicked: {
+                            remorseAction("Deleting", function() { notesmodel.remove(index) })
+                        }
+                    }
+
+                }
             }
         }
 
