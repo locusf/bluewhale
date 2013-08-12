@@ -126,6 +126,9 @@ Page {
                 width: parent.width
                 text: targetNote.noteContent
                 id: notearea
+                Component.onCompleted: {
+                    _editor.textFormat = TextEdit.RichText
+                }
             }
         }
     }
