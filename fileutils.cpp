@@ -33,21 +33,9 @@ void FileUtils::cacheNoteContent(NoteWrapper *note, QString content){
     contentFile.open(QIODevice::WriteOnly | QIODevice::Text);
 
     QTextStream out(&contentFile);
-    out << "<html>";
-    out.flush();
-
-    out << "<head>";
-    out << "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' /> ";
-    out << "<script src = '/opt/Evernote/qml/Evernote/engine.js' type='text/javascript' language='JavaScript'></script></head>";
-    out.flush();
-
-    out << "<body onload='onLoadHandler();' onclick='onClickHandler(event);' >";
-    out.flush();
 
     out << content;
     out.flush();
-
-    out << "</body></html>";
     contentFile.flush();
     contentFile.close();
 }
@@ -69,7 +57,7 @@ void FileUtils::cacheResourceContent(Resource r){
 }
 
 QString FileUtils::myDocsFolderPath(){
-    return MY_DOCS_FOLDER;
+    return QDir::homePath();
 }
 QString FileUtils::appFolderPath(){
     return myDocsFolderPath() + QDir::separator() + APP_FOLDER;
