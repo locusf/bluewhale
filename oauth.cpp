@@ -67,8 +67,8 @@ OAuth* OAuth::instance(){
 void OAuth::getAccess()
 {
     init();
-    QString url = QString("https://sandbox.evernote.com/oauth");
-    mOauthRequest->initRequest(KQOAuthRequest::TemporaryCredentials, QUrl(url)); //"https://sandbox.evernote.com/oauth"
+    QString url = QString("https://www.evernote.com/oauth");
+    mOauthRequest->initRequest(KQOAuthRequest::TemporaryCredentials, QUrl(url));
     QString consumer_key = "locusf";
     QString consumer_secret = "011e5c43cc39448c";
     mOauthRequest->setConsumerKey(consumer_key);
@@ -85,7 +85,7 @@ void OAuth::getAccess()
 void OAuth::onTemporaryTokenReceived(QString token, QString tokenSecret)
 {
     qDebug() << "Temporary token received: " << token << tokenSecret;
-    QString url = QString("https://sandbox.evernote.com/OAuth.action");
+    QString url = QString("https://www.evernote.com/OAuth.action");
     QUrl userAuthURL(url);
     if( mOauthManager->lastError() == KQOAuthManager::NoError)
     {
@@ -100,7 +100,7 @@ void OAuth::onTemporaryTokenReceived(QString token, QString tokenSecret)
 void OAuth::onAuthorizationReceived(QString token, QString verifier)
 {
     qDebug() << "User authorization received: " << token << verifier;
-    QString url = QString("https://sandbox.evernote.com/oauth");
+    QString url = QString("https://www.evernote.com/oauth");
     mOauthManager->getUserAccessTokens(QUrl(url));
     if( mOauthManager->lastError() != KQOAuthManager::NoError)
     {

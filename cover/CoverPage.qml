@@ -5,10 +5,6 @@ import Sailfish.Silica.theme 1.0
 Rectangle {
     id: parentrect
     anchors.fill: parent
-    gradient: Gradient {
-        GradientStop { position: 0.0; color: "orange" }
-        GradientStop { position: 1.0; color: "steelblue" }
-    }
     Timer {
         interval: 1
         running: true
