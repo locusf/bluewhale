@@ -6,7 +6,7 @@
 #ifndef UserStore_TYPES_H
 #define UserStore_TYPES_H
 
-#include <thrift.h>
+#include <Thrift.h>
 #include <TApplicationException.h>
 #include <protocol/TProtocol.h>
 #include <transport/TTransport.h>

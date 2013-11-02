@@ -155,10 +155,6 @@ Page {
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
-            MenuItem {
-                text: "Login"
-                onClicked: pageStack.push(Qt.resolvedUrl("Login.qml"))
-            }
 
             MenuItem {
                 text: "Saved searches"
@@ -192,6 +188,10 @@ Page {
             MenuItem {
                 text: "Sync"
                 onClicked: EvernoteSession.syncAsync()
+            }
+            MenuItem {
+                text: "Login"
+                onClicked: pageStack.push(Qt.resolvedUrl("Login.qml"))
             }
 
         }

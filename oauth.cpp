@@ -122,9 +122,12 @@ void OAuth::onRequestReady(QByteArray response)
     qDebug() << "Clarified response " << strresp;
     if (strresp.lastIndexOf("edam_noteStoreUrl") != -1) {
         QStringList tokens = strresp.split("&");
-        QString oauth_token = QUrl::fromPercentEncoding(tokens.at(0).split("=").at(1).toLocal8Bit());
+        QString oauth_token = QUrl::fromPercentEncoding(tokens.at(0).split("=").at(1).toLatin1());
         qDebug() << "Auth token got! " << oauth_token;
         Settings::instance()->setAuthToken(oauth_token);
+        User u;
+        u.shardId = QUrl::fromPercentEncoding(tokens.at(2).split("=").at(1).toLocal8Bit()).toStdString();
+        Settings::instance()->setUser(u);
         requestDone();
     }
 
