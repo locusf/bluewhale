@@ -1,7 +1,7 @@
 TEMPLATE = lib
 QT += network
 TARGET = kQOAuth
-TARGETPATH = /opt/sdk/bin
+TARGETPATH = /usr/lib
 target.path = $$TARGETPATH
 INSTALLS += target
 SOURCES += kqoauthmanager.cpp \

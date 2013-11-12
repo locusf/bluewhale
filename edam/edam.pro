@@ -1,7 +1,7 @@
 TEMPLATE = lib
 INCLUDEPATH += ../thrift
 TARGET = edam
-TARGETPATH = /opt/sdk/bin
+TARGETPATH = /usr/lib
 target.path = $$TARGETPATH
 INSTALLS += target
 SOURCES += UserStore_types.cpp \

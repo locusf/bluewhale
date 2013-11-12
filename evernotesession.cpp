@@ -110,6 +110,7 @@ void EvernoteSession::recreateSyncClient(bool force){
     }
     if(syncClient == NULL){
         User user = Settings::instance()->getUser();
+        qDebug() << QString::fromStdString(user.shardId);
         syncTransport = shared_ptr<TTransport> (new THttpClient(Constants::EDAM_HOST,80,Constants::EDAM_NOTE_ROOT+user.shardId));
         shared_ptr<TProtocol> protocol(new TBinaryProtocol(syncTransport));
         syncClient = new NoteStoreClient(protocol);
@@ -355,7 +356,8 @@ void EvernoteSession::sync(){
 
                 qDebug() << "EvernoteSession :: sync finished";
                 break;
-            }catch(EDAMUserException &e){
+            }catch(EDAMSystemException &e){
+                qDebug() << "EvernoteSession :: Edam SYSTEM EXCEPTION " << e.what() << " " << e.errorCode;
                 if(e.errorCode == 9){
                     reauth();
                 }

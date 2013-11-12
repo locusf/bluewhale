@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = thrift
-TARGETPATH = /opt/sdk/bin
+TARGETPATH = /usr/lib
 target.path = $$TARGETPATH
 INSTALLS += target
 INCLUDEPATH += $$PWD $$PWD/../thrift
