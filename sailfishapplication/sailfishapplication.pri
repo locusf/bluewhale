@@ -9,6 +9,8 @@ target.path = $$TARGETPATH
 
 DEPLOYMENT_PATH = /usr/share/$$TARGET
 qml.path = $$DEPLOYMENT_PATH
+icon.files = ../bluewhale.png
+icon.path = /usr/share/icons/hicolor/80x80/apps
 desktop.path = /usr/share/applications
 
 contains(CONFIG, desktop) {
@@ -16,7 +18,7 @@ contains(CONFIG, desktop) {
     QT += opengl
 }
 
-INSTALLS += target qml desktop
+INSTALLS += target qml desktop icon
 
 DEFINES += DEPLOYMENT_PATH=\"\\\"\"$${DEPLOYMENT_PATH}/\"\\\"\"
 

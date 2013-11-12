@@ -22,7 +22,7 @@ Files:
 - /usr/share/bluewhale
 - /usr/bin
 - /usr/lib
-- 
+- "/usr/share/icons/hicolor/80x80/apps/bluewhale.png"
 PkgBR:
 - openssl-devel
 - boost-devel

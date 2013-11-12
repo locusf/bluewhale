@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=bluewhale
-Icon=icon-launcher-gallery
+Icon=/usr/share/icons/hicolor/80x80/apps/bluewhale.png
 Exec=invoker --type=silica-qt5 -s /usr/bin/bluewhale
 Comment=Sailfish UI application
 
