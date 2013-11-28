@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import Sailfish.Silica.theme 1.0
 
 Page {
     id: page
@@ -10,7 +9,6 @@ Page {
     }
     SilicaListView {
         anchors.fill: parent
-        contentHeight: childrenRect.height
 
         header: PageHeader {
             title: "Bluewhale"
@@ -156,10 +154,7 @@ Page {
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
 
-            MenuItem {
-                text: "Saved searches"
-                onClicked: pageStack.push(Qt.resolvedUrl("SavedSearch.qml"))
-            }
+
             MenuItem {
                 text: "Clear search"
                 onClicked: clearSearch()
@@ -184,6 +179,10 @@ Page {
                     searchinput.visible = true
                     searchinput.forceActiveFocus()
                 }
+            }
+            MenuItem {
+                text: "Saved searches"
+                onClicked: pageStack.push(Qt.resolvedUrl("SavedSearch.qml"))
             }
             MenuItem {
                 text: "Sync"

@@ -46,10 +46,6 @@ public:
     EvernoteSession(QObject *parent = 0);
     ~EvernoteSession();
 
-
-
-    void recreateUserStoreClient(bool force);
-    void recreateSyncClient(bool force);
 signals:
     void authenticationSuccess();
     void authenticationFailed(QString error);
@@ -71,7 +67,9 @@ signals:
 public slots:
     void reauth();
     void auth(const QString& username, const QString& password);
-    void authAsync(const QString& username, const QString& password);
+
+    void recreateUserStoreClient(bool force);
+    void recreateSyncClient(bool force);    void authAsync(const QString& username, const QString& password);
 
     void sync();
     void syncAsync();

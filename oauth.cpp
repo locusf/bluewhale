@@ -25,7 +25,7 @@ void OAuth::init( void )
     connect(mOauthManager, SIGNAL(requestReady(QByteArray)),
       this, SLOT(onRequestReady(QByteArray)));
     connect(mOauthManager, SIGNAL(authorizedRequestDone()),
-      this, SLOT(requestDone() ));
+      this, SIGNAL(requestDone() ));
 }
 
 void OAuth::deinit()

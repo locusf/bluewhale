@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = bluewhale
+TARGET = harbour-bluewhale
 
 # C++ sources
 SOURCES += ../main.cpp \
@@ -38,11 +38,11 @@ HEADERS += ../evernotesession.h \
 qml.files = ../*.qml ../pages ../cover ../main.qml
 
 # The .desktop file
-desktop.files = ../bluewhale.desktop
+desktop.files = ../harbour-bluewhale.desktop
 
 # Please do not modify the following line.
 include(../sailfishapplication/sailfishapplication.pri)
-QT += quick qml sql webkit
+QT += quick qml sql
 OTHER_FILES = ../rpm/bluewhale.yaml \
     ../pages/Tags.qml \
     ../pages/View.qml \

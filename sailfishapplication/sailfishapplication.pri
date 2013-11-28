@@ -1,4 +1,4 @@
-QT += qml quick sql network webkit concurrent
+QT += qml quick sql network concurrent
 
 SOURCES += $$PWD/sailfishapplication.cpp
 HEADERS += $$PWD/sailfishapplication.h
@@ -9,8 +9,8 @@ target.path = $$TARGETPATH
 
 DEPLOYMENT_PATH = /usr/share/$$TARGET
 qml.path = $$DEPLOYMENT_PATH
-icon.files = ../bluewhale.png
-icon.path = /usr/share/icons/hicolor/80x80/apps
+icon.files = ../harbour-bluewhale.png
+icon.path = /usr/share/icons/hicolor/86x86/apps
 desktop.path = /usr/share/applications
 
 contains(CONFIG, desktop) {
@@ -41,6 +41,11 @@ DEPENDPATH += $$PWD/../edam
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../thrift/release/ -lthrift
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../thrift/debug/ -lthrift
 else:unix: LIBS += -L$$OUT_PWD/../thrift/ -lthrift
+
+unix:!mac{
+    QMAKE_LFLAGS += -Wl,-rpath,/usr/share/harbour-bluewhale,-rpath,/opt/sdk/bluewhale/usr/share/bluewhale
+    QMAKE_RPATH=
+}
 
 INCLUDEPATH += $$PWD/../thrift
 DEPENDPATH += $$PWD/../thrift

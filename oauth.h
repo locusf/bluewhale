@@ -2,7 +2,6 @@
 #define OAUTH_H
 
 #include <QObject>
-#include <QtWebKit/QtWebKit>
 #include <kQOAuth/kqoauthrequest.h>
 #include <kQOAuth/kqoauthmanager.h>
 #include <settings.h>

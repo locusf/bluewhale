@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Bluewhale
+Icon=harbour-bluewhale
+Exec=harbour-bluewhale
+Comment=Sailfish UI application
+X-Nemo-Application-Type=no-invoker

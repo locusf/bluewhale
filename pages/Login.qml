@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import QtWebKit 3.0
 
 Page {
     id: editpage
@@ -38,8 +37,9 @@ Page {
                 oauthview.url = url
             }
             onRequestDone: {
-                console.log("Request done!")
                 pageStack.pop()
+                EvernoteSession.recreateSyncClient(true);
+                EvernoteSession.recreateUserStoreClient(true);
                 EvernoteSession.syncAsync()
             }
         }
@@ -53,7 +53,7 @@ Page {
                 id: head
             }
 
-            WebView {
+            SilicaWebView {
                 id: oauthview
                 width: parent.width
                 height: 500

@@ -1,6 +1,6 @@
 TEMPLATE = lib
 TARGET = thrift
-TARGETPATH = /usr/lib
+TARGETPATH = /usr/share/harbour-bluewhale
 target.path = $$TARGETPATH
 INSTALLS += target
 INCLUDEPATH += $$PWD $$PWD/../thrift

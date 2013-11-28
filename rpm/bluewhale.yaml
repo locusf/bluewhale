@@ -1,6 +1,6 @@
-Name: bluewhale
+Name: harbour-bluewhale
 Summary: Bluewhale Evernote client
-Version: 0.1
+Version: 0.2
 Release: 1
 Group: Qt/Qt
 License: LICENSE
@@ -15,14 +15,12 @@ PkgConfigBR:
 - Qt5Core
 - Qt5Qml
 - Qt5Quick
-Requires:
-- qt5-webkit
+Requires: []
 Files:
+- /usr/share/harbour-bluewhale
 - /usr/share/applications
-- /usr/share/bluewhale
 - /usr/bin
-- /usr/lib
-- "/usr/share/icons/hicolor/80x80/apps/bluewhale.png"
+- /usr/share/icons/hicolor/86x86/apps
 PkgBR:
 - openssl-devel
 - boost-devel

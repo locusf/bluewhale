@@ -1,7 +1,7 @@
 TEMPLATE = lib
 QT += network
 TARGET = kQOAuth
-TARGETPATH = /usr/lib
+TARGETPATH = /usr/share/harbour-bluewhale
 target.path = $$TARGETPATH
 INSTALLS += target
 SOURCES += kqoauthmanager.cpp \
