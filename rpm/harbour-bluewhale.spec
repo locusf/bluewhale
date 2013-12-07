@@ -19,12 +19,13 @@ Group:      Qt/Qt
 License:    LICENSE
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-bluewhale.yaml
-BuildRequires:  pkgconfig(qdeclarative5-boostable)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5Concurrent)
 BuildRequires:  pkgconfig(Qt5Quick)
-BuildRequires:  openssl-devel
+BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(qdeclarative5-boostable)
 BuildRequires:  boost-devel
+BuildRequires:  openssl-devel
 
 %description
 Bluewhale is an Evernote client for Sailfish OS. It supports some features of Evernote during launch, like tags, notebooks and saved searches.
@@ -57,9 +58,9 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-/usr/share/harbour-bluewhale
-/usr/share/applications
-/usr/bin
 /usr/share/icons/hicolor/86x86/apps
+/usr/bin
+/usr/share/applications
+/usr/share/harbour-bluewhale
 # >> files
 # << files

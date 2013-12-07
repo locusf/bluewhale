@@ -11,16 +11,17 @@ Description: |-
 Configure: none
 Builder: qtc5
 PkgConfigBR:
-- qdeclarative5-boostable
-- Qt5Core
-- Qt5Qml
+- Qt5Concurrent
 - Qt5Quick
+- Qt5Qml
+- Qt5Core
+- qdeclarative5-boostable
 Requires: []
 Files:
-- /usr/share/harbour-bluewhale
-- /usr/share/applications
-- /usr/bin
 - /usr/share/icons/hicolor/86x86/apps
+- /usr/bin
+- /usr/share/applications
+- /usr/share/harbour-bluewhale
 PkgBR:
-- openssl-devel
 - boost-devel
+- openssl-devel
