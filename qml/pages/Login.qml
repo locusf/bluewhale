@@ -48,15 +48,16 @@ Page {
             id: login
             width: parent.width
 
-            PageHeader {
-                title: "Evernote login"
-                id: head
-            }
 
             SilicaWebView {
+                header: PageHeader {
+                    title: "Evernote login"
+                    id: head
+                }
+
                 id: oauthview
                 width: parent.width
-                height: 500
+                height: 800
                 objectName: "oauthviewer"
             }
         }

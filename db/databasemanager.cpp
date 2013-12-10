@@ -16,6 +16,7 @@ DatabaseManager::DatabaseManager(QObject *parent) :
         dbOpened();
     }else{
         qDebug()  << "DatabaseManager: db open error" << endl;
+        qDebug() << " " << db->lastError().text();
         dbOpenError();
     }
     createTables();

@@ -23,6 +23,9 @@ INSTALLS += target qml desktop icon
 DEFINES += DEPLOYMENT_PATH=\"\\\"\"$${DEPLOYMENT_PATH}/\"\\\"\"
 
 CONFIG += link_pkgconfig
+PKGCONFIG += sailfishapp
+INCLUDEPATH += /usr/include/sailfishapp
+
 LIBS += -lrt -lz
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../kQOAuth/release/ -lkQOAuth
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../kQOAuth/debug/ -lkQOAuth

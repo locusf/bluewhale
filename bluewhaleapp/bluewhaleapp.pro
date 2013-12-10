@@ -35,7 +35,7 @@ HEADERS += ../evernotesession.h \
     ../wrappers/savedsearchwrapper.h
 
 # QML files and folders
-qml.files = ../*.qml ../pages ../cover ../main.qml
+qml.files = ../*.qml ../qml ../harbour-bluewhale.qml
 
 # The .desktop file
 desktop.files = ../harbour-bluewhale.desktop
