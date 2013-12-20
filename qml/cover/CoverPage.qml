@@ -1,10 +1,19 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-Rectangle {
+CoverBackground {
     id: parentrect
-    anchors.fill: parent
-    color: "blue"
+    Image {
+        source: "bluewhale.jpg"
+        opacity: 0.3
+        width: parent.width
+        height: parent.height
+        fillMode: Image.PreserveAspectCrop
+    }
+    Label{
+        anchors.centerIn: parent
+        text: Cache.getNote(1).title
+    }
     Timer {
         interval: 1
         running: true
@@ -12,11 +21,11 @@ Rectangle {
             Cache.softLoad()
         }
     }
-    Label {
-        id: label
-        anchors.centerIn: parent
-        text: "Bluewhale"
-    }
+//    Label {
+//        id: label
+//        anchors.centerIn: parent
+//        text: "Bluewhale"
+//    }
     Timer {
         interval: 900000
         repeat: true
@@ -31,6 +40,13 @@ Rectangle {
             onTriggered: {
                 EvernoteSession.syncAsync()
                 Cache.softLoad()
+            }
+        }
+        CoverAction {
+            iconSource: "image://theme/icon-cover-new"
+            onTriggered: {
+                mainWindow.activate()
+                pageStack.push(Qt.resolvedUrl("../pages/AddNote.qml"),PageStackAction.Immediate);
             }
         }
     }

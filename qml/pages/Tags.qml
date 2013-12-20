@@ -35,6 +35,9 @@ Page {
     SilicaFlickable {
         contentHeight: childrenRect.height
         anchors.fill: parent
+        PageHeader {
+            title: "Tags"
+        }
         PullDownMenu {
             MenuItem {
                 text: "Help"
@@ -68,9 +71,8 @@ Page {
         }
         Column {
             id: tagcol
-            PageHeader {
-                title: "Tags"
-            }
+            anchors.fill: parent
+            anchors.topMargin: 4 * Theme.paddingLarge
             Repeater {
                 model: ListModel { id: enabledmodel }
                 delegate: TextSwitch {
@@ -96,14 +98,38 @@ Page {
             TextField {
                 id: tagfield
                 width: parent.width
-                height: parent.height
                 visible: false
                 Keys.onReturnPressed: {
                     var guid = EvernoteSession.createTag(tagfield.text);
                     alltagmodel.append({name:tagfield.text, guid:guid})
                 }
             }
+            PushUpMenu {
+                MenuItem {
+                    text: "Add tag"
+                    onClicked: {
+                        tagfield.visible = true
+                        tagfield.forceActiveFocus()
+                    }
+                }
+                MenuItem {
+                    text: "Save tags"
+                    onClicked: {
+                        var i = 0;
+                        var tags = enabledmodel
+                        var sel = []
+                        for (i = 0; i < tags.count; i++) {
+                            sel.push(tags.get(i).guid)
+                        }
+                        targetNote.tagGuids = sel
+                        EvernoteSession.updateNoteTags(targetNote)
+                        pageStack.pop()
+                        EvernoteSession.syncAsync()
+                        EvernoteSession.getNoteContentAsync(targetNote)
+                    }
+                }
 
+            }
         }
     }
 }

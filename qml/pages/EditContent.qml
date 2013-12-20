@@ -58,6 +58,7 @@ Page {
                 }
             }
         }
+
         Column {
             id: areacol
             width: parent.width
@@ -67,8 +68,9 @@ Page {
             TextField {
                 id: txtTitle
                 text: targetNote.title
+                placeholderText: "title"
+                font.pixelSize: Theme.fontSizeLarge
             }
-
             ComboBox {
                 label: "Notebook"
                 id: notesbox
@@ -84,13 +86,19 @@ Page {
                     }
                 }
             }
-            SectionHeader {
-                text: "Reminder"
-            }
+
             Row {
-                spacing: 80
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.paddingLarge
+                Label {
+                    id: remlabel
+                    text: "Set reminder"
+                }
                 Button {
+                    anchors.top: remlabel.top
+                    anchors.topMargin: - Theme.paddingSmall - 4
                     text: "Time"
+                    width: 90
                     onClicked: {
                         var date = targetNote.reminder || new Date()
                         var dialog = pageStack.openDialog("Sailfish.Silica.TimePickerDialog", {
@@ -103,8 +111,14 @@ Page {
                         })
                     }
                 }
+                Label {
+                    text: "and"
+                }
                 Button {
+                    anchors.top: remlabel.top
+                    anchors.topMargin: - Theme.paddingSmall - 4
                     text: "Date"
+                    width: 90
                     onClicked: {
                         var date = targetNote.reminder || new Date()
 

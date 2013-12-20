@@ -53,7 +53,7 @@ Page {
                 title: "New Note"
             }
             ComboBox {
-                label: "Notebook"
+                label: ""
                 menu: ContextMenu {
                     Repeater {
                         model: ListModel { id: notebooksmodel }
@@ -66,19 +66,16 @@ Page {
                     }
                 }
             }
-            Label {
-                text: "Title"
-            }
             TextField {
                 id: txtTitle
                 width: parent.width
-            }
-            Label {
-                text: "Content"
+                placeholderText: "title"
+                font.pixelSize: 30
             }
             TextArea {
                 id: notearea
                 width: parent.width
+                placeholderText: "content"
             }
         }
     }

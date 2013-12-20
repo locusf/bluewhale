@@ -2,16 +2,12 @@
 #include <QGuiApplication>
 #include <QQuickView>
 #include <QtQml>
-
+#include "sailfishapplication.h"
 #include "wrappers/notebookwrapper.h"
 #include "wrappers/notewrapper.h"
 #include "wrappers/resourcewrapper.h"
 #include "wrappers/savedsearchwrapper.h"
 #include "wrappers/tagwrapper.h"
-#include "cache.h"
-#include "evernotesession.h"
-#include "oauth.h"
-#include "settings.h"
 
 #include <sailfishapp.h>
 
@@ -22,6 +18,7 @@ int main(int argc, char *argv[])
     qmlRegisterType <ResourceWrapper> ("com.evernote.types",1,0, "Resource");
     qmlRegisterType <NotebookWrapper> ("com.evernote.types",1,0, "Notebook");
     qmlRegisterType <SavedSearchWrapper> ("com.evernote.types",1,0, "SavedSearch");
+    QQuickWindow::setDefaultAlphaBuffer(true);
     QQuickView* view = SailfishApp::createView();
     QGuiApplication* app = SailfishApp::application(argc, argv);
     view->setSource(SailfishApp::pathTo("qml/harbour-bluewhale.qml"));

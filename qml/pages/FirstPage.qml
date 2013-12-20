@@ -7,12 +7,16 @@ Page {
         Cache.setToDefaultNotebook()
         Cache.load()
     }
+    function goToPage(pageName){
+        pageStack.push(Qt.resolvedUrl(pageName+".qml"),PageStackAction.Immediate)
+    }
     SilicaListView {
         anchors.fill: parent
-
+        id: notesList
         header: PageHeader {
             title: "Bluewhale"
-            id:header
+            id: header
+            visible: !searchinput.visible
         }
 
         RemorsePopup {
@@ -45,7 +49,8 @@ Page {
             visible: false
             width: parent.width
             anchors {
-                top: header.bottom
+                top: parent.top
+                topMargin: Theme.paddingSmall
                 left: parent.left
                 right: parent.right
             }
@@ -57,61 +62,70 @@ Page {
         }
 
         delegate: ListItem {
-            menu: contextMenuComponent
+            id: noteListItem
+            property Item contextMenu
             ListView.onRemove: animateRemoval()
-            height: childrenRect.height + Theme.paddingSmall
-            Label {
-                id: ntitle
-                text: title
-                width: parent.width
-                truncationMode: TruncationMode.Fade
-                font.pixelSize: Theme.fontSizeMedium
-                anchors {
-                    left: parent.left
-                    rightMargin: Theme.paddingSmall
+            height: menuOpen ? contextMenu.height + forPadding.height : forPadding.height
+            property bool menuOpen: contextMenu != null && contextMenu.parent === noteListItem
+            Item{
+                id: forPadding
+                height: 80//Theme.itemSizeMedium - Theme.paddingLarge
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.paddingLarge
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.paddingLarge
+                Label {
+                    id: ntitle
+                    text: title
+                    truncationMode: TruncationMode.Fade
+                    font.pixelSize: Theme.fontSizeMedium
+                    anchors {
+                        top: parent.top
+                        topMargin: Theme.paddingSmall
+                        left: parent.left
+                        leftMargin: Theme.paddingSmall
+                        rightMargin: Theme.paddingSmall
+                    }
                 }
-            }
-            Label {
-                id: createdlbl
-                text: "Created on " + dateCreated
-                font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
-                font.italic: true
-                width: parent.width
-                anchors {
-                    top: ntitle.bottom
-                    topMargin: 4
-                    left: parent.left
-                    right: parent.right
+                Label {
+                    id: createdlbl
+                    text: "Created on " + dateCreated
+                    font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
+                    font.italic: true
+                    anchors {
+                        top: parent.top
+                        topMargin: Theme.paddingSmall
+                        right: parent.right
+                    }
                 }
-            }
-            Label {
-                id: taglbl
-                text: tagString
-                font.italic: true
-                font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
-                color: Theme.secondaryColor
-                width: parent.width
-                truncationMode: TruncationMode.Fade
-                anchors {
-                    top: createdlbl.bottom
-                    topMargin: 4
-                    left: parent.left
-                    right: parent.right
+                Label {
+                    id: taglbl
+                    text: tagString=="No tags"?"":tagString
+                    font.italic: true
+                    font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
+                    color: Theme.secondaryColor
+                    width: parent.width
+                    truncationMode: TruncationMode.Fade
+                    anchors {
+                        top: createdlbl.bottom
+                        topMargin: 4
+                        left: parent.left
+                        right: parent.right
+                    }
                 }
-            }
-            Label {
-                id: notebooklbl
-                text: notebookName
-                font.italic: true
-                font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
-                color: Theme.secondaryColor
-                width: parent.width
-                truncationMode: TruncationMode.Fade
-                horizontalAlignment: Text.AlignRight
-                anchors {
-                    left: parent.left
-                    right: parent.right
-                    top: createdlbl.bottom
+                Label {
+                    id: notebooklbl
+                    text: notebookName
+                    font.italic: true
+                    font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
+                    color: Theme.secondaryColor
+                    width: parent.width
+                    truncationMode: TruncationMode.Fade
+                    horizontalAlignment: Text.AlignRight
+                    anchors {
+                        right: parent.right
+                        top: createdlbl.bottom
+                    }
                 }
             }
             function clickItem() {
@@ -122,6 +136,11 @@ Page {
             }
             onClicked: {
                 clickItem()
+            }
+            onPressAndHold: {
+                if (!contextMenu)
+                    contextMenu = contextMenuComponent.createObject(notesList)
+                contextMenu.show(noteListItem)
             }
 
             Component {
@@ -154,14 +173,9 @@ Page {
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
 
-
             MenuItem {
-                text: "Clear search"
-                onClicked: clearSearch()
-            }
-            MenuItem {
-                text: "Notebooks"
-                onClicked: pageStack.push(Qt.resolvedUrl("ViewNoteBooks.qml"))
+                text: "Login"
+                onClicked: pageStack.push(Qt.resolvedUrl("Login.qml"))
             }
             MenuItem {
                 text: "Help"
@@ -170,8 +184,12 @@ Page {
                 }
             }
             MenuItem {
-                text: "Add note"
-                onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))
+                text: "Clear search"
+                onClicked: clearSearch()
+            }
+            MenuItem {
+                text: "Saved searches"
+                onClicked: pageStack.push(Qt.resolvedUrl("SavedSearch.qml"))
             }
             MenuItem {
                 text: "Search"
@@ -181,16 +199,16 @@ Page {
                 }
             }
             MenuItem {
-                text: "Saved searches"
-                onClicked: pageStack.push(Qt.resolvedUrl("SavedSearch.qml"))
+                text: "Notebooks"
+                onClicked: pageStack.push(Qt.resolvedUrl("ViewNoteBooks.qml"))
             }
             MenuItem {
                 text: "Sync"
                 onClicked: EvernoteSession.syncAsync()
             }
             MenuItem {
-                text: "Login"
-                onClicked: pageStack.push(Qt.resolvedUrl("Login.qml"))
+                text: "Add note"
+                onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))
             }
 
         }
