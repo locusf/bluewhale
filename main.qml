@@ -4,7 +4,13 @@ import "pages"
 
 ApplicationWindow
 {
-    initialPage: FirstPage { }
+    id: mainWindow
+    initialPage: Component {
+        FirstPage {
+            id: page
+            Component.onCompleted: mainWindow.page = page
+        }
+    }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
 }
 

@@ -16,7 +16,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType <ResourceWrapper> ("com.evernote.types",1,0, "Resource");
     qmlRegisterType <NotebookWrapper> ("com.evernote.types",1,0, "Notebook");
     qmlRegisterType <SavedSearchWrapper> ("com.evernote.types",1,0, "SavedSearch");
-
+    QQuickWindow::setDefaultAlphaBuffer(true);
     QScopedPointer<QGuiApplication> app(Sailfish::createApplication(argc, argv));
     QScopedPointer<QQuickView> view(Sailfish::createView("main.qml"));
     
