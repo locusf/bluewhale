@@ -12,7 +12,7 @@ CoverBackground {
     }
     Label{
         anchors.centerIn: parent
-        text: Cache.getNote(1).title
+        text: mainWindow.lastNote
     }
     Timer {
         interval: 1
@@ -46,7 +46,7 @@ CoverBackground {
             iconSource: "image://theme/icon-cover-new"
             onTriggered: {
                 mainWindow.activate()
-                pageStack.push(Qt.resolvedUrl("../pages/AddNote.qml"),PageStackAction.Immediate);
+                pageStack.push(Qt.resolvedUrl("../pages/AddNote.qml"));
             }
         }
     }

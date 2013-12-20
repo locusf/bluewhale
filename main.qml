@@ -5,6 +5,7 @@ import "pages"
 ApplicationWindow
 {
     id: mainWindow
+    property string lastNote
     initialPage: Component {
         FirstPage {
             id: page

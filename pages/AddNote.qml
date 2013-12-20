@@ -26,6 +26,7 @@ Page {
                     EvernoteSession.addNote(note)
                     pageStack.pop()
                     EvernoteSession.syncAsync()
+                    mainWindow.lastNote = notearea.text
                 }
             }
         }
@@ -53,7 +54,7 @@ Page {
                 title: "New Note"
             }
             ComboBox {
-                label: ""
+                label: "Notebook"
                 menu: ContextMenu {
                     Repeater {
                         model: ListModel { id: notebooksmodel }

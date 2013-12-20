@@ -36,6 +36,8 @@ Page {
                 title: "Add notebook"
             }
             Label {
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.paddingLarge
                 text: "Name"
             }
 

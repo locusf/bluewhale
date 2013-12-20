@@ -27,6 +27,8 @@ Page {
 
         delegate: BackgroundItem {
             Label {
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.paddingLarge
                 text: name
             }
             onClicked: {

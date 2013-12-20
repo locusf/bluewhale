@@ -84,14 +84,14 @@ Page {
                         topMargin: Theme.paddingSmall
                         left: parent.left
                         leftMargin: Theme.paddingSmall
-                        rightMargin: Theme.paddingSmall
+                        rightMargin: 3.5 * Theme.paddingLarge
+                        right: parent.right;
                     }
                 }
                 Label {
                     id: createdlbl
-                    text: "Created on " + dateCreated
+                    text: dateCreated
                     font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
-                    font.italic: true
                     anchors {
                         top: parent.top
                         topMargin: Theme.paddingSmall
@@ -101,22 +101,21 @@ Page {
                 Label {
                     id: taglbl
                     text: tagString=="No tags"?"":tagString
-                    font.italic: true
                     font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
                     color: Theme.secondaryColor
                     width: parent.width
                     truncationMode: TruncationMode.Fade
                     anchors {
-                        top: createdlbl.bottom
-                        topMargin: 4
+                        top: ntitle.bottom
+                        topMargin: Theme.paddingSmall/3
                         left: parent.left
+                        leftMargin: 6
                         right: parent.right
                     }
                 }
                 Label {
                     id: notebooklbl
                     text: notebookName
-                    font.italic: true
                     font.pixelSize: Theme.fontSizeExtraSmall * 3 / 4
                     color: Theme.secondaryColor
                     width: parent.width
