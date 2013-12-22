@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-Page {
+Dialog {
     id: tagspage
     property variant targetNote;
     Timer {
@@ -35,30 +35,14 @@ Page {
     SilicaFlickable {
         contentHeight: childrenRect.height
         anchors.fill: parent
-        PageHeader {
-            title: "Tags"
+        DialogHeader {
+            acceptText: "Save Tags"
         }
         PullDownMenu {
             MenuItem {
                 text: "Help"
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("help/Tags.qml"));
-                }
-            }
-            MenuItem {
-                text: "Save tags"
-                onClicked: {
-                    var i = 0;
-                    var tags = enabledmodel
-                    var sel = []
-                    for (i = 0; i < tags.count; i++) {
-                        sel.push(tags.get(i).guid)
-                    }
-                    targetNote.tagGuids = sel
-                    EvernoteSession.updateNoteTags(targetNote)
-                    pageStack.pop()
-                    EvernoteSession.syncAsync()
-                    EvernoteSession.getNoteContentAsync(targetNote)
                 }
             }
             MenuItem {
@@ -112,24 +96,21 @@ Page {
                         tagfield.forceActiveFocus()
                     }
                 }
-                MenuItem {
-                    text: "Save tags"
-                    onClicked: {
-                        var i = 0;
-                        var tags = enabledmodel
-                        var sel = []
-                        for (i = 0; i < tags.count; i++) {
-                            sel.push(tags.get(i).guid)
-                        }
-                        targetNote.tagGuids = sel
-                        EvernoteSession.updateNoteTags(targetNote)
-                        pageStack.pop()
-                        EvernoteSession.syncAsync()
-                        EvernoteSession.getNoteContentAsync(targetNote)
-                    }
-                }
-
             }
+        }
+    }
+    onDone:{
+        if (result == DialogResult.Accepted){
+            var i = 0;
+            var tags = enabledmodel
+            var sel = []
+            for (i = 0; i < tags.count; i++) {
+                sel.push(tags.get(i).guid)
+            }
+            targetNote.tagGuids = sel
+            EvernoteSession.updateNoteTags(targetNote)
+            EvernoteSession.syncAsync()
+            EvernoteSession.getNoteContentAsync(targetNote)
         }
     }
 }

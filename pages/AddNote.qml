@@ -2,7 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 
-Page {
+Dialog {
     id: addpage
     property string selectedNotebookGuid;
     SilicaFlickable {
@@ -13,20 +13,6 @@ Page {
                 text: "Help"
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("help/AddNote.qml"));
-                }
-            }
-
-            MenuItem {
-                text: "Save"
-                onClicked: {
-                    var note = Qt.createQmlObject("import com.evernote.types 1.0; Note {}", addpage)
-                    note.title = txtTitle.text
-                    note.noteContent = notearea.text
-                    note.notebookGUID = selectedNotebookGuid
-                    EvernoteSession.addNote(note)
-                    pageStack.pop()
-                    EvernoteSession.syncAsync()
-                    mainWindow.lastNote = notearea.text
                 }
             }
         }
@@ -50,8 +36,8 @@ Page {
         Column {
             id: areacol
             width: parent.width
-            PageHeader {
-                title: "New Note"
+            DialogHeader {
+                acceptText: "Save Note"
             }
             ComboBox {
                 label: "Notebook"
@@ -79,5 +65,16 @@ Page {
                 placeholderText: "content"
             }
         }
+    }
+    onDone: {
+            if (result == DialogResult.Accepted){
+                var note = Qt.createQmlObject("import com.evernote.types 1.0; Note {}", addpage)
+                note.title = txtTitle.text
+                note.noteContent = notearea.text
+                note.notebookGUID = selectedNotebookGuid
+                EvernoteSession.addNote(note)
+                EvernoteSession.syncAsync()
+                mainWindow.lastNote = notearea.text
+            }
     }
 }

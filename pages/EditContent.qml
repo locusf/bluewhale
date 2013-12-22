@@ -2,7 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 
-Page {
+Dialog {
     id: editpage
     property variant targetNote;
     property string selectedNotebookGuid;
@@ -39,31 +39,13 @@ Page {
                     pageStack.push(Qt.resolvedUrl("help/EditContent.qml"));
                 }
             }
-            MenuItem {
-                text: "Save"
-                onClicked: {
-                    targetNote.title = txtTitle.text
-                    targetNote.noteContent = notearea.text
-                    targetNote.notebookGUID = selectedNotebookGuid
-                    var combdate = new Date(selectedDate.getFullYear(),
-                                            selectedDate.getMonth(),
-                                            selectedDate.getDate(),
-                                            selectedTime.getHours(),
-                                            selectedTime.getMinutes())
-                    targetNote.reminder = combdate
-                    EvernoteSession.updateNote(targetNote)
-                    pageStack.pop()
-                    EvernoteSession.syncAsync()
-                    EvernoteSession.getNoteContentAsync(targetNote)
-                }
-            }
         }
 
         Column {
             id: areacol
             width: parent.width
-            PageHeader {
-                title: "Edit note"
+            DialogHeader {
+                acceptText: "Save Note"
             }
             TextField {
                 id: txtTitle
@@ -144,6 +126,22 @@ Page {
                     _editor.textFormat = TextEdit.RichText
                 }
             }
+        }
+    }
+    onDone: {
+        if (result == DialogResult.Accepted){
+            targetNote.title = txtTitle.text
+            targetNote.noteContent = notearea.text
+            targetNote.notebookGUID = selectedNotebookGuid
+            var combdate = new Date(selectedDate.getFullYear(),
+                                    selectedDate.getMonth(),
+                                    selectedDate.getDate(),
+                                    selectedTime.getHours(),
+                                    selectedTime.getMinutes())
+            targetNote.reminder = combdate
+            EvernoteSession.updateNote(targetNote)
+            EvernoteSession.syncAsync()
+            EvernoteSession.getNoteContentAsync(targetNote)
         }
     }
 }

@@ -2,7 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 
-Page {
+Dialog {
     id: addsearchpage
     SilicaFlickable {
         anchors.fill: parent
@@ -14,40 +14,34 @@ Page {
                     pageStack.push(Qt.resolvedUrl("help/AddSavedSearch.qml"));
                 }
             }
-            MenuItem {
-                text: "Save"
-                onClicked: {
-                    var search = Qt.createQmlObject("import com.evernote.types 1.0; SavedSearch {}", addsearchpage)
-                    search.name = txtTitle.text
-                    search.query = notearea.text
-                    EvernoteSession.addSavedSearch(search)
-                    pageStack.pop()
-                    EvernoteSession.sync()
-                    Cache.fireClearSearches()
-                    Cache.fillWithSavedSearches()
-                }
-            }
         }
         Column {
             id: areacol
             width: parent.width
-            PageHeader {
-                title: "New Saved search"
-            }
-            Label {
-                text: "Name"
+            DialogHeader {
+                acceptText: "Save search"
             }
             TextField {
                 id: txtTitle
                 width: parent.width
-            }
-            Label {
-                text: "Query"
+                placeholderText: "name"
             }
             TextField {
                 id: notearea
+                placeholderText: "query"
                 width: parent.width
             }
+        }
+    }
+    onDone:{
+        if (result == DialogResult.Accepted){
+            var search = Qt.createQmlObject("import com.evernote.types 1.0; SavedSearch {}", addsearchpage)
+            search.name = txtTitle.text
+            search.query = notearea.text
+            EvernoteSession.addSavedSearch(search)
+            EvernoteSession.sync()
+            Cache.fireClearSearches()
+            Cache.fillWithSavedSearches()
         }
     }
 }

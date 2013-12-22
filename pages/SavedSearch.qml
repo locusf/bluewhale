@@ -50,11 +50,12 @@ Page {
             Label {
                 id: ntitle
                 text: query
-                width: parent.width
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: theme.fontSizeMedium
                 anchors {
                     left: parent.left
+                    leftMargin: Theme.paddingLarge
+                    right: parent.right
                     rightMargin: theme.paddingSmall
                 }
             }
@@ -62,12 +63,9 @@ Page {
                 id: createdlbl
                 text: "Name " + name
                 font.pixelSize: theme.fontSizeExtraSmall * 3 / 4
-                font.italic: true
-                width: parent.width
                 anchors {
-                    top: ntitle.bottom
-                    topMargin: 4
-                    left: parent.left
+                    top: parent.top
+                    topMargin: Theme.paddingSmall
                     right: parent.right
                 }
             }
