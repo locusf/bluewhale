@@ -43,18 +43,9 @@ Page {
             target: EvernoteSession
             onNoteContentDownloaded: {
                 txtTitle.title = targetNote.title
-                notearea.loadHtml(Cache.getNoteContent(targetNote).replace("</body>","<style>body{background:blue}</style></body>"))
+                notearea.loadHtml(Cache.getNoteContent(targetNote))
                 notebooktitl.text = Cache.getNotebook(targetNote).name
-                if (targetNote.tagGuids.length !== 0) {
-                    tagsrow.visible = true
-                    var i = 0;
-                    var tags = targetNote.tagGuids
-                    tagstitl.text = ""
-                    for (i = 0; i < tags.length; i++) {
-                        tagstitl.text += Cache.getTagForGuid(tags[i]).name + ","
-                    }
-                    tagstitl.text = tagstitl.text.slice(0,-1)
-                }
+                getTags()
             }
         }
 
@@ -73,13 +64,12 @@ Page {
 //                spacing: Theme.paddingSmall
                 Label {
                     text: "Notebook"
-                    color: Theme.secondaryColor
                     id: notesbox
+                    color: Theme.secondaryColor
                     font.pixelSize: Theme.fontSizeExtraSmall
                 }
                 Label {
                     id: notebooktitl
-//                    color: Theme.secondaryColor
                     width: parent.width
                     anchors.left: parent.left
                     truncationMode: TruncationMode.Fade
@@ -89,26 +79,32 @@ Page {
                         onClicked: pageStack.push(Qt.resolvedUrl("EditContent.qml"), {targetNote: targetNote})
                     }
                 }
-            }
-            Row {
-                id: tagsrow
-                visible: false
-                width: parent.width
-                spacing: 80
+                Item{
+                    width: parent.width
+                    height: Theme.paddingLarge
+                }
                 Label {
                     id: tagslbl
                     text: "Tags"
+                    visible: tagstitl.text.length
+                    color: Theme.secondaryColor
+                    font.pixelSize: Theme.fontSizeExtraSmall
                 }
                 Label {
                     id: tagstitl
-                    color: Theme.secondaryColor
-                    width: parent.width
-//                    anchors.left: tagslbl.right
+                    visible: text.length
+                    anchors.left: parent.left
+                    anchors.right: parent.right
                     truncationMode: TruncationMode.Fade
                     MouseArea {
                         width: parent.width
                         height: parent.height
-                        onClicked: pageStack.push(Qt.resolvedUrl("Tags.qml"), {targetNote: targetNote})
+                        onClicked: {
+                            var dialog = pageStack.push(Qt.resolvedUrl("Tags.qml"), {targetNote: targetNote})
+                            dialog.accepted.connect(function(){
+                                EvernoteSession.getNoteContentAsync(targetNote)
+                            });
+                        }
                     }
                 }
             }
@@ -125,9 +121,23 @@ Page {
                 width: parent.width
                 height: parent.height
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("EditContent.qml"), {targetNote: targetNote})
+                    var dialog = pageStack.push(Qt.resolvedUrl("EditContent.qml"), {targetNote: targetNote})
+                    dialog.accepted.connect(function() {
+                        EvernoteSession.getNoteContentAsync(targetNote)
+                    })
                 }
             }
+        }
+    }
+    function getTags(){
+        if (targetNote.tagGuids.length !== 0) {
+            var i = 0;
+            var tags = targetNote.tagGuids
+            tagstitl.text = ""
+            for (i = 0; i < tags.length; i++) {
+                tagstitl.text += Cache.getTagForGuid(tags[i]).name + ", "
+            }
+            tagstitl.text = tagstitl.text.slice(0,-1)
         }
     }
 }

@@ -2,7 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 
-Page {
+Dialog {
     id: editsavedsearch
     property variant search;
     Timer {
@@ -22,34 +22,34 @@ Page {
                     pageStack.push(Qt.resolvedUrl("help/EditSavedSearch.qml"));
                 }
             }
-            MenuItem {
-                text: "Save"
-                onClicked: {
-                    search.name = txtTitle.text
-                    search.query = notearea.text
-                    EvernoteSession.updateSavedSearch(search)
-                    pageStack.pop()
-                    EvernoteSession.sync()
-                    Cache.fireClearSearches()
-                    Cache.fillWithSavedSearches()
-                }
-            }
         }
         Column {
             id: areacol
             width: parent.width
-            PageHeader {
-                title: "Edit saved search"
+            DialogHeader {
+                acceptText: "Save Search"
             }
             TextField {
                 id: txtTitle
                 text: search.name
+                placeholderText: title
             }
 
             TextField {
                 width: parent.width
+                placeholderText: query
                 id: notearea
             }
+        }
+    }
+    onDone: {
+        if (result == DialogResult.Accepted){
+            search.name = txtTitle.text
+            search.query = notearea.text
+            EvernoteSession.updateSavedSearch(search)
+            EvernoteSession.sync()
+            Cache.fireClearSearches()
+            Cache.fillWithSavedSearches()
         }
     }
 }
