@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtSql>
+#include <QDir>
 #include "databaseconstants.h"
 #include "constants/settingskeys.h"
 #include "edam/UserStore.h"
