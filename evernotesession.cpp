@@ -390,11 +390,6 @@ void EvernoteSession::addNote(NoteWrapper *note) {
 
         Note reference_note;
         reference_note.__isset.title = true;
-        QByteArray guid = QUuid::createUuid().toByteArray();
-        guid = guid.remove(0,1);
-        guid = guid.remove(guid.length()-1, 1);
-        reference_note.guid = guid.constData();
-        reference_note.__isset.guid = true;
         reference_note.title = note->note.title;
         reference_note.__isset.content = true;
         reference_note.__isset.contentHash = true;
@@ -411,7 +406,6 @@ void EvernoteSession::addNote(NoteWrapper *note) {
         memcpy( const_cast<char *>(reference_note.contentHash.c_str()), hash_data, 16);
         NoteWrapper* wrap = new NoteWrapper(reference_note);
         FileUtils::cacheNoteContent(wrap, QString::fromStdString(reference_note.content));
-        DatabaseManager::instance()->saveNote(reference_note);
         recreateSyncClient(true);
         syncClient->createNote(returned, Settings::instance()->getAuthToken().toStdString(), reference_note);
     }
