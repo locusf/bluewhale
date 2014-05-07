@@ -2,7 +2,7 @@
 
 const QString FileUtils::NOTES_FOLDER = "notes";
 const QString FileUtils::APP_FOLDER = ".evernote";
-const QString FileUtils::MY_DOCS_FOLDER = "/home/user/MyDocs";
+const QString FileUtils::MY_DOCS_FOLDER = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 const QString FileUtils::CONTENT_FILENAME = "content.html";
 
 

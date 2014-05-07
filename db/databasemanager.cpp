@@ -1,19 +1,19 @@
 #include "databasemanager.h"
 
 DatabaseManager* DatabaseManager::m_instance = NULL;
-const QString DatabaseManager::DB_NAME = "/home/nemo/.config/bluewhale/EvernoteDb";
+const QString DatabaseManager::DB_NAME = "";
 
 DatabaseManager::DatabaseManager(QObject *parent) :
     QObject(parent)
 {
     qDebug() << "DatabaseManager created" << endl;
-    QDir dbdir("/home/nemo/.config/bluewhale");
+    QDir dbdir(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     if (!dbdir.exists()) {
-        dbdir.mkpath("/home/nemo/.config/bluewhale");
+        dbdir.mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation));
     }
     db = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
-    db->setDatabaseName(DB_NAME);
-    qDebug()  << "DatabaseManager: opening db... " << DB_NAME << endl;
+    db->setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/EvernoteDb");
+    qDebug()  << "DatabaseManager: opening db... " << QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/EvernoteDb" << endl;
     bool ok = db->open();
     if(ok){
         qDebug()  << "DatabaseManager: db opened." << endl;

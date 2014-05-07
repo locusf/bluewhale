@@ -46,7 +46,7 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../thrift/debug/ -l
 else:unix: LIBS += -L$$OUT_PWD/../thrift/ -lthrift
 
 unix:!mac{
-    QMAKE_LFLAGS += -Wl,-rpath,/usr/share/harbour-bluewhale,-rpath,/opt/sdk/bluewhale/usr/share/bluewhale
+    QMAKE_LFLAGS += -Wl,-rpath,/usr/share/harbour-bluewhale/lib,-rpath,/opt/sdk/bluewhale/usr/share/bluewhale/lib
     QMAKE_RPATH=
 }
 

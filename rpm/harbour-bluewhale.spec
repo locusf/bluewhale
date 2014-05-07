@@ -6,6 +6,8 @@
 Name:       harbour-bluewhale
 
 # >> macros
+%define __requires_exclude ^libedam|libkQOAuth|libthrift|libstdc++.*$
+%define __provides_exclude_from ^%{_datadir}/.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -13,8 +15,8 @@ Name:       harbour-bluewhale
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Bluewhale Evernote client
-Version:    0.2
-Release:    2
+Version:    0.3.1
+Release:    1
 Group:      Qt/Qt
 License:    LICENSE
 Source0:    %{name}-%{version}.tar.bz2

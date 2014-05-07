@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtSql>
 #include <QDir>
+#include <QStandardPaths>
 #include "databaseconstants.h"
 #include "constants/settingskeys.h"
 #include "edam/UserStore.h"

@@ -8,6 +8,8 @@
 #include <QDebug>
 #include <QFileInfo>
 #include <QFileInfoList>
+#include <QStandardPaths>
+
 class FileUtils : public QObject
 {
     Q_OBJECT

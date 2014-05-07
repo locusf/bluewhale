@@ -1,7 +1,7 @@
 TEMPLATE = lib
 INCLUDEPATH += ../thrift
 TARGET = edam
-TARGETPATH = /usr/share/harbour-bluewhale
+TARGETPATH = /usr/share/harbour-bluewhale/lib
 target.path = $$TARGETPATH
 INSTALLS += target
 SOURCES += UserStore_types.cpp \
