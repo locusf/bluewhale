@@ -387,9 +387,14 @@ void EvernoteSession::cancelSync(){
 void EvernoteSession::addNote(NoteWrapper *note) {
     Note returned;
     try {
-        recreateSyncClient(true);
+
         Note reference_note;
         reference_note.__isset.title = true;
+        QByteArray guid = QUuid::createUuid().toByteArray();
+        guid = guid.remove(0,1);
+        guid = guid.remove(guid.length()-1, 1);
+        reference_note.guid = guid.constData();
+        reference_note.__isset.guid = true;
         reference_note.title = note->note.title;
         reference_note.__isset.content = true;
         reference_note.__isset.contentHash = true;
@@ -404,18 +409,25 @@ void EvernoteSession::addNote(NoteWrapper *note) {
         reference_note.contentHash = "..................";
         const char * hash_data = hash.result().data();
         memcpy( const_cast<char *>(reference_note.contentHash.c_str()), hash_data, 16);
+        NoteWrapper* wrap = new NoteWrapper(reference_note);
+        FileUtils::cacheNoteContent(wrap, QString::fromStdString(reference_note.content));
+        DatabaseManager::instance()->saveNote(reference_note);
+        recreateSyncClient(true);
         syncClient->createNote(returned, Settings::instance()->getAuthToken().toStdString(), reference_note);
     }
     catch(EDAMUserException &tx) {
         qDebug() << "EvernoteSession :: exception while adding note eue: " << tx.what() << " error code: " << tx.errorCode;
         qDebug() << " parameter " << QString::fromStdString(tx.parameter);
+    } catch(TException &tex) {
+        qDebug() << "EvernoteSession :: failed: " << tex.what();
+        qDebug() << "General exception occurred, probably bad internet!";
     }
 }
 
 void EvernoteSession::updateNote(NoteWrapper *note) {
     Note ret;
     try {
-        recreateSyncClient(false);
+
         Note reference_note;
         NoteAttributes attrs;
 
@@ -437,10 +449,16 @@ void EvernoteSession::updateNote(NoteWrapper *note) {
         std::string assembled_content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>" + doc.toPlainText().replace("\n","<br />").toStdString() + "</en-note>";
         qDebug() << QString::fromStdString(assembled_content);
         reference_note.content = assembled_content;
+        FileUtils::cacheNoteContent(note, QString::fromStdString(assembled_content));
+        recreateSyncClient(false);
+        DatabaseManager::instance()->saveNote(reference_note);
         syncClient->updateNote(ret, Settings::instance()->getAuthToken().toStdString(), reference_note);
     } catch(EDAMUserException &tx) {
         qDebug() << "EvernoteSession :: update failed: " << tx.what() << " error code: " << tx.errorCode;
         qDebug() << " parameter " << QString::fromStdString(tx.parameter);
+    } catch(TException &tex) {
+        qDebug() << "EvernoteSession :: failed: " << tex.what();
+        qDebug() << "General exception occurred, probably bad internet!";
     }
 }
 
@@ -455,10 +473,14 @@ void EvernoteSession::updateNoteTags(NoteWrapper *note) {
         reference_note.title = note->note.title;
         reference_note.guid = note->note.guid;
         reference_note.tagGuids = note->note.tagGuids;
+        DatabaseManager::instance()->saveNoteTags(reference_note);
         syncClient->updateNote(ret, Settings::instance()->getAuthToken().toStdString(), reference_note);
     } catch(EDAMUserException &tx) {
         qDebug() << "EvernoteSession :: update tags failed: " << tx.what() << " error code: " << tx.errorCode;
         qDebug() << " parameter " << QString::fromStdString(tx.parameter);
+    } catch(TException &tex) {
+        qDebug() << "EvernoteSession :: failed: " << tex.what();
+        qDebug() << "General exception occurred, probably bad internet!";
     }
 }
 
@@ -467,16 +489,22 @@ QString EvernoteSession::createTag(QString name) {
         Tag reference_tag;
         reference_tag.name = name.toStdString();
         reference_tag.__isset.name = true;
+        DatabaseManager::instance()->saveTag(reference_tag);
         syncClient->createTag(reference_tag, Settings::instance()->getAuthToken().toStdString(), reference_tag);
+
         return QString::fromStdString(reference_tag.guid);
     } catch(EDAMUserException &tx) {
         qDebug() << "EvernoteSession :: update tags failed: " << tx.what() << " error code: " << tx.errorCode;
         qDebug() << " parameter " << QString::fromStdString(tx.parameter);
+    } catch(TException &tex) {
+        qDebug() << "EvernoteSession :: failed: " << tex.what();
+        qDebug() << "General exception occurred, probably bad internet!";
     }
 }
 
 void EvernoteSession::deleteNote(NoteWrapper *note) {
     try {
+        DatabaseManager::instance()->deleteNote(note->note);
         syncClient->deleteNote(Settings::instance()->getAuthToken().toStdString(), note->getGuid());
         EvernoteSession::instance()->syncAsync();
     } catch(TException &tx) {
@@ -530,6 +558,9 @@ void EvernoteSession::addSavedSearch(SavedSearchWrapper *search) {
         syncClient->createSearch(ref_search, Settings::instance()->getAuthToken().toStdString(), ref_search);
     } catch(EDAMUserException &tx) {
         qDebug() << "EvernoteSession :: create search failed: " << tx.what() << " error code: " << tx.errorCode << " parameter " << QString::fromStdString(tx.parameter);
+    } catch(TException &tex) {
+        qDebug() << "EvernoteSession :: failed: " << tex.what();
+        qDebug() << "General exception occurred, probably bad internet!";
     }
 }
 
@@ -542,9 +573,13 @@ void EvernoteSession::updateSavedSearch(SavedSearchWrapper *search) {
         ref_search.name = search->getName().toStdString();
         ref_search.query = search->getQuery().toStdString();
         ref_search.guid = search->getGuid().toStdString();
+        DatabaseManager::instance()->saveSavedSearch(ref_search);
         syncClient->updateSearch(Settings::instance()->getAuthToken().toStdString(), ref_search);
     } catch(EDAMUserException &tx) {
         qDebug() << "EvernoteSession :: update search failed: " << tx.what() << " error code: " << tx.errorCode << " parameter " << QString::fromStdString(tx.parameter);
+    } catch(TException &tex) {
+        qDebug() << "EvernoteSession :: failed: " << tex.what();
+        qDebug() << "General exception occurred, probably bad internet!";
     }
 }
 
@@ -553,8 +588,12 @@ void EvernoteSession::addNotebook(NotebookWrapper *notebook){
         Notebook ref_notebook;
         ref_notebook.__isset.name = true;
         ref_notebook.name = notebook->getName().toStdString();
+        DatabaseManager::instance()->saveNotebook(ref_notebook);
         syncClient->createNotebook(ref_notebook, Settings::instance()->getAuthToken().toStdString(), ref_notebook);
     } catch(EDAMUserException &tx) {
-        qDebug() << "EvernoteSession :: update search failed: " << tx.what() << " error code: " << tx.errorCode << " parameter " << QString::fromStdString(tx.parameter);
+        qDebug() << "EvernoteSession :: add notebook failed: " << tx.what() << " error code: " << tx.errorCode << " parameter " << QString::fromStdString(tx.parameter);
+    } catch(TException &tex) {
+        qDebug() << "EvernoteSession :: failed: " << tex.what();
+        qDebug() << "General exception occurred, probably bad internet!";
     }
 }

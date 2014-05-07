@@ -122,6 +122,9 @@ Dialog {
                 width: parent.width
                 text: targetNote.noteContent
                 id: notearea
+                background: Rectangle {
+                    color: "steelblue"
+                }
                 Component.onCompleted: {
                     _editor.textFormat = TextEdit.RichText
                 }
@@ -140,8 +143,6 @@ Dialog {
                                     selectedTime.getMinutes())
             targetNote.reminder = combdate
             EvernoteSession.updateNote(targetNote)
-            EvernoteSession.syncAsync()
-            EvernoteSession.getNoteContentAsync(targetNote)
         }
     }
 }

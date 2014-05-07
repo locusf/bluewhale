@@ -85,6 +85,7 @@ QString FileUtils::resourceContentFilePath(Resource r){
 
 bool FileUtils::noteCached(NoteWrapper *note){
     QFile contentFile(noteContentFilePath(note));
+    qDebug() << "Is cached? " <<  noteContentFilePath(note);
     return contentFile.exists();
 }
 bool FileUtils::resourceCached(Resource r){

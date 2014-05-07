@@ -48,6 +48,12 @@ Page {
                 getTags()
             }
         }
+        Component.onCompleted: {
+            txtTitle.title = targetNote.title
+            notearea.loadHtml(Cache.getNoteContent(targetNote))
+            notebooktitl.text = Cache.getNotebook(targetNote).name
+            getTags()
+        }
 
         Column {
             id: areacol
