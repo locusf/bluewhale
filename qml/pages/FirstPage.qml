@@ -3,6 +3,12 @@ import Sailfish.Silica 1.0
 
 Page {
     id: page
+    onStatusChanged: {
+        if (status === PageStatus.Active && pageStack.depth === 1) {
+            pageStack.pushAttached(Qt.resolvedUrl("ViewNoteBooks.qml"))
+        }
+    }
+
     function clearSearch() {
         Cache.setToDefaultNotebook()
         Cache.load()
@@ -10,6 +16,7 @@ Page {
     function goToPage(pageName){
         pageStack.push(Qt.resolvedUrl(pageName+".qml"),PageStackAction.Immediate)
     }
+
     SilicaListView {
         anchors.fill: parent
         id: notesList
@@ -171,35 +178,13 @@ Page {
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
-
             MenuItem {
-                text: "Login"
-                onClicked: pageStack.push(Qt.resolvedUrl("Login.qml"))
-            }
-            MenuItem {
-                text: "Help"
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("help/FirstPage.qml"));
-                }
-            }
-            MenuItem {
-                text: "Clear search"
-                onClicked: clearSearch()
+                text: "About"
+                onClicked: pageStack.push(Qt.resolvedUrl("About.qml"))
             }
             MenuItem {
                 text: "Saved searches"
                 onClicked: pageStack.push(Qt.resolvedUrl("SavedSearch.qml"))
-            }
-            MenuItem {
-                text: "Search"
-                onClicked: {
-                    searchinput.visible = true
-                    searchinput.forceActiveFocus()
-                }
-            }
-            MenuItem {
-                text: "Notebooks"
-                onClicked: pageStack.push(Qt.resolvedUrl("ViewNoteBooks.qml"))
             }
             MenuItem {
                 text: "Sync"
@@ -209,12 +194,18 @@ Page {
                 text: "Add note"
                 onClicked: pageStack.push(Qt.resolvedUrl("AddNote.qml"))
             }
-
         }
         PushUpMenu {
             MenuItem {
-                text: "Clear search"
+                text: "Reset search"
                 onClicked: clearSearch()
+            }
+            MenuItem {
+                text: "Search"
+                onClicked: {
+                    searchinput.visible = true
+                    searchinput.forceActiveFocus()
+                }
             }
         }
 
