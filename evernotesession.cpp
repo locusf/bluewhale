@@ -440,7 +440,7 @@ void EvernoteSession::updateNote(NoteWrapper *note) {
         reference_note.notebookGuid = note->note.notebookGuid;
         QTextDocument doc;
         doc.setHtml(QString::fromStdString(note->note.content));
-        std::string assembled_content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>" + doc.toPlainText().replace("\n","<br />").toStdString() + "</en-note>";
+        std::string assembled_content = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note>" + doc.toPlainText().replace("\n","<br />").replace("&","&amp;").toStdString() + "</en-note>";
         qDebug() << QString::fromStdString(assembled_content);
         reference_note.content = assembled_content;
         FileUtils::cacheNoteContent(note, QString::fromStdString(assembled_content));

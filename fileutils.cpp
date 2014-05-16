@@ -2,7 +2,6 @@
 
 const QString FileUtils::NOTES_FOLDER = "notes";
 const QString FileUtils::APP_FOLDER = ".evernote";
-const QString FileUtils::MY_DOCS_FOLDER = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 const QString FileUtils::CONTENT_FILENAME = "content.html";
 
 
@@ -57,7 +56,7 @@ void FileUtils::cacheResourceContent(Resource r){
 }
 
 QString FileUtils::myDocsFolderPath(){
-    return QDir::homePath();
+    return QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 }
 QString FileUtils::appFolderPath(){
     return myDocsFolderPath() + QDir::separator() + APP_FOLDER;
@@ -85,7 +84,6 @@ QString FileUtils::resourceContentFilePath(Resource r){
 
 bool FileUtils::noteCached(NoteWrapper *note){
     QFile contentFile(noteContentFilePath(note));
-    qDebug() << "Is cached? " <<  noteContentFilePath(note);
     return contentFile.exists();
 }
 bool FileUtils::resourceCached(Resource r){

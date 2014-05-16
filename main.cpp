@@ -19,6 +19,8 @@
 int main(int argc, char *argv[])
 {
     QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    app->setApplicationName(QString("BlueWhale"));
+    app->setOrganizationName(QString("harbour-bluewhale"));
     qmlRegisterType <TagWrapper> ("com.evernote.types",1,0, "Tag");
     qmlRegisterType <NoteWrapper> ("com.evernote.types",1,0, "Note");
     qmlRegisterType <ResourceWrapper> ("com.evernote.types",1,0, "Resource");
@@ -27,14 +29,11 @@ int main(int argc, char *argv[])
     QScopedPointer<QQuickView> view(SailfishApp::createView());
     view->setSource(SailfishApp::pathTo("qml/harbour-bluewhale.qml"));
     view->rootContext()->setContextProperty("EvernoteSession", EvernoteSession::instance());
-
     view->rootContext()->setContextProperty("Cache", Cache::instance());
     view->rootContext()->setContextProperty("Settings", Settings::instance());
     view->rootContext()->setContextProperty("OAuth", OAuth::instance());
-    view->showFullScreen();
-    app->setApplicationName(QString("BlueWhale"));
-    app->setOrganizationName(QString("harbour-bluewhale"));
     view->rootContext()->setContextProperty("DatabaseManager", DatabaseManager::instance());
+    view->showFullScreen();
     return app->exec();
 }
 

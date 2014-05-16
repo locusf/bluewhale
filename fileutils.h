@@ -17,7 +17,6 @@ public:
     explicit FileUtils(QObject *parent = 0);
     static const QString NOTES_FOLDER;
     static const QString APP_FOLDER;
-    static const QString MY_DOCS_FOLDER;
     static const QString CONTENT_FILENAME;
 signals:
 
