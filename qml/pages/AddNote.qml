@@ -7,7 +7,7 @@ Dialog {
     property string selectedNotebookGuid;
     SilicaFlickable {
         anchors.fill: parent
-        contentHeight: childrenRect.height
+        contentHeight: areacol.height
         PullDownMenu {
             MenuItem {
                 text: "Help"
