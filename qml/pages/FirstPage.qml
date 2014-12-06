@@ -48,7 +48,7 @@ Page {
         model: notesmodel
         ViewPlaceholder {
             enabled: notesmodel.count == 0
-            text: "No notes for this notebook."
+            text: "No notes for this notebook. Log in via About pulley menu to retrieve notes."
         }
 
         TextField {
@@ -76,7 +76,7 @@ Page {
             property bool menuOpen: contextMenu != null && contextMenu.parent === noteListItem
             Item{
                 id: forPadding
-                height: 80//Theme.itemSizeMedium - Theme.paddingLarge
+                height: Theme.itemSizeMedium - Theme.paddingLarge
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.paddingLarge
                 anchors.right: parent.right

@@ -14,11 +14,11 @@ using namespace std;
 class NoteWrapper : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString title READ getTitle WRITE setTitle)
+    Q_PROPERTY(QString title READ getTitle WRITE setTitle NOTIFY titleChanged)
     Q_PROPERTY(QString dateCreated READ getDateCreated)
     Q_PROPERTY(QString guid READ getGuidString)
     Q_PROPERTY(bool cached READ isCached)
-    Q_PROPERTY(QString noteContent READ getNoteContent WRITE setContent)
+    Q_PROPERTY(QString noteContent READ getNoteContent WRITE setContent NOTIFY contentChanged)
     Q_PROPERTY(QString noteContentUrl READ getNoteContentUrl)
     Q_PROPERTY(QString notebookGUID READ getNotebookGUID WRITE setNotebookGUID)
     Q_PROPERTY(QString notebookName READ getNotebookName)
@@ -31,7 +31,8 @@ public:
     NoteWrapper(Note note,QObject *parent = 0);
     Note note;
 signals:
-
+    void titleChanged(QString title);
+    void contentChanged(QString content);
 public slots:
     QString getTitle();
     Guid getGuid();

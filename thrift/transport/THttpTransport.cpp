@@ -89,9 +89,9 @@ uint32_t THttpTransport::readMoreData() {
   if (chunked_) {
     size = readChunked();
   } else {
-    size = readContent(contentLength_);
+    size = readContent(contentLength_);readHeaders_ = true;
   }
-  readHeaders_ = true;
+  //readHeaders_ = true;
   return size;
 }
 

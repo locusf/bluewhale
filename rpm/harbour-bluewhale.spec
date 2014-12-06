@@ -15,7 +15,7 @@ Name:       harbour-bluewhale
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Bluewhale Evernote client
-Version:    0.3.4
+Version:    0.3.5
 Release:    1
 Group:      Qt/Qt
 License:    LICENSE
